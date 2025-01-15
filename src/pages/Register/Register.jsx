@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import usePublic from "../../Hook/usePublic";
 import Swal from 'sweetalert2'
 import useAuth from "../../Hook/useAuth";
+import { Link } from "react-router-dom";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -55,7 +56,9 @@ const Register = () => {
             photo: res.data.data.url,
             upazila: data.upazila,
             district: data.district,
-            bloodGroup: data.bloodGroup
+            bloodGroup: data.bloodGroup,
+            role: 'donor',
+            status: 'active'
         }
         if (data.password !== data.confirmPassword) {
             Swal.fire({
@@ -239,10 +242,10 @@ const Register = () => {
                             >
                                 Sign Up
                             </button>
-                            <div className="mt-6 text-center">
-                                <a href="#" className="text-sm text-red-500 hover:underline">
+                            <div className="mt-6">
+                                <Link to='/login' className="text-sm text-red-500 hover:underline">
                                     Already have an account?
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </form>

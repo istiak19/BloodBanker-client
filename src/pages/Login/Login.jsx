@@ -2,9 +2,11 @@ import Lottie from 'lottie-react';
 import loginPic from '../../assets/lottie/design.json'
 import { useForm } from "react-hook-form";
 import useAuth from '../../Hook/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { signin } = useAuth();
+    const navigate = useNavigate();
 
 
     const { register, handleSubmit, reset } = useForm();
@@ -13,6 +15,7 @@ const Login = () => {
         signin(data.email, data.password)
             .then((result) => {
                 console.log(result.user)
+                navigate('/')
             })
             .catch(err => {
                 console.log(err)
@@ -51,6 +54,7 @@ const Login = () => {
                             <button className="btn bg-red-400 hover:bg-red-500 text-white">Login</button>
                         </div>
                     </form>
+                    <p className='px-8 pb-4'>New here? <span className='text-red-400 border-b'><Link to='/register'>Create a New Account</Link></span></p>
                 </div>
             </div>
         </div>
