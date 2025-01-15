@@ -3,6 +3,8 @@ import registerPic from '../../assets/lottie/design.json';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import usePublic from "../../Hook/usePublic";
+import Swal from 'sweetalert2'
+import useAuth from "../../Hook/useAuth";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -11,6 +13,7 @@ const Register = () => {
     const [upazilas, setUpazilas] = useState([]);
     const [districts, setDistricts] = useState([]);
     const axiosPublic = usePublic()
+    const { signup, updateProfileUser } = useAuth()
 
     // Fetch Upazila Data
     useEffect(() => {
@@ -40,7 +43,7 @@ const Register = () => {
         fetchDistricts();
     }, []);
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
         // console.log(data)
         const formData = new FormData();
@@ -54,7 +57,27 @@ const Register = () => {
             district: data.district,
             bloodGroup: data.bloodGroup
         }
+        if (data.password !== data.confirmPassword) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Passwords do not match!",
+            });
+            return;
+        }
         console.log(userInfo)
+        signup(data.email, data.password)
+            .then((result) => {
+                console.log(result.user)
+                const update = {
+                    displayName: data.name,
+                    photoURL: res.data.data.url
+                }
+                updateProfileUser(update)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     };
 
     return (
