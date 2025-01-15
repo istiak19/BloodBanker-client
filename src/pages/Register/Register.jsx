@@ -1,24 +1,62 @@
 import Lottie from "lottie-react";
-import registerPic from '../../assets/lottie/design.json'
+import registerPic from '../../assets/lottie/design.json';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import usePublic from "../../Hook/usePublic";
+
+const image_key = import.meta.env.VITE_IMAGE;
+const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
 
 const Register = () => {
     const [upazilas, setUpazilas] = useState([]);
-    useEffect(() => {
-        fetch('./upazila.json')
-            .then(res => res.json())
-            .then(data => setUpazilas(data))
-    }, [])
     const [districts, setDistricts] = useState([]);
+    const axiosPublic = usePublic()
+
+    // Fetch Upazila Data
     useEffect(() => {
-        fetch('./dist.json')
-            .then(res => res.json())
-            .then(data => setDistricts(data))
-    }, [])
+        const fetchUpazilas = async () => {
+            try {
+                const res = await fetch('./upazila.json');
+                const data = await res.json();
+                setUpazilas(data);
+            } catch (error) {
+                console.error("Error fetching upazilas:", error);
+            }
+        };
+        fetchUpazilas();
+    }, []);
+
+    // Fetch District Data
+    useEffect(() => {
+        const fetchDistricts = async () => {
+            try {
+                const res = await fetch('./dist.json');
+                const data = await res.json();
+                setDistricts(data);
+            } catch (error) {
+                console.error("Error fetching districts:", error);
+            }
+        };
+        fetchDistricts();
+    }, []);
 
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = async (data) => {
+        // console.log(data)
+        const formData = new FormData();
+        formData.append('image', data.photo[0]);
+        const res = await axiosPublic.post(image_api, formData);
+        const userInfo = {
+            email: data.email,
+            name: data.name,
+            photo: res.data.data.url,
+            upazila: data.upazila,
+            district: data.district,
+            bloodGroup: data.bloodGroup
+        }
+        console.log(userInfo)
+    };
+
     return (
         <div>
             <section>
@@ -27,6 +65,7 @@ const Register = () => {
                         <Lottie animationData={registerPic}></Lottie>
                     </div>
                     <form className="w-full lg:max-w-lg" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+
                         {/* Username Field */}
                         <div className="relative flex items-center mt-8">
                             <span className="absolute">
@@ -55,14 +94,12 @@ const Register = () => {
                             />
                         </div>
 
-                        {/* Photo upload */}
-                        <label for="dropzone-file" className="flex items-center px-3 py-3 mx-auto mt-6 text-center border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 ">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        {/* Photo Upload */}
+                        <label htmlFor="photo" className="flex items-center px-3 py-3 mx-auto mt-6 text-center border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                             </svg>
-                            <input type="file" name="photo"
-                                {...register("photo")}
-                                id="" />
+                            <input type="file" name="photo" {...register("photo")} id="photo" />
                         </label>
 
                         {/* Blood Group Selector */}
@@ -124,7 +161,7 @@ const Register = () => {
                             </select>
                         </div>
 
-                        {/* Existing Email and Password Fields */}
+                        {/* Email Field */}
                         <div className="relative flex items-center mt-6">
                             <span className="absolute">
                                 <svg
@@ -135,11 +172,7 @@ const Register = () => {
                                     stroke="currentColor"
                                     strokeWidth="2"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                    />
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
                             </span>
                             <input
@@ -154,28 +187,12 @@ const Register = () => {
 
                         {/* Password and Confirm Password Fields */}
                         <div className="relative flex items-center mt-4">
-                            <span className="absolute">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="w-6 h-6 mx-3 text-gray-300"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                                    />
-                                </svg>
-                            </span>
                             <input
                                 type="password"
                                 name="password"
                                 {...register("password")}
                                 required
-                                className="block w-full px-10 py-3 text-gray-700 bg-white border border-black rounded-lg focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
+                                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
                                 placeholder="Password"
                             />
                         </div>
@@ -186,7 +203,7 @@ const Register = () => {
                                 name="confirmPassword"
                                 {...register("confirmPassword")}
                                 required
-                                className="block w-full px-10 py-3 text-black bg-white border border-black rounded-lg focus:border-black focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
+                                className="block w-full px-10 py-3 text-black bg-white border rounded-lg focus:border-black focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
                                 placeholder="Confirm Password"
                             />
                         </div>
@@ -195,11 +212,10 @@ const Register = () => {
                         <div className="mt-6">
                             <button
                                 type="submit"
-                                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-red-400 rounded-lg hover:bg-red-500 focus:ring focus:ring-red-400 focus:ring-opacity-50"
+                                className="w-full px-6 py-3 text-sm font-medium text-white bg-red-400 rounded-lg hover:bg-red-500 focus:ring focus:ring-red-400 focus:ring-opacity-50"
                             >
                                 Sign Up
                             </button>
-
                             <div className="mt-6 text-center">
                                 <a href="#" className="text-sm text-red-500 hover:underline">
                                     Already have an account?
