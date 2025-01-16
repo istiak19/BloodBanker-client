@@ -16,6 +16,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result.user)
                 navigate('/')
+                reset();
             })
             .catch(err => {
                 console.log(err)

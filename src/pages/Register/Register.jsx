@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import usePublic from "../../Hook/usePublic";
 import Swal from 'sweetalert2'
 import useAuth from "../../Hook/useAuth";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -15,6 +15,9 @@ const Register = () => {
     const [districts, setDistricts] = useState([]);
     const axiosPublic = usePublic()
     const { signup, updateProfileUser } = useAuth()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     // Fetch Upazila Data
     useEffect(() => {
@@ -77,6 +80,12 @@ const Register = () => {
                     photoURL: res.data.data.url
                 }
                 updateProfileUser(update)
+                axiosPublic.post('/user', userInfo)
+                    .then(res => {
+                        console.log(res.data)
+                    })
+                navigate(from, { replace: true });
+                reset()
             })
             .catch(err => {
                 console.log(err)

@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="footer md:px-10 px-5 *:text-black bg-red-400 items-center p-4">
+        <footer className="footer md:px-16 px-5 *:text-black bg-red-400 items-center p-4">
             <aside className="grid-flow-col items-center">
                 <p className="uppercase">Copyright © {new Date().getFullYear()} - All right reserved - By BloodBanker</p>
             </aside>
