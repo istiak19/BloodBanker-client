@@ -1,51 +1,37 @@
 import Lottie from "lottie-react";
 import registerPic from '../../assets/lottie/design.json';
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import usePublic from "../../Hook/usePublic";
 import Swal from 'sweetalert2'
 import useAuth from "../../Hook/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
 
 const Register = () => {
-    const [upazilas, setUpazilas] = useState([]);
-    const [districts, setDistricts] = useState([]);
     const axiosPublic = usePublic()
     const { signup, updateProfileUser } = useAuth()
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
-    // Fetch Upazila Data
-    useEffect(() => {
-        const fetchUpazilas = async () => {
-            try {
-                const res = await fetch('./upazila.json');
-                const data = await res.json();
-                setUpazilas(data);
-            } catch (error) {
-                console.error("Error fetching upazilas:", error);
-            }
-        };
-        fetchUpazilas();
-    }, []);
+    const { data: upazilas } = useQuery({
+        queryKey: ['upazilas'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/upazila')
+            return res.data;
+        }
+    })
+    const { data: districts } = useQuery({
+        queryKey: ['districts'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/district')
+            return res.data;
+        }
+    })
 
-    // Fetch District Data
-    useEffect(() => {
-        const fetchDistricts = async () => {
-            try {
-                const res = await fetch('./dist.json');
-                const data = await res.json();
-                setDistricts(data);
-            } catch (error) {
-                console.error("Error fetching districts:", error);
-            }
-        };
-        fetchDistricts();
-    }, []);
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
@@ -173,7 +159,7 @@ const Register = () => {
                             >
                                 <option value="">Select District</option>
                                 {
-                                    districts.map((district, idx) => <option key={idx} value={district.name}>{district.name}</option>)
+                                    districts?.map((district, idx) => <option key={idx} value={district.name}>{district.name}</option>)
                                 }
                             </select>
                         </div>
@@ -191,7 +177,7 @@ const Register = () => {
                             >
                                 <option value="">Select Upazila</option>
                                 {
-                                    upazilas.map(u => <option key={u.id} value={u.name}>{u.name}</option>)
+                                    upazilas?.map(u => <option key={u.id} value={u.name}>{u.name}</option>)
                                 }
                             </select>
                         </div>
