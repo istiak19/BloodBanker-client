@@ -12,10 +12,11 @@ import AdminRouter from "./AdminRouter";
 import AdminHome from '../pages/Dashboard/Admin/AdminHome/AdminHome';
 import AllUserPage from '../pages/Dashboard/Admin/AllUsersPage/AllUsersPage';
 import AllBloodDonationRequest from '../pages/Dashboard/Admin/AllBloodDonationRequest/AllBloodDonationRequest';
-import ContentManagement from '../pages/Dashboard/Admin/ContentManagement/ContentManagement'
-import DonorHome from "../pages/Dashboard/Donor/DonorHome/DonorHome";
+import ContentManagement from '../pages/Dashboard/Admin/ContentManagement/ContentManagement';
 import CreateDonation from '../pages/Dashboard/Donor/CreateDonation/CreateDonation';
 import MyDonationRequests from '../pages/Dashboard/Donor/MyDonationRequests/MyDonationRequests';
+import DonorHome from '../pages/Dashboard/Donor/DonorHome/DonorHome';
+import  DonationRequestEdit from '../pages/Dashboard/Donor/DonationRequestEdit/DonationRequestEdit';
 
 const routers = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const routers = createBrowserRouter([
                     {
                         path: 'create-donation-request',
                         element: <CreateDonation></CreateDonation>
+                    },
+                    {
+                        path: 'donation/edit/:id',
+                        element: <DonationRequestEdit></DonationRequestEdit>
                     },
 
                     // Admin router
