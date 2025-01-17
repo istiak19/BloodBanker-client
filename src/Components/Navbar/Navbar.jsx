@@ -70,8 +70,9 @@ const Navbar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img
+                                    referrerPolicy='no-referrer'
                                     alt="Profile Avatar"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                    src={user?.photoURL}
                                 />
                             </div>
                         </div>
@@ -79,7 +80,7 @@ const Navbar = () => {
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
-                            <li><Link to='/dashboard'>Dashboard</Link></li>
+                            <li><Link to='/dashboard/AdminHome'>Dashboard</Link></li>
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>
                     </div> : <Link to='/login' className="btn bg-transparent">Login</Link>

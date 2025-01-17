@@ -6,11 +6,11 @@ import { NavLink } from "react-router-dom";
 const AdminPanel = () => {
     return (
         <div className="*:text-white">
-            <li><NavLink to='/dashboard/profile'> <CgProfile />Profile</NavLink></li>
             <li><NavLink to='/dashboard/AdminHome'> <FaHome></FaHome>Admin Home</NavLink></li>
-            <li><NavLink to='/dashboard/All-Users'> <FaUsers />All Users</NavLink></li>
-            <li><NavLink to='/dashboard/BloodDonation'><MdOutlineBloodtype /> All Blood Donation</NavLink></li>
-            <li><NavLink to='/dashboard/ContentManagement'><MdContentPaste /> Content Management</NavLink></li>
+            <li><NavLink to='/dashboard/profile'> <CgProfile />Profile</NavLink></li>
+            <li><NavLink to='/dashboard/all-users'> <FaUsers />All Users</NavLink></li>
+            <li><NavLink to='/dashboard/all-blood-donation-request'><MdOutlineBloodtype /> All Blood Donation</NavLink></li>
+            <li><NavLink to='/dashboard/content-management'><MdContentPaste /> Content Management</NavLink></li>
         </div>
     );
 };

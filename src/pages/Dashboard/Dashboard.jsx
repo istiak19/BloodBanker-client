@@ -7,24 +7,27 @@ const Dashboard = () => {
     const [isAdmin] = useAdmin();
 
     return (
-        <div className="flex w-11/12 mx-auto">
-            <div className="w-64 min-h-screen bg-red-400">
+        <div className="flex flex-col md:flex-row w-full">
+            {/* Sidebar */}
+            <div className="w-full md:w-64 min-h-screen bg-red-400">
                 <ul className="menu p-4">
                     {/* Admin panel */}
                     {isAdmin && (
                         <>
-                            <AdminPanel></AdminPanel>
+                            <AdminPanel />
                         </>
                     )}
                     {/* Donor panel */}
                     {!isAdmin && (
                         <>
-                            <DonorPanel></DonorPanel>
+                            <DonorPanel />
                         </>
                     )}
                 </ul>
             </div>
-            <div className="flex-1 p-10">
+
+            {/* Main Content */}
+            <div className="flex-1 p-4 md:p-10">
                 <Outlet />
             </div>
         </div>

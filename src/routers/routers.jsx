@@ -13,6 +13,9 @@ import AdminHome from '../pages/Dashboard/Admin/AdminHome/AdminHome';
 import AllUserPage from '../pages/Dashboard/Admin/AllUsersPage/AllUsersPage';
 import AllBloodDonationRequest from '../pages/Dashboard/Admin/AllBloodDonationRequest/AllBloodDonationRequest';
 import ContentManagement from '../pages/Dashboard/Admin/ContentManagement/ContentManagement'
+import DonorHome from "../pages/Dashboard/Donor/DonorHome/DonorHome";
+import CreateDonation from '../pages/Dashboard/Donor/CreateDonation/CreateDonation';
+import MyDonationRequests from '../pages/Dashboard/Donor/MyDonationRequests/MyDonationRequests';
 
 const routers = createBrowserRouter([
     {
@@ -41,7 +44,22 @@ const routers = createBrowserRouter([
                 element: <PrivateProvider><Dashboard></Dashboard></PrivateProvider>,
                 children: [
                     // Donor router
-
+                    {
+                        path: 'donorHome',
+                        element: <DonorHome></DonorHome>
+                    },
+                    {
+                        path: 'profile',
+                        element: <Profile></Profile>
+                    },
+                    {
+                        path: 'my-donation-requests',
+                        element: <MyDonationRequests></MyDonationRequests>
+                    },
+                    {
+                        path: 'create-donation-request',
+                        element: <CreateDonation></CreateDonation>
+                    },
 
                     // Admin router
                     {
@@ -53,15 +71,15 @@ const routers = createBrowserRouter([
                         element: <AdminRouter><AdminHome></AdminHome></AdminRouter>
                     },
                     {
-                        path: 'All-Users',
+                        path: 'all-users',
                         element: <AdminRouter><AllUserPage></AllUserPage></AdminRouter>
                     },
                     {
-                        path: 'BloodDonation',
-                        element: <AdminHome><AllBloodDonationRequest></AllBloodDonationRequest></AdminHome>
+                        path: 'all-blood-donation-request',
+                        element: <AdminRouter><AllBloodDonationRequest></AllBloodDonationRequest></AdminRouter>
                     },
                     {
-                        path: 'ContentManagement',
+                        path: 'content-management',
                         element: <AdminRouter><ContentManagement></ContentManagement></AdminRouter>
                     }
                 ]
