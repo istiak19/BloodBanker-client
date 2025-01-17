@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import useAuth from "../../Hook/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -32,6 +33,7 @@ const Register = () => {
         }
     })
 
+    // console.log(upazilas)
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
@@ -71,6 +73,7 @@ const Register = () => {
                         console.log(res.data)
                     })
                 navigate(from, { replace: true });
+                toast.success('Registration successfully')
                 reset()
             })
             .catch(err => {

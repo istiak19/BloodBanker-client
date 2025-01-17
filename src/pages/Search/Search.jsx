@@ -1,4 +1,49 @@
+import { useQuery } from "@tanstack/react-query";
+import usePublic from "../../Hook/usePublic";
+import { useState } from "react";
+
 const Search = () => {
+    const axiosPublic = usePublic();
+    const [donors, setDonors] = useState([])
+    const { data: upazilas } = useQuery({
+        queryKey: ['upazilas'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/upazila')
+            return res.data;
+        }
+    })
+    const { data: users } = useQuery({
+        queryKey: ['users'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/users')
+            return res.data;
+        }
+    })
+    const { data: districts } = useQuery({
+        queryKey: ['districts'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/district')
+            return res.data;
+        }
+    })
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target);
+        const bloodGroup = form.get('bloodGroup');
+        const district = form.get('district');
+        const upazila = form.get('upazila');
+    
+        const filterDonors = users.filter(donor => 
+            donor.bloodGroup === bloodGroup &&
+            donor.district === district &&
+            donor.upazila === upazila
+        );
+        setDonors(filterDonors);
+        e.target.reset()
+    };
+    
+
     return (
         <section className="py-[58px] px-5 bg-red-50">
             <div className="max-w-5xl mx-auto">
@@ -10,7 +55,7 @@ const Search = () => {
                 </p>
 
                 {/* Search Form */}
-                <form  className="bg-white p-8 rounded-lg shadow-md space-y-6">
+                <form className="bg-white p-8 rounded-lg shadow-md space-y-6" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Blood Group Selector */}
                         <div>
@@ -43,10 +88,9 @@ const Search = () => {
                                 className="select select-bordered w-full"
                             >
                                 <option value="">Select District</option>
-                                <option value="Dhaka">Dhaka</option>
-                                <option value="Chattogram">Chattogram</option>
-                                <option value="Khulna">Khulna</option>
-                                <option value="Sylhet">Sylhet</option>
+                                {
+                                    districts?.map((district, idx) => <option key={idx} value={district.name}>{district.name}</option>)
+                                }
                             </select>
                         </div>
 
@@ -60,10 +104,9 @@ const Search = () => {
                                 className="select select-bordered w-full"
                             >
                                 <option value="">Select Upazila</option>
-                                <option value="Dhanmondi">Dhanmondi</option>
-                                <option value="Pahartoli">Pahartoli</option>
-                                <option value="Daulatpur">Daulatpur</option>
-                                <option value="Jalalabad">Jalalabad</option>
+                                {
+                                    upazilas?.map(u => <option key={u.id} value={u.name}>{u.name}</option>)
+                                }
                             </select>
                         </div>
                     </div>
@@ -77,7 +120,7 @@ const Search = () => {
 
                 {/* Donor List */}
                 <div className="mt-10">
-                    {/* {donors.length > 0 ? (
+                    {donors.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {donors.map((donor, index) => (
                                 <div
@@ -85,16 +128,16 @@ const Search = () => {
                                     className="p-5 bg-white rounded-lg shadow-md border border-gray-200"
                                 >
                                     <h3 className="text-xl font-semibold text-red-400">
-                                        {donor.name}
+                                        {donor?.name}
                                     </h3>
                                     <p className="text-gray-700">
-                                        <strong>Blood Group:</strong> {donor.bloodGroup}
+                                        <strong>Blood Group:</strong> {donor?.bloodGroup}
                                     </p>
                                     <p className="text-gray-700">
-                                        <strong>District:</strong> {donor.district}
+                                        <strong>District:</strong> {donor?.district}
                                     </p>
                                     <p className="text-gray-700">
-                                        <strong>Upazila:</strong> {donor.upazila}
+                                        <strong>Upazila:</strong> {donor?.upazila}
                                     </p>
                                 </div>
                             ))}
@@ -103,7 +146,7 @@ const Search = () => {
                         <p className="text-center text-lg text-gray-700">
                             No donors found. Please refine your search.
                         </p>
-                    )} */}
+                    )}
                 </div>
             </div>
         </section>
