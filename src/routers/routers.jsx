@@ -8,6 +8,11 @@ import Search from "../pages/Search/Search";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import PrivateProvider from "./PrivateProvider";
 import Profile from "../pages/Profile/Profile";
+import AdminRouter from "./AdminRouter";
+import AdminHome from '../pages/Dashboard/Admin/AdminHome/AdminHome';
+import AllUserPage from '../pages/Dashboard/Admin/AllUsersPage/AllUsersPage';
+import AllBloodDonationRequest from '../pages/Dashboard/Admin/AllBloodDonationRequest/AllBloodDonationRequest';
+import ContentManagement from '../pages/Dashboard/Admin/ContentManagement/ContentManagement'
 
 const routers = createBrowserRouter([
     {
@@ -35,9 +40,29 @@ const routers = createBrowserRouter([
                 path: '/dashboard',
                 element: <PrivateProvider><Dashboard></Dashboard></PrivateProvider>,
                 children: [
+                    // Donor router
+
+
+                    // Admin router
                     {
                         path: 'profile',
-                        element:<PrivateProvider><Profile></Profile></PrivateProvider>
+                        element: <AdminRouter><Profile></Profile></AdminRouter>
+                    },
+                    {
+                        path: 'AdminHome',
+                        element: <AdminRouter><AdminHome></AdminHome></AdminRouter>
+                    },
+                    {
+                        path: 'All-Users',
+                        element: <AdminRouter><AllUserPage></AllUserPage></AdminRouter>
+                    },
+                    {
+                        path: 'BloodDonation',
+                        element: <AdminHome><AllBloodDonationRequest></AllBloodDonationRequest></AdminHome>
+                    },
+                    {
+                        path: 'ContentManagement',
+                        element: <AdminRouter><ContentManagement></ContentManagement></AdminRouter>
                     }
                 ]
             }
