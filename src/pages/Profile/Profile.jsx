@@ -62,7 +62,7 @@ const Profile = () => {
                 <h2 className="text-2xl font-semibold text-gray-800">Profile</h2>
                 {!isEditable ? (
                     <button
-                        className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 focus:outline-none focus:ring"
+                        className="px-4 py-2 bg-red-400 text-white text-sm rounded-lg hover:bg-blue-600 focus:outline-none focus:ring"
                         onClick={handleEdit}
                     >
                         Edit
