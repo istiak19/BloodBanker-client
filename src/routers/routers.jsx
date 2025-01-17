@@ -6,6 +6,8 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Home from "../pages/Home/Home";
 import Search from "../pages/Search/Search";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import PrivateProvider from "./PrivateProvider";
+import Profile from "../pages/Profile/Profile";
 
 const routers = createBrowserRouter([
     {
@@ -31,7 +33,13 @@ const routers = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <PrivateProvider><Dashboard></Dashboard></PrivateProvider>,
+                children: [
+                    {
+                        path: 'profile',
+                        element:<PrivateProvider><Profile></Profile></PrivateProvider>
+                    }
+                ]
             }
         ]
     },

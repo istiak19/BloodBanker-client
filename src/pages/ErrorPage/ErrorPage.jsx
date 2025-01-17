@@ -11,7 +11,6 @@ const ErrorPage = () => {
                     <p className='mt-4'>
                         Sorry, the page you are looking for doesn't exist. Here are some helpful link:
                     </p>
-
                     <div className='mt-6'>
                         <Link
                             to='/'
