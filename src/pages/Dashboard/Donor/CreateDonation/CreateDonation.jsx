@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from 'sweetalert2';
+import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 
 const CreateDonation = () => {
     const { user } = useAuth();
@@ -25,11 +27,37 @@ const CreateDonation = () => {
             return res.data;
         },
     });
-
+    const axiosSecure = useAxiosSecure();
     const [startDate, setStartDate] = useState(new Date());
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
+    const { register, handleSubmit, reset } = useForm();
+    const onSubmit = async (data) => {
+        const donationInfo = {
+            name: data.name,
+            email: data.email,
+            recipientName: data.recipientName,
+            upazila: data.upazila,
+            district: data.district,
+            hospital: data.hospital,
+            bloodGroup: data.bloodGroup,
+            address: data.address,
+            time: data.time,
+            message: data.message,
+            date: startDate,
+            status: 'pending'
+        }
+        console.log(donationInfo)
+        const res = await axiosSecure.post('/donation', donationInfo)
+        console.log(res.data)
+        if (res.data.insertedId) {
+            Swal.fire({
+                position: "top",
+                icon: "success",
+                title: "Your blood donation request has been successfully created!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            reset();
+        }
     };
 
     return (
