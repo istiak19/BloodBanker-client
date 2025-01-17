@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../Hook/useAuth";
-import usePublic from "../../Hook/usePublic";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 
 const Profile = () => {
     const { user } = useAuth();
-    const axiosPublic = usePublic();
+    // const axiosPublic = usePublic();
+    const  axiosSecure=useAxiosSecure()
     const { data, refetch, isLoading } = useQuery({
         queryKey: ['profile', user?.email],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/users/${user?.email}`);
+            const res = await axiosSecure.get(`/users/${user?.email}`);
             return res.data;
         }
     });
