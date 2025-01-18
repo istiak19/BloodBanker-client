@@ -16,7 +16,9 @@ import ContentManagement from '../pages/Dashboard/Admin/ContentManagement/Conten
 import CreateDonation from '../pages/Dashboard/Donor/CreateDonation/CreateDonation';
 import MyDonationRequests from '../pages/Dashboard/Donor/MyDonationRequests/MyDonationRequests';
 import DonorHome from '../pages/Dashboard/Donor/DonorHome/DonorHome';
-import  DonationRequestEdit from '../pages/Dashboard/Donor/DonationRequestEdit/DonationRequestEdit';
+import DonationRequestEdit from '../pages/Dashboard/Donor/DonationRequestEdit/DonationRequestEdit';
+import BloodDonationRequests from "../pages/BloodDonationRequests/BloodDonationRequests";
+import DetailsPage from "../pages/DetailsPage/DetailsPage";
 
 const routers = createBrowserRouter([
     {
@@ -31,6 +33,14 @@ const routers = createBrowserRouter([
             {
                 path: '/search',
                 element: <Search></Search>
+            },
+            {
+                path: '/bloodDPublic',
+                element: <BloodDonationRequests></BloodDonationRequests>
+            },
+            {
+                path: '/details/:id',
+                element: <PrivateProvider><DetailsPage></DetailsPage></PrivateProvider>
             },
             {
                 path: '/login',

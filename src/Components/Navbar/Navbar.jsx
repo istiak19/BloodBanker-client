@@ -7,7 +7,7 @@ const Navbar = () => {
     const links = (
         <>
             <li><NavLink className={({ isActive }) => (isActive ? "!text-black  !bg-transparent" : "text-white")} to='/'>Home</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/donation-requests'>Donation requests</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/bloodDPublic'>Donation requests</NavLink></li>
             <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/blog'>Blog</NavLink></li>
             {
                 user && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/funding'>Funding</NavLink></li>
