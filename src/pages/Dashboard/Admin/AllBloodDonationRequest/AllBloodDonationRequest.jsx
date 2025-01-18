@@ -2,6 +2,7 @@ import { useState } from "react";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AllBloodDonationRequest = () => {
     const axiosSecure = useAxiosSecure();
@@ -37,6 +38,9 @@ const AllBloodDonationRequest = () => {
 
     return (
         <div className="p-5">
+            <Helmet>
+                <title>AllBloodDonation || BloodBanker</title>
+            </Helmet>
             <h2 className="text-2xl font-bold text-center mb-5">All Blood Donation Requests</h2>
             <div className="mb-5">
                 <label htmlFor="filter" className="text-gray-700 font-medium mb-2 mr-5">

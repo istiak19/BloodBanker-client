@@ -3,6 +3,7 @@ import loginPic from '../../assets/lottie/design.json'
 import { useForm } from "react-hook-form";
 import useAuth from '../../Hook/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const { signin } = useAuth();
@@ -25,6 +26,9 @@ const Login = () => {
 
     return (
         <div className="hero min-h-screen">
+            <Helmet>
+                <title>Login || BloodBanker</title>
+            </Helmet>
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left ml-10">
                     <Lottie className='w-[500px]' animationData={loginPic}></Lottie>

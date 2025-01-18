@@ -3,11 +3,12 @@ import useAuth from "../../Hook/useAuth";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
     const { user } = useAuth();
     // const axiosPublic = usePublic();
-    const  axiosSecure=useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
     const { data, refetch, isLoading } = useQuery({
         queryKey: ['profile', user?.email],
         queryFn: async () => {
@@ -58,6 +59,9 @@ const Profile = () => {
 
     return (
         <div className="max-w-xl mx-auto p-6 bg-red-100 rounded-lg shadow-md">
+            <Helmet>
+                <title>Profile || BloodBanker</title>
+            </Helmet>
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold text-gray-800">Profile</h2>
                 {!isEditable ? (

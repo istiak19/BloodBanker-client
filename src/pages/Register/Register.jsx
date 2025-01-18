@@ -7,6 +7,7 @@ import useAuth from "../../Hook/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -83,6 +84,9 @@ const Register = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Register || BloodBanker</title>
+            </Helmet>
             <section>
                 <div className="container lg:flex items-center justify-center gap-10 min-h-screen px-6 mx-auto">
                     <div>

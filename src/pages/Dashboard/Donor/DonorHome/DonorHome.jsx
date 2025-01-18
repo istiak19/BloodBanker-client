@@ -3,6 +3,7 @@ import useAuth from "../../../../Hook/useAuth";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const DonorHome = () => {
     const { user } = useAuth();
@@ -43,6 +44,9 @@ const DonorHome = () => {
 
     return (
         <div className="max-w-7xl mx-auto p-6 border border-red-300 shadow-md rounded-lg">
+            <Helmet>
+                <title>DonorHome || BloodBanker</title>
+            </Helmet>
             {/* Welcome Section */}
             <div className="mb-6 text-center">
                 <h2 className="text-2xl font-bold text-gray-700">

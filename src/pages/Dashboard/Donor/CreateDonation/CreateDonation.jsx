@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const CreateDonation = () => {
     const { user } = useAuth();
@@ -73,6 +74,9 @@ const CreateDonation = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>CreateDonation || BloodBanker</title>
+            </Helmet>
             {
                 !isActiveUser ? (
                     <div className="text-center my-10">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AllUsersPage = () => {
     const axiosSecure = useAxiosSecure();
@@ -80,6 +81,9 @@ const AllUsersPage = () => {
 
     return (
         <div className="p-5">
+            <Helmet>
+                <title>AllUsers || BloodBanker</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-5 text-center">All Users Page</h2>
             <div className="mb-4 flex gap-4">
                 <button

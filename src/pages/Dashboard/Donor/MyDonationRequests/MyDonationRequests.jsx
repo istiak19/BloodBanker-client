@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import useAuth from "../../../../Hook/useAuth";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const MyDonationRequests = () => {
     const { user } = useAuth();
@@ -23,6 +24,9 @@ const MyDonationRequests = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>DonationRequests || BloodBanker</title>
+            </Helmet>
             <div className="mb-5">
                 <label htmlFor="filter" className="text-gray-700 font-medium mb-2 mr-5">
                     Filter by Status

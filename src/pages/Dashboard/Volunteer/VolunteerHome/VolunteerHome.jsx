@@ -2,6 +2,7 @@ import { FaUsers, FaHandHoldingHeart, FaHeartbeat } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const VolunteerHome = () => {
     const { user } = useAuth();
@@ -16,6 +17,9 @@ const VolunteerHome = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>VolunteerHome || BloodBanker</title>
+            </Helmet>
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-700">
                     Welcome <span className="text-red-400">{user?.displayName}</span> !

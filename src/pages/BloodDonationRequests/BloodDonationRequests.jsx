@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import usePublic from "../../Hook/usePublic";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const BloodDonationRequests = () => {
     const axiosPublic = usePublic();
@@ -15,6 +16,9 @@ const BloodDonationRequests = () => {
 
     return (
         <div className="p-5 w-11/12 mx-auto">
+            <Helmet>
+                <title>BloodDonation || BloodBanker</title>
+            </Helmet>
             <h1 className="text-2xl font-bold text-center mb-5">Pending Blood Donation Requests</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {

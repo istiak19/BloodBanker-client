@@ -4,6 +4,7 @@ import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const DetailsPage = () => {
     const { id } = useParams();
@@ -39,6 +40,9 @@ const DetailsPage = () => {
 
     return (
         <div className="p-5">
+            <Helmet>
+                <title>DetailsPage || BloodBanker</title>
+            </Helmet>
             <h1 className="text-3xl font-bold text-center mb-5">Donation Request Details</h1>
             <div className="max-w-xl mx-auto p-6 bg-white border border-gray-200 shadow-md rounded-lg">
                 <h2 className="text-xl font-semibold mb-4 text-center">Recipient Information</h2>

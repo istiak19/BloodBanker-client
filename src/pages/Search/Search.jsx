@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import usePublic from "../../Hook/usePublic";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Search = () => {
     const axiosPublic = usePublic();
@@ -46,6 +47,9 @@ const Search = () => {
 
     return (
         <section className="py-[58px] px-5 bg-red-50">
+            <Helmet>
+                <title>Search || BloodBanker</title>
+            </Helmet>
             <div className="max-w-5xl mx-auto">
                 <h2 className="text-4xl font-bold text-red-400 text-center mb-6">
                     Search Donors
