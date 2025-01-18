@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hook/useAuth";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const DonorHome = () => {
@@ -121,12 +121,11 @@ const DonorHome = () => {
                                             >
                                                 Delete
                                             </button>
-                                            <button
+                                            <Link to={`/details/${donation._id}`}
                                                 className="btn bg-red-400 text-white btn-sm"
-                                                onClick={() => navigate(`donation/details/${donation._id}`)}
                                             >
                                                 View
-                                            </button>
+                                            </Link>
                                         </td>
                                     </tr>
                                 ))}

@@ -43,14 +43,14 @@ const DetailsPage = () => {
             <div className="max-w-xl mx-auto p-6 bg-white border border-gray-200 shadow-md rounded-lg">
                 <h2 className="text-xl font-semibold mb-4 text-center">Recipient Information</h2>
                 <div className="space-y-2 text-gray-700">
-                    <p><strong>Name:</strong> {donation.recipientName}</p>
-                    <p><strong>Location:</strong> {donation.upazila}, {donation.district}</p>
-                    <p><strong>Blood Group:</strong> {donation.bloodGroup}</p>
-                    <p><strong>Date:</strong> {new Date(donation.date).toLocaleDateString()}</p>
-                    <p><strong>Time:</strong> {donation.time}</p>
-                    <p><strong>Message:</strong> {donation.message || "N/A"}</p>
-                    <p><strong>Hospital:</strong> {donation.hospital}</p>
-                    <p><strong>Address:</strong> {donation.address}</p>
+                    <p><strong>Name:</strong> {donation?.recipientName}</p>
+                    <p><strong>Location:</strong> {donation?.upazila}, {donation?.district}</p>
+                    <p><strong>Blood Group:</strong> {donation?.bloodGroup}</p>
+                    <p><strong>Date:</strong> {new Date(donation?.date).toLocaleDateString()}</p>
+                    <p><strong>Time:</strong> {donation?.time}</p>
+                    <p><strong>Message:</strong> {donation?.message || "N/A"}</p>
+                    <p><strong>Hospital:</strong> {donation?.hospital}</p>
+                    <p><strong>Address:</strong> {donation?.address}</p>
                 </div>
                 <button
                     className="mt-6 bg-red-400 w-full text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition"

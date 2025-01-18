@@ -28,7 +28,7 @@ const Profile = () => {
     const handleSave = async () => {
         setIsEditable(false);
         console.log("Saved Data:", formData);
-        const res = await axiosPublic.put(`/user/${formData?._id}`, formData);
+        const res = await axiosSecure.put(`/user/${formData?._id}`, formData);
         console.log(res.data);
         if (res.data.modifiedCount > 0) {
             Swal.fire({
