@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet-async";
 
 const CreateDonation = () => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const axiosPublic = usePublic();
     const navigate = useNavigate();
     const [isActiveUser, setIsActiveUser] = useState(false);
@@ -38,7 +39,6 @@ const CreateDonation = () => {
             return res.data;
         },
     });
-    const axiosSecure = useAxiosSecure();
     const [startDate, setStartDate] = useState(new Date());
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
