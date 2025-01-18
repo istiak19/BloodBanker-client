@@ -2,10 +2,12 @@ import { Link, NavLink } from 'react-router-dom';
 import logoPic from '../../assets/logo.png';
 import useAuth from '../../Hook/useAuth';
 import useAdmin from '../../Hook/useAdmin';
+import useVolunteer from '../../Hook/useVolunteer';
 
 const Navbar = () => {
     const { user, signOutUser } = useAuth()
     const [isAdmin] = useAdmin();
+    const [isVolunteer] = useVolunteer()
     const links = (
         <>
             <li><NavLink className={({ isActive }) => (isActive ? "!text-black  !bg-transparent" : "text-white")} to='/'>Home</NavLink></li>
@@ -87,6 +89,9 @@ const Navbar = () => {
                             }
                             {
                                 user && !isAdmin && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
+                            }
+                            {
+                                user && !isAdmin && isVolunteer && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
                             }
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>
