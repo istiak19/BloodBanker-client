@@ -93,7 +93,7 @@ const Navbar = () => {
                                 user && !isAdmin && !isVolunteer && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
                             }
                             {
-                                user && !isAdmin && !isDonor && isVolunteer && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
+                                user && !isAdmin && !isDonor && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
                             }
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>

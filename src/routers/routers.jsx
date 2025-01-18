@@ -19,6 +19,8 @@ import DonorHome from '../pages/Dashboard/Donor/DonorHome/DonorHome';
 import DonationRequestEdit from '../pages/Dashboard/Donor/DonationRequestEdit/DonationRequestEdit';
 import BloodDonationRequests from "../pages/BloodDonationRequests/BloodDonationRequests";
 import DetailsPage from "../pages/DetailsPage/DetailsPage";
+import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome/VolunteerHome";
+import AllBloodDonationV from "../pages/Dashboard/Volunteer/AllBloodDonationV/AllBloodDonationV";
 
 const routers = createBrowserRouter([
     {
@@ -96,6 +98,15 @@ const routers = createBrowserRouter([
                     {
                         path: 'content-management',
                         element: <AdminRouter><ContentManagement></ContentManagement></AdminRouter>
+                    },
+                    // volunteer router
+                    {
+                        path: 'volunteerHome',
+                        element: <VolunteerHome></VolunteerHome>
+                    },
+                    {
+                        path: 'all-blood-donation-request',
+                        element: <AllBloodDonationV></AllBloodDonationV>
                     }
                 ]
             }

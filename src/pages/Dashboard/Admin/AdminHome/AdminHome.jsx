@@ -7,9 +7,9 @@ const AdminHome = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const { data: stats = {} } = useQuery({
-        queryKey: ['admin-states'],
+        queryKey: ['states'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/admin-states');
+            const res = await axiosSecure.get('/states');
             return res.data;
         },
     });
@@ -18,7 +18,7 @@ const AdminHome = () => {
         <div>
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-700">
-                    Welcome <span className="text-red-400">{user?.displayName}</span>!
+                    Welcome <span className="text-red-400">{user?.displayName}</span> !
                 </h2>
             </div>
 
