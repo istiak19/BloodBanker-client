@@ -46,7 +46,7 @@ const AllUsersPage = () => {
     };
 
     const handleMakeVolunteer = async (userId) => {
-        const res = await axiosSecure.patch(`/user/${userId}`, { role: "volunteer" });
+        const res = await axiosSecure.patch(`/users/${userId}`, { role: "volunteer" });
         if (res.data.modifiedCount > 0) {
             Swal.fire({
                 position: "top-end",
@@ -60,7 +60,7 @@ const AllUsersPage = () => {
     };
 
     const handleMakeAdmin = async (userId) => {
-        const res = await axiosSecure.patch(`/user/${userId}`, { role: "Admin" });
+        const res = await axiosSecure.patch(`/users/${userId}`, { role: "Admin" });
         if (res.data.modifiedCount > 0) {
             Swal.fire({
                 position: "top-end",
@@ -74,6 +74,9 @@ const AllUsersPage = () => {
     };
 
     const totalPages = Math.ceil(users.total / itemsPerPage);
+    const statusUsers = users.filter(user =>
+        filterStatus === "" || user?.status === filterStatus
+    );
 
     return (
         <div className="p-5">
@@ -112,7 +115,7 @@ const AllUsersPage = () => {
                     </thead>
                     <tbody>
                         {
-                            users.map((user) => (
+                            statusUsers.map((user) => (
                                 <tr key={user._id}>
                                     <td className="border p-3 text-center">
                                         <img

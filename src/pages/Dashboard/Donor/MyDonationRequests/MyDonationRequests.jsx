@@ -42,18 +42,20 @@ const MyDonationRequests = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {filteredDonations.map(donation => (
-                    <div key={donation._id} className="card shadow-md">
-                        <div className="card-body">
-                            <h2 className="card-title">Recipient: {donation?.recipientName}</h2>
-                            <p>Blood Group: {donation?.bloodGroup}</p>
-                            <p>Date: {new Date(donation?.date).toLocaleDateString()}</p>
-                            <p>Time: {donation?.time}</p>
-                            <p>Status: {donation?.status}</p>
-                            <p>Location: {donation?.upazila}, {donation?.district}</p>
+                {
+                    filteredDonations.map(donation => (
+                        <div key={donation._id} className="card shadow-md">
+                            <div className="card-body">
+                                <h2 className="card-title">Recipient: {donation?.recipientName}</h2>
+                                <p>Blood Group: {donation?.bloodGroup}</p>
+                                <p>Date: {new Date(donation?.date).toLocaleDateString()}</p>
+                                <p>Time: {donation?.time}</p>
+                                <p>Status: {donation?.status}</p>
+                                <p>Location: {donation?.upazila}, {donation?.district}</p>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                }
             </div>
         </div>
     );
