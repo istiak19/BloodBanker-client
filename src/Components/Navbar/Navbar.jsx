@@ -3,9 +3,11 @@ import logoPic from '../../assets/logo.png';
 import useAuth from '../../Hook/useAuth';
 import useAdmin from '../../Hook/useAdmin';
 import useVolunteer from '../../Hook/useVolunteer';
+import useDonor from '../../Hook/useDonor';
 
 const Navbar = () => {
     const { user, signOutUser } = useAuth()
+    const [isDonor] = useDonor();
     const [isAdmin] = useAdmin();
     const [isVolunteer] = useVolunteer()
     const links = (
@@ -88,10 +90,10 @@ const Navbar = () => {
                                 user && isAdmin && <li><Link to='/dashboard/AdminHome'>Dashboard</Link></li>
                             }
                             {
-                                user && !isAdmin && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
+                                user && !isAdmin && !isVolunteer && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
                             }
                             {
-                                user && !isAdmin && isVolunteer && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
+                                user && !isAdmin && !isDonor && isVolunteer && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
                             }
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>

@@ -1,19 +1,20 @@
-// import useAuth from "./useAuth";
-// import useAxiosSecure from "./useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "./useAuth";
+import useAxiosSecure from "./useAxiosSecure";
 
-// const useDonor = () => {
-//     const { user } = useAuth()
-//     const axiosSecure = useAxiosSecure()
+const useDonor = () => {
+    const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
 
-//     const { data: donor, isPending: isAdminLoading } = useQuery({
-//         queryKey: ['isAdmin', user?.email],
-//         queryFn: async () => {
-//             const res = await axiosSecure.get(`/user/donor/${user?.email}`)
-//             console.log(res?.data)
-//             // return res.data.admin;
-//         }
-//     })
-//     return [donor]
-// };
+    const { data: donor, isLoading: isDonorLoading } = useQuery({
+        queryKey: ['isDonor', user?.email],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/users/donor/${user?.email}`)
+            console.log(res?.data)
+            return res.data.donor;
+        }
+    })
+    return [donor]
+};
 
-// export default useDonor;
+export default useDonor;
