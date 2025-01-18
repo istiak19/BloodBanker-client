@@ -42,8 +42,6 @@ const DonationRequestEdit = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = async (data) => {
         const donationInfo = {
-            // name: data.name,
-            // email: data.email,
             recipientName: data.recipientName,
             upazila: data.upazila,
             district: data.district,
@@ -55,8 +53,18 @@ const DonationRequestEdit = () => {
             date: startDate,
         }
         console.log(donation._id)
-        const res = await axiosSecure.put(`/donation/${donation._id}`,donationInfo)
+        const res = await axiosSecure.put(`/donation/${donation._id}`, donationInfo)
         console.log(res.data)
+        if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                position: "top",
+                icon: "success",
+                title: "Your blood donation request has been successfully updated!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate('/dashboard/my-donation-requests');
+        }
     }
 
     if (isLoading) return <p>Loading...</p>;

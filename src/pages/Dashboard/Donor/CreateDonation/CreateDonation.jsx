@@ -7,10 +7,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const CreateDonation = () => {
     const { user } = useAuth();
     const axiosPublic = usePublic();
+    const navigate = useNavigate();
     const [isActiveUser, setIsActiveUser] = useState(false);
     const { data } = useQuery({
         queryKey: ["userStatus", user?.email],
@@ -65,6 +67,7 @@ const CreateDonation = () => {
                 timer: 1500
             });
             reset();
+            navigate('/dashboard/my-donation-requests')
         }
     };
 
