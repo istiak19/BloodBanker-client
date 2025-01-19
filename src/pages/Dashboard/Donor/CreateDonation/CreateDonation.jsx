@@ -56,9 +56,9 @@ const CreateDonation = () => {
             date: startDate,
             status: 'pending'
         }
-        console.log(donationInfo)
+        // console.log(donationInfo)
         const res = await axiosSecure.post('/donation', donationInfo)
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.insertedId) {
             Swal.fire({
                 position: "top",

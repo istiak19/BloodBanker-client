@@ -60,10 +60,10 @@ const Register = () => {
             });
             return;
         }
-        console.log(userInfo)
+        // console.log(userInfo)
         signup(data.email, data.password)
             .then((result) => {
-                console.log(result.user)
+                // console.log(result.user)
                 const update = {
                     displayName: data.name,
                     photoURL: res.data.data.url
@@ -71,14 +71,14 @@ const Register = () => {
                 updateProfileUser(update)
                 axiosPublic.post('/user', userInfo)
                     .then(res => {
-                        console.log(res.data)
+                        // console.log(res.data)
                     })
                 navigate(from, { replace: true });
                 toast.success('Registration successfully')
                 reset()
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
     };
 

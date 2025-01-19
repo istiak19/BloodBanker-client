@@ -29,7 +29,7 @@ const DonorHome = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await axiosSecure.delete(`/donation/${id}`)
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.deletedCount > 0) {
                     Swal.fire({
                         title: "Deleted!",

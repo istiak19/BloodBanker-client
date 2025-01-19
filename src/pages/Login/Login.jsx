@@ -12,15 +12,15 @@ const Login = () => {
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-        console.log(data)
+        // console.log(data)
         signin(data.email, data.password)
             .then((result) => {
-                console.log(result.user)
+                // console.log(result.user)
                 navigate('/')
                 reset();
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
     };
 

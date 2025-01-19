@@ -33,7 +33,7 @@ const ContentManagement = () => {
 
   const handlePublish = async (id) => {
     const res = await axiosSecure.patch(`/blog/${id}`, { status: 'published' });
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top",
@@ -48,7 +48,7 @@ const ContentManagement = () => {
 
   const handleUnpublish = async (id) => {
     const res = await axiosSecure.patch(`/blog/${id}`, { status: 'draft' });
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top",
