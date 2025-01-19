@@ -8,7 +8,7 @@ const Fund = () => {
     const { data: funds = [] } = useQuery({
         queryKey: ["funds"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/funds");
+            const res = await axiosSecure.get(`/payments`);
             return res.data;
         },
     });
@@ -36,12 +36,12 @@ const Fund = () => {
                     </thead>
                     <tbody>
                         {
-                            funds.map((fund, idx) => (
+                            funds?.map((fund, idx) => (
                                 <tr key={fund._id}>
                                     <td>{idx + 1}</td>
-                                    <td>{fund.userName}</td>
-                                    <td>${fund.amount}</td>
-                                    <td>{new Date(fund.date).toLocaleDateString()}</td>
+                                    <td>{fund?.name}</td>
+                                    <td>${fund?.amount}</td>
+                                    <td>{new Date(fund?.date).toLocaleDateString()}</td>
                                 </tr>
                             ))
                         }

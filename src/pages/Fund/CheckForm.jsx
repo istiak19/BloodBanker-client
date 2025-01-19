@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
+import Swal from "sweetalert2";
 
 const CheckForm = ({ amount }) => {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ const CheckForm = ({ amount }) => {
     const [error, setError] = useState("");
     const stripe = useStripe();
     const elements = useElements();
-    
+
     useEffect(() => {
         if (amount > 0) {
             axiosSecure
@@ -74,17 +75,22 @@ const CheckForm = ({ amount }) => {
         if (paymentIntent?.status === "succeeded") {
             setTransaction(paymentIntent.id);
             const paymentData = {
+                name: user?.displayName,
                 email: user?.email,
-                amount,
-                transactionId: paymentIntent.id,
                 date: new Date(),
-                status: "succeeded",
+                amount
             };
 
             axiosSecure.post("/payments", paymentData)
                 .then((res) => {
                     if (res.data?.insertedId) {
-                        alert("Payment successful!");
+                        Swal.fire({
+                            position: "top",
+                            icon: "success",
+                            title: "Payment successful!",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                         navigate("/funding");
                     }
                 })

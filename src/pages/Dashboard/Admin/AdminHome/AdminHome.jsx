@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../Hook/useAuth";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
-import { FaUsers, FaHandHoldingHeart, FaHeartbeat } from "react-icons/fa";
+import { FaUsers, FaHandHoldingHeart } from "react-icons/fa";
+import { RiRefund2Line } from "react-icons/ri";
 import { Helmet } from "react-helmet-async";
 
 const AdminHome = () => {
@@ -52,11 +53,11 @@ const AdminHome = () => {
                 <div className="bg-white shadow-lg rounded-lg p-5 border border-red-300">
                     <div className="flex items-center space-x-4">
                         <div className="p-3 bg-blue-100 rounded-full">
-                            <FaHeartbeat className="text-blue-500 text-2xl" />
+                            <RiRefund2Line className="text-blue-500 text-2xl" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold">{stats.activeDonors || 0}</h3>
-                            <p className="text-gray-600">Active Donors</p>
+                            <h3 className="text-xl font-bold">{stats.funds || 0} $</h3>
+                            <p className="text-gray-600">Fund Collection</p>
                         </div>
                     </div>
                 </div>
