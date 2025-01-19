@@ -1,13 +1,11 @@
 import { Outlet } from "react-router-dom";
-import useAdmin from "../../Hook/useAdmin";
 import AdminPanel from "../../Components/AdminPanel/AdminPanel";
 import DonorPanel from "../../Components/DonorPanel/DonorPanel";
-import useVolunteer from "../../Hook/useVolunteer";
 import VolunteerPanel from "../../Components/Volunteer/VolunteerPanel";
+import useRole from "../../Hook/useRole";
 
 const Dashboard = () => {
-    const [isAdmin] = useAdmin();
-    const [isVolunteer] = useVolunteer();
+    const [role, isLoading] = useRole()
 
     return (
         <div className="flex flex-col md:flex-row w-full">
@@ -15,23 +13,17 @@ const Dashboard = () => {
             <div className="w-full md:w-64 min-h-screen bg-red-400">
                 <ul className="menu p-4">
                     {/* Admin panel */}
-                    {isAdmin && (
-                        <>
-                            <AdminPanel />
-                        </>
-                    )}
+                    {
+                        role === 'Admin' && <AdminPanel></AdminPanel>
+                    }
                     {/* Donor panel */}
-                    {!isAdmin && !isVolunteer && (
-                        <>
-                            <DonorPanel />
-                        </>
-                    )}
+                    {
+                        role === 'donor' && <DonorPanel></DonorPanel>
+                    }
                     {/* Volunteer panel */}
-                    {!isAdmin && isVolunteer && (
-                        <>
-                            <VolunteerPanel></VolunteerPanel>
-                        </>
-                    )}
+                    {
+                        role === 'volunteer' && <VolunteerPanel></VolunteerPanel>
+                    }
                 </ul>
             </div>
 

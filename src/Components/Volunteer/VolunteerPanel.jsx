@@ -1,6 +1,5 @@
 import { CgProfile } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
-import { IoCreate } from "react-icons/io5";
 import { MdContentPaste, MdOutlineBloodtype } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 

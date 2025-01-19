@@ -1,16 +1,16 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import useAuth from '../Hook/useAuth';
-import useAdmin from '../Hook/useAdmin';
+import useRole from '../Hook/useRole';
 
 const AdminRouter = ({ children }) => {
-    const [admin, isAdminLoading] = useAdmin();
+    const [role, isLoading] = useRole()
     const { user, loading } = useAuth();
     const location = useLocation();
-    if (loading || isAdminLoading) {
+    if (loading || isLoading) {
         return <span className="loading loading-bars loading-lg"></span>
     }
 
-    if (user || admin) {
+    if (user || role==='Admin') {
         return children
     }
     return (
