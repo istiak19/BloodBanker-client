@@ -3,12 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { HiDotsVertical } from "react-icons/hi";
 
 const AllUsersPage = () => {
     const axiosSecure = useAxiosSecure();
     const [filterStatus, setFilterStatus] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const [itemsPerPage, setItemsPerPage] = useState(5);
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ["users", filterStatus, currentPage],
@@ -74,10 +75,23 @@ const AllUsersPage = () => {
         }
     };
 
-    const totalPages = Math.ceil(users.total / itemsPerPage);
     const statusUsers = users.filter(user =>
         filterStatus === "" || user?.status === filterStatus
     );
+    const totalItems = statusUsers.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const paginatedUsers = statusUsers.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleItemsPerPageChange = (e) => {
+        setItemsPerPage(Number(e.target.value));
+        setCurrentPage(1);
+    };
 
     return (
         <div className="p-5">
@@ -105,6 +119,20 @@ const AllUsersPage = () => {
                     Blocked
                 </button>
             </div>
+            <div className="mb-4">
+                <label className="mr-2">Rows per page:</label>
+                <select
+                    value={itemsPerPage}
+                    onChange={handleItemsPerPageChange}
+                    className="p-2 border border-gray-300 rounded"
+                >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={30}>30</option>
+                    <option value={50}>50</option>
+                </select>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse border border-gray-200">
                     <thead>
@@ -119,7 +147,7 @@ const AllUsersPage = () => {
                     </thead>
                     <tbody>
                         {
-                            statusUsers.map((user) => (
+                            paginatedUsers.map((user) => (
                                 <tr key={user._id}>
                                     <td className="border p-3 text-center">
                                         <img
@@ -132,47 +160,46 @@ const AllUsersPage = () => {
                                     <td className="border p-3">{user?.name}</td>
                                     <td className="border p-3 capitalize">{user?.role}</td>
                                     <td className="border p-3 capitalize">{user?.status}</td>
-                                    <td className="border p-3 space-x-2">
-                                        {
-                                            user?.status === "active" && (
-                                                <button
-                                                    className="px-3 py-1 bg-red-400 text-white rounded"
-                                                    onClick={() => handleBlockUser(user?._id)}
-                                                >
-                                                    Block
-                                                </button>
-                                            )
-                                        }
-                                        {
-                                            user?.status === "blocked" && (
-                                                <button
-                                                    className="px-3 py-1 bg-red-400 text-white rounded"
-                                                    onClick={() => handleUnblockUser(user?._id)}
-                                                >
-                                                    Unblock
-                                                </button>
-                                            )
-                                        }
-                                        {
-                                            user?.role !== "volunteer" && (
-                                                <button
-                                                    className="px-3 py-1 bg-red-400 text-white rounded"
-                                                    onClick={() => handleMakeVolunteer(user?._id)}
-                                                >
-                                                    Make Volunteer
-                                                </button>
-                                            )
-                                        }
-                                        {
-                                            user?.role !== "admin" && (
-                                                <button
-                                                    className="px-3 py-1 bg-red-400 text-white rounded"
-                                                    onClick={() => handleMakeAdmin(user?._id)}
-                                                >
-                                                    Make Admin
-                                                </button>
-                                            )
-                                        }
+                                    <td className="border p-3 text-center relative">
+                                        <div className="relative group inline-block">
+                                            <button className="p-2 bg-gray-300 rounded-full hover:bg-gray-400">
+                                                <HiDotsVertical size={20} />
+                                            </button>
+                                            <div className="absolute hidden group-hover:block z-10 bg-white shadow-md rounded py-2 w-48 right-0">
+                                                {user?.status === "active" && (
+                                                    <button
+                                                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                                                        onClick={() => handleBlockUser(user?._id)}
+                                                    >
+                                                        Block
+                                                    </button>
+                                                )}
+                                                {user?.status === "blocked" && (
+                                                    <button
+                                                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                                                        onClick={() => handleUnblockUser(user?._id)}
+                                                    >
+                                                        Unblock
+                                                    </button>
+                                                )}
+                                                {user?.role !== "volunteer" && (
+                                                    <button
+                                                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                                                        onClick={() => handleMakeVolunteer(user?._id)}
+                                                    >
+                                                        Make Volunteer
+                                                    </button>
+                                                )}
+                                                {user?.role !== "admin" && (
+                                                    <button
+                                                        className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                                                        onClick={() => handleMakeAdmin(user?._id)}
+                                                    >
+                                                        Make Admin
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             ))
@@ -182,17 +209,22 @@ const AllUsersPage = () => {
             </div>
 
             {/* Pagination */}
-            {/* <div className="mt-4 flex justify-center gap-2">
-                {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                        key={index + 1}
-                        className={`px-3 py-1 rounded ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-                        onClick={() => setCurrentPage(index + 1)}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-            </div> */}
+            <div className="flex justify-center mt-5">
+                <div className="flex gap-2">
+                    {
+                        Array.from({ length: totalPages }, (_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => handlePageChange(i + 1)}
+                                className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? "bg-red-400 text-white" : "bg-white text-red-500"
+                                    }`}
+                            >
+                                {i + 1}
+                            </button>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     );
 };

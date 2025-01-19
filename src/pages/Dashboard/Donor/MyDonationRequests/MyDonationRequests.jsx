@@ -28,7 +28,7 @@ const MyDonationRequests = () => {
         currentPage * itemsPerPage
     );
 
-    const handlePageChange = (pageNumber) => {
+    const F = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
