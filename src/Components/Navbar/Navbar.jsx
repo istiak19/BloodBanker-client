@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logoPic from '../../assets/logo.png';
 import useAuth from '../../Hook/useAuth';
 import useRole from '../../Hook/useRole';
+import Loading from '../Loading/Loading'
 
 const Navbar = () => {
     const { user, signOutUser } = useAuth();
@@ -16,6 +17,8 @@ const Navbar = () => {
             }
         </>
     );
+
+    if (isLoading) return <Loading></Loading>
 
     const handleLogOut = () => {
         signOutUser()
@@ -83,13 +86,17 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             {
-                                role === 'Admin' && <li><Link to='/dashboard/AdminHome'>Dashboard</Link></li>
-                            }
-                            {
-                                role === 'donor' && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
-                            }
-                            {
-                                role === 'volunteer' && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
+                                user && <>
+                                    {
+                                        role === 'Admin' && <li><Link to='/dashboard/AdminHome'>Dashboard</Link></li>
+                                    }
+                                    {
+                                        role === 'donor' && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
+                                    }
+                                    {
+                                        role === 'volunteer' && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
+                                    }
+                                </>
                             }
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>
