@@ -41,6 +41,7 @@ const AddBlog = () => {
                 timer: 1500
             });
             reset();
+            navigate('/dashboard/content-management')
         }
     }
     
