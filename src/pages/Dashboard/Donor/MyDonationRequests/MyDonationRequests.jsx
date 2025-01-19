@@ -17,7 +17,6 @@ const MyDonationRequests = () => {
         }
     });
 
-    // Filter donations
     const filteredDonations = donations.filter(donation =>
         filter === "" || donation?.status === filter
     );

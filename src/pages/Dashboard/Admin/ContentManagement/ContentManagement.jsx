@@ -4,9 +4,13 @@ import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import useAuth from "../../../../Hook/useAuth";
+
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
   const [content, setContent] = useState('');
+  const { user } = useAuth();
+
   const { data: blogs = [], refetch } = useQuery({
     queryKey: ['blog'],
     queryFn: async () => {
@@ -14,17 +18,25 @@ const ContentManagement = () => {
       return res.data;
     },
   });
+  const { data: users } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${user?.email}`);
+      return res.data;
+    },
+  });
+
 
   const filterBlog = blogs.filter(blog => content === '' || blog?.status === content);
 
   const handlePublish = async (id) => {
-    const res = await axiosSecure.patch(`/blog/${id}`, { status: 'published' })
-    console.log(res.data)
+    const res = await axiosSecure.patch(`/blog/${id}`, { status: 'published' });
+    console.log(res.data);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top",
         icon: "success",
-        title: "Successfully Publish",
+        title: "Successfully Published",
         showConfirmButton: false,
         timer: 1500
       });
@@ -33,13 +45,13 @@ const ContentManagement = () => {
   };
 
   const handleUnpublish = async (id) => {
-    const res = await axiosSecure.patch(`/blog/${id}`, { status: 'draft' })
-    console.log(res.data)
+    const res = await axiosSecure.patch(`/blog/${id}`, { status: 'draft' });
+    console.log(res.data);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top",
         icon: "success",
-        title: "Successfully Unpublish",
+        title: "Successfully Unpublished",
         showConfirmButton: false,
         timer: 1500
       });
@@ -48,18 +60,27 @@ const ContentManagement = () => {
   };
 
   const handleDelete = async (id) => {
-    console.log(id)
-    const res = await axiosSecure.delete(`/blog/${id}`)
-    if (res.data.deletedCount > 0) {
-      Swal.fire({
-        position: "top",
-        icon: "success",
-        title: "Successfully blog delete",
-        showConfirmButton: false,
-        timer: 1500
-      });
-      refetch();
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Your blog will be deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/blog/${id}`);
+        if (res.data.deletedCount > 0) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your blog has been deleted.",
+            icon: "success"
+          });
+          refetch();
+        }
+      }
+    });
   };
 
   return (
@@ -77,55 +98,68 @@ const ContentManagement = () => {
       {/* Filter dropdown */}
       <div className="mb-4">
         <select onChange={e => setContent(e.target.value)} className="select select-bordered w-full max-w-xs">
-          <option value="all">All Blogs</option>
+          <option value="">All Blogs</option>
           <option value="draft">Draft</option>
           <option value="published">Published</option>
         </select>
       </div>
+
       {/* Blog list */}
       <div className="overflow-x-auto">
         <table className="table table-zebra">
-          {/* head */}
           <thead>
             <tr>
               <th>#</th>
               <th>Title</th>
               <th>Status</th>
-              <th>Action</th>
+              {
+                users?.role === "Admin" && <th>Action</th>
+              }
             </tr>
           </thead>
           <tbody>
-            {filterBlog.map((blog, idx) => (
-              <tr key={blog._id}>
-                <td>{idx + 1}</td>
-                <td>{blog.title}</td>
-                <td>{blog.status}</td>
-                <td>
-                  {blog.status === "draft" && (
-                    <button
-                      className="btn btn-sm bg-green-400 text-white"
-                      onClick={() => handlePublish(blog._id)}
-                    >
-                      Publish
-                    </button>
-                  )}
-                  {blog.status === "published" && (
-                    <button
-                      className="btn btn-sm bg-red-400 text-white"
-                      onClick={() => handleUnpublish(blog._id)}
-                    >
-                      Unpublish
-                    </button>
-                  )}
-                  <button
-                    className="btn btn-sm bg-red-400 text-white"
-                    onClick={() => handleDelete(blog._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {
+              filterBlog.map((blog, idx) => (
+                <tr key={blog._id}>
+                  <td>{idx + 1}</td>
+                  <td>{blog.title}</td>
+                  <td>{blog.status}</td>
+                  <td>
+                    {/* Only show the Admin */}
+                    {
+                      users?.role === "Admin" && blog.status === "draft" && (
+                        <button
+                          className="btn btn-sm bg-green-400 text-white"
+                          onClick={() => handlePublish(blog._id)}
+                        >
+                          Publish
+                        </button>
+                      )
+                    }
+                    {
+                      users?.role === "Admin" && blog.status === "published" && (
+                        <button
+                          className="btn btn-sm bg-red-400 text-white"
+                          onClick={() => handleUnpublish(blog._id)}
+                        >
+                          Unpublish
+                        </button>
+                      )
+                    }
+                    {
+                      users?.role === "Admin" && (
+                        <button
+                          className="btn btn-sm bg-red-400 text-white"
+                          onClick={() => handleDelete(blog._id)}
+                        >
+                          Delete
+                        </button>
+                      )
+                    }
+                  </td>
+                </tr>
+              ))
+            }
           </tbody>
         </table>
       </div>
