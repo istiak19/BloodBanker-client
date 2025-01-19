@@ -47,10 +47,10 @@ const BloodDonationRequests = () => {
                     }}
                     className="p-2 border rounded-md"
                 >
-                    <option value={1}>1</option>
                     <option value={3}>3</option>
                     <option value={6}>6</option>
                     <option value={9}>9</option>
+                    <option value={12}>12</option>
                 </select>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
