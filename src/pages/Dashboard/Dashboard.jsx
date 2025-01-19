@@ -8,7 +8,7 @@ const Dashboard = () => {
     const [role, isLoading] = useRole()
 
     return (
-        <div className="flex flex-col md:flex-row w-full">
+        <div className="flex flex-col md:flex-row w-11/12 mx-auto">
             {/* Sidebar */}
             <div className="w-full md:w-64 min-h-screen bg-red-400">
                 <ul className="menu p-4">

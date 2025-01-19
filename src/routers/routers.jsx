@@ -23,6 +23,8 @@ import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome/VolunteerH
 import AllBloodDonationV from "../pages/Dashboard/Volunteer/AllBloodDonationV/AllBloodDonationV";
 import AddBlog from "../pages/Dashboard/Admin/AddBlog/AddBlog";
 import Blog from "../pages/Blog/Blog";
+import BlogDetails from '../pages/Blog/BlogDetails'
+import Fund from "../pages/Fund/Fund";
 
 const routers = createBrowserRouter([
     {
@@ -49,6 +51,14 @@ const routers = createBrowserRouter([
             {
                 path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/blog/:id',
+                element: <BlogDetails></BlogDetails>
+            },
+            {
+                path: '/funding',
+                element: <PrivateProvider><Fund></Fund></PrivateProvider>
             },
             {
                 path: '/login',
