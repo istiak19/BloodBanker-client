@@ -23,7 +23,7 @@ const BloodDonationRequests = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {
                     pendingDonations.map(donation => (
-                        <div key={donation._id} className="card shadow-md p-4 border border-gray-200 rounded-lg">
+                        <div key={donation._id} className="card bg-red-100 shadow-md p-4 rounded-lg">
                             <h2 className="font-bold text-lg">Recipient: {donation.recipientName}</h2>
                             <p>Location: {donation.upazila}, {donation.district}</p>
                             <p>Blood Group: {donation.bloodGroup}</p>

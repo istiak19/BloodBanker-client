@@ -16,13 +16,13 @@ const Blog = () => {
     const blogs = data?.filter(blog => blog?.status === 'published');
 
     return (
-        <div className="w-11/12 my-28 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="w-11/12 mt-28 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <Helmet>
                 <title>Blog || BloodBanker</title>
             </Helmet>
             {
                 blogs?.map(blog => (
-                    <div key={blog?._id} className="card shadow-xl border border-red-300">
+                    <div key={blog?._id} className="card bg-red-50 shadow-xl border border-red-300">
                         <figure>
                             <img
                                 src={blog?.photo}

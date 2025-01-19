@@ -55,7 +55,6 @@ const DonationRequestEdit = () => {
         }
         console.log(donation._id)
         const res = await axiosSecure.put(`/donation/${donation._id}`, donationInfo)
-        console.log(res.data)
         if (res.data.modifiedCount > 0) {
             Swal.fire({
                 position: "top",
