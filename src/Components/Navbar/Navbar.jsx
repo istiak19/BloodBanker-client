@@ -87,13 +87,13 @@ const Navbar = () => {
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                         >
                             {
-                                user && isAdmin && <li><Link to='/dashboard/AdminHome'>Dashboard</Link></li>
+                                user && isAdmin && !isDonor && <li><Link to='/dashboard/AdminHome'>Dashboard</Link></li>
                             }
                             {
                                 user && !isAdmin && !isVolunteer && <li><Link to='/dashboard/donorHome'>Dashboard</Link></li>
                             }
                             {
-                                user && !isAdmin && !isDonor && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
+                                user && !isAdmin && !isDonor && isVolunteer && <li><Link to='/dashboard/volunteerHome'>Dashboard</Link></li>
                             }
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>
