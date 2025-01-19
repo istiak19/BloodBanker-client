@@ -25,6 +25,7 @@ import AddBlog from "../pages/Dashboard/Admin/AddBlog/AddBlog";
 import Blog from "../pages/Blog/Blog";
 import BlogDetails from '../pages/Blog/BlogDetails'
 import Fund from "../pages/Fund/Fund";
+import AddFund from "../pages/Fund/AddFund";
 
 const routers = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const routers = createBrowserRouter([
             {
                 path: '/funding',
                 element: <PrivateProvider><Fund></Fund></PrivateProvider>
+            },
+            {
+                path: '/funding/add-fund',
+                element: <PrivateProvider><AddFund></AddFund></PrivateProvider>
             },
             {
                 path: '/login',
