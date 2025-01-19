@@ -5,16 +5,18 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import useAuth from "../../../../Hook/useAuth";
+import usePublic from "../../../../Hook/usePublic";
 
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
+  const axiosPublic=usePublic();
   const [content, setContent] = useState('');
   const { user } = useAuth();
 
   const { data: blogs = [], refetch } = useQuery({
     queryKey: ['blog'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/blog');
+      const res = await axiosPublic.get('/blog');
       return res.data;
     },
   });
