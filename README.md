@@ -3,7 +3,7 @@
 
 ## Description
 
-##### BloodBanker is an online platform designed to connect blood donors and recipients, enabling seamless and efficient blood donation management. It allows users to register as donors, browse available donation campaigns, and get in touch with nearby blood banks or individuals in need. The platform also offers features like user profiles, donation tracking, and volunteer opportunities. Its goal is to make blood donation more accessible, organized, and impactful for communities.
+BloodBanker is an online platform designed to connect blood donors and recipients, enabling seamless and efficient blood donation management. It allows users to register as donors, browse available donation campaigns, and get in touch with nearby blood banks or individuals in need. The platform also offers features like user profiles, donation tracking, and volunteer opportunities. Its goal is to make blood donation more accessible, organized, and impactful for communities.
 
 
 ## Live Website
