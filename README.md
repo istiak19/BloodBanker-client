@@ -1,18 +1,12 @@
-# BloodBanker
+# 🩸 BloodBanker
 
-
-## Description
 
 BloodBanker is an online platform designed to connect blood donors and recipients, enabling seamless and efficient blood donation management. It allows users to register as donors, browse available donation campaigns, and get in touch with nearby blood banks or individuals in need. The platform also offers features like user profiles, donation tracking, and volunteer opportunities. Its goal is to make blood donation more accessible, organized, and impactful for communities.
 
-
-## Live Website
-
-
-- https://bloodbanker-567f0.web.app/
+🔗 Live Website: BloodBanker
 
 
-## Features of my website/project
+📌 Key Features
 
 
 * User Roles: Manage roles for donors, volunteers, and admins with secure access.
@@ -27,5 +21,63 @@ BloodBanker is an online platform designed to connect blood donors and recipient
 * Community Impact: Host events and build awareness to save lives.
 
 
-##### Admin username: istiak12@gmail.com
-##### Admin password: 123456
+📜 Table of Contents
+* Installation
+* Usage
+* Configuration
+* Dependencies
+* Development
+* Contributing
+* License
+
+
+🛠 Tech Stack
+Frontend:
+* React (with React Router & React Query)
+* Tailwind CSS & DaisyUI
+* Firebase (Authentication & Database)
+* Stripe (Payment Processing)
+
+📦 Dependencies
+Key dependencies:
+* Frontend: React, React Router, Tailwind CSS
+* State management: React Query
+* Authentication: Firebase
+* Payment processing: Stripe
+* Forms & validation: React Hook Form
+* UI components: DaisyUI, SweetAlert2
+* SEO: React Helmet Async
+* Full dependency list available in package.json.
+
+
+📥 Installation
+1️⃣ Clone the repository:
+git clone https://github.com/istiak19/BloodBanker-client
+cd bloodbanker
+2️⃣ Install dependencies:
+npm install
+3️⃣ Start the development server:
+npm run dev
+
+
+🎯 Usage Guide
+Donors → Register, track donations, and find nearby recipients.
+Recipients → Search for donors and request blood.
+Admins → Manage users, oversee donation campaigns, and update the blog.
+💡 Make sure to configure Firebase and Stripe API keys in the .env file before running the app.
+
+
+🔧 Configuration
+Firebase Setup → Add Firebase credentials in firebaseConfig.js.
+Stripe Payment → Configure Stripe API keys in .env.
+
+
+🚀 Development Commands
+🔹 Start Development Server:
+npm run dev
+🔹 Build for Production:
+npm run build
+
+
+Admin username: istiak12@gmail.com
+Admin password: 123456
