@@ -11,8 +11,8 @@ const Contact = () => {
             title: "Thank you for reaching out! We will get back to you soon.",
             showConfirmButton: false,
             timer: 1500
-          });
-          e.target.reset()
+        });
+        e.target.reset()
     };
 
     return (

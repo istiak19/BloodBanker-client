@@ -9,11 +9,8 @@ const Navbar = () => {
     const links = (
         <>
             <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold  !bg-transparent" : "text-white")} to='/'>Home</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/search'>Search Donors</NavLink></li>
             <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/bloodDPublic'>Donation requests</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/blog'>Blog</NavLink></li>
-            {
-                user && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent font-semibold" : "text-white")} to='/funding'>Funding</NavLink></li>
-            }
             {
                 user && <>
                     {
@@ -27,6 +24,11 @@ const Navbar = () => {
                     }
                 </>
             }
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/blog'>Blog</NavLink></li>
+            {
+                user && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent font-semibold" : "text-white")} to='/funding'>Funding</NavLink></li>
+            }
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/contact'>Contact</NavLink></li>
         </>
     );
 

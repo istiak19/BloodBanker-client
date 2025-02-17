@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaStar, FaQuoteLeft } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const reviews = [

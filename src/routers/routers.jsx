@@ -25,6 +25,7 @@ import Blog from "../pages/Blog/Blog";
 import BlogDetails from '../pages/Blog/BlogDetails'
 import Fund from "../pages/Fund/Fund";
 import AddFund from "../pages/Fund/AddFund";
+import Contact from "../pages/Contact/Contact";
 
 const routers = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const routers = createBrowserRouter([
             {
                 path: '/funding',
                 element: <PrivateProvider><Fund></Fund></PrivateProvider>
+            },
+            {
+                path: '/contact',
+                element: <Contact></Contact>
             },
             {
                 path: '/funding/add-fund',
