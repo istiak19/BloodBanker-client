@@ -2,7 +2,6 @@ import { Link, NavLink } from 'react-router-dom';
 import logoPic from '../../assets/logo.png';
 import useAuth from '../../Hook/useAuth';
 import useRole from '../../Hook/useRole';
-import Loading from '../Loading/Loading'
 
 const Navbar = () => {
     const { user, signOutUser } = useAuth();

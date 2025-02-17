@@ -43,7 +43,7 @@ const Banner = () => {
                 <SwiperSlide>
                     <Slide
                         image={banner3}
-                        text="Your Donation is Someone's Hope for Tomorrow"
+                        text="Your Donation is Someone Hope for Tomorrow"
                     />
                 </SwiperSlide>
             </Swiper>
