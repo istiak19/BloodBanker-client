@@ -20,7 +20,6 @@ import DonationRequestEdit from '../pages/Dashboard/Donor/DonationRequestEdit/Do
 import BloodDonationRequests from "../pages/BloodDonationRequests/BloodDonationRequests";
 import DetailsPage from "../pages/DetailsPage/DetailsPage";
 import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome/VolunteerHome";
-// import AllBloodDonationV from "../pages/Dashboard/Volunteer/AllBloodDonationV/AllBloodDonationV";
 import AddBlog from "../pages/Dashboard/Admin/AddBlog/AddBlog";
 import Blog from "../pages/Blog/Blog";
 import BlogDetails from '../pages/Blog/BlogDetails'

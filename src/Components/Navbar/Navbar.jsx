@@ -9,16 +9,27 @@ const Navbar = () => {
     const [role, isLoading] = useRole();
     const links = (
         <>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black  !bg-transparent" : "text-white")} to='/'>Home</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/bloodDPublic'>Donation requests</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/blog'>Blog</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold  !bg-transparent" : "text-white")} to='/'>Home</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/bloodDPublic'>Donation requests</NavLink></li>
+            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold !bg-transparent" : "text-white")} to='/blog'>Blog</NavLink></li>
             {
-                user && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent" : "text-white")} to='/funding'>Funding</NavLink></li>
+                user && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent font-semibold" : "text-white")} to='/funding'>Funding</NavLink></li>
+            }
+            {
+                user && <>
+                    {
+                        role === 'Admin' && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent font-semibold" : "text-white")} to='/dashboard/AdminHome'>Dashboard</NavLink></li>
+                    }
+                    {
+                        role === 'donor' && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent font-semibold" : "text-white")} to='/dashboard/donorHome'>Dashboard</NavLink></li>
+                    }
+                    {
+                        role === 'volunteer' && <li><NavLink className={({ isActive }) => (isActive ? "!text-black !bg-transparent font-semibold" : "text-white")} to='/dashboard/volunteerHome'>Dashboard</NavLink></li>
+                    }
+                </>
             }
         </>
     );
-
-    if (isLoading) return <Loading></Loading>
 
     const handleLogOut = () => {
         signOutUser()
@@ -75,6 +86,7 @@ const Navbar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img
+                                    title={user?.displayName}
                                     referrerPolicy='no-referrer'
                                     alt="Profile Avatar"
                                     src={user?.photoURL}
