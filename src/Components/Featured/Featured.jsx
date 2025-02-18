@@ -3,7 +3,7 @@ import { FaHandsHelping, FaHeartbeat, FaUserFriends } from 'react-icons/fa';
 
 const Featured = () => {
     return (
-        <section className="bg-red-100 py-16 px-5">
+        <section className="bg-red-100 py-12 px-5">
             <div className="max-w-6xl mx-auto text-center">
                 <h2 className="text-4xl font-bold text-red-400 mb-6">
                     Why Join Us?
