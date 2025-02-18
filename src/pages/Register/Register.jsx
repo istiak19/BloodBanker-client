@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
+import SocialAuth from "../../Components/shared/SocialAuth";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -208,7 +209,7 @@ const Register = () => {
                                 name="email"
                                 {...register("email")}
                                 required
-                                className="block w-full py-3 text-gray-700 border rounded-lg px-11 dark:border-gray-600 focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
+                                className="block w-full py-3 text-gray-700 border rounded-lg px-11 dark:border-gray-600 border-black focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
                                 placeholder="Email Address"
                             />
                         </div>
@@ -220,7 +221,7 @@ const Register = () => {
                                 name="password"
                                 {...register("password")}
                                 required
-                                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
+                                className="block w-full px-10 py-3 text-gray-700 bg-white border border-black rounded-lg focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
                                 placeholder="Password"
                             />
                         </div>
@@ -231,7 +232,7 @@ const Register = () => {
                                 name="confirmPassword"
                                 {...register("confirmPassword")}
                                 required
-                                className="block w-full px-10 py-3 text-black bg-white border rounded-lg focus:border-black focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
+                                className="block w-full px-10 py-3 text-black border-black bg-white border rounded-lg focus:border-black focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
                                 placeholder="Confirm Password"
                             />
                         </div>
@@ -245,9 +246,11 @@ const Register = () => {
                                 Sign Up
                             </button>
                             <div className="mt-6">
-                                <Link to='/login' className="text-sm text-red-500 hover:underline">
-                                    Already have an account?
-                                </Link>
+                                <div className="divider px-8"></div>
+                                <SocialAuth></SocialAuth>
+                                <p className="py-4">Already have an account? <Link to='/login' className="text-sm text-red-500 hover:underline">
+                                    Login
+                                </Link></p>
                             </div>
                         </div>
                     </form>

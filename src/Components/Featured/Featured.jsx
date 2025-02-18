@@ -14,7 +14,7 @@ const Featured = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/* Feature 1 */}
-                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow">
                         <div className="text-red-400 text-5xl mb-4">
                             <FaHeartbeat />
                         </div>
@@ -25,7 +25,7 @@ const Featured = () => {
                     </div>
 
                     {/* Feature 2 */}
-                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow">
                         <div className="text-red-400 text-5xl mb-4">
                             <FaHandsHelping />
                         </div>
@@ -36,7 +36,7 @@ const Featured = () => {
                     </div>
 
                     {/* Feature 3 */}
-                    <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow">
                         <div className="text-red-400 text-5xl mb-4">
                             <FaUserFriends />
                         </div>

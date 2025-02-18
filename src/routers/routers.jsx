@@ -26,6 +26,7 @@ import BlogDetails from '../pages/Blog/BlogDetails'
 import Fund from "../pages/Fund/Fund";
 import AddFund from "../pages/Fund/AddFund";
 import Contact from "../pages/Contact/Contact";
+import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
 
 const routers = createBrowserRouter([
     {
@@ -91,6 +92,10 @@ const routers = createBrowserRouter([
                         element: <Profile></Profile>
                     },
                     {
+                        path: 'edit-profile',
+                        element: <UpdateProfile></UpdateProfile>
+                    },
+                    {
                         path: 'my-donation-requests',
                         element: <MyDonationRequests></MyDonationRequests>
                     },
@@ -107,6 +112,10 @@ const routers = createBrowserRouter([
                     {
                         path: 'profile',
                         element: <AdminRouter><Profile></Profile></AdminRouter>
+                    },
+                    {
+                        path: 'edit-profile',
+                        element: <UpdateProfile></UpdateProfile>
                     },
                     {
                         path: 'AdminHome',

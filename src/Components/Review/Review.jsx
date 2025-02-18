@@ -67,7 +67,7 @@ const Review = () => {
                 {/* Review Card with Animation */}
                 <motion.div
                     key={reviews[index].id}
-                    className="w-full max-w-md md:max-w-lg mx-auto py-5 bg-white rounded-xl shadow-lg text-center"
+                    className="w-full max-w-md md:max-w-lg mx-auto py-5 bg-white rounded-xl shadow-lg hover:shadow-2xl text-center"
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -100 }}

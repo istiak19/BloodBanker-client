@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from '../../Hook/useAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import SocialAuth from '../../Components/shared/SocialAuth';
 
 const Login = () => {
     const { signin } = useAuth();
@@ -59,7 +60,9 @@ const Login = () => {
                             <button className="btn bg-red-400 hover:bg-red-500 text-white">Login</button>
                         </div>
                     </form>
-                    <p className='px-8 pb-4'>New here? <span className='text-red-400 border-b'><Link to='/register'>Create a New Account</Link></span></p>
+                    <div className="divider px-8"></div>
+                    <SocialAuth></SocialAuth>
+                    <p className='px-8 pt-4 pb-4'>New here? <span className='text-red-400 hover:underline'><Link to='/register'>Create a New Account</Link></span></p>
                 </div>
             </div>
         </div>
