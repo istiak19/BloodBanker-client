@@ -18,7 +18,7 @@ const Blog = () => {
     return (
         <div className="w-11/12 mt-28 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <Helmet>
-                <title>Blog || BloodBanker</title>
+                <title>Blog | BloodBanker</title>
             </Helmet>
             {
                 blogs?.map(blog => (

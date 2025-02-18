@@ -31,7 +31,7 @@ const BloodDonationRequests = () => {
     return (
         <div className="p-5 w-11/12 mx-auto">
             <Helmet>
-                <title>BloodDonation || BloodBanker</title>
+                <title>BloodDonation | BloodBanker</title>
             </Helmet>
             <h1 className="text-2xl font-bold text-center mb-5">Pending Blood Donation Requests</h1>
             <div className="mb-5">

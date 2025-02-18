@@ -59,7 +59,7 @@ const Profile = () => {
     return (
         <div className="max-w-xl mx-auto p-6 bg-red-100 rounded-lg shadow-md">
             <Helmet>
-                <title>Profile || BloodBanker</title>
+                <title>Profile | BloodBanker</title>
             </Helmet>
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-semibold text-gray-800">Profile</h2>

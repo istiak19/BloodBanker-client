@@ -85,7 +85,7 @@ const Register = () => {
     return (
         <div>
             <Helmet>
-                <title>Register || BloodBanker</title>
+                <title>Register | BloodBanker</title>
             </Helmet>
             <section>
                 <div className="container lg:flex items-center justify-center gap-10 min-h-screen px-6 mx-auto">

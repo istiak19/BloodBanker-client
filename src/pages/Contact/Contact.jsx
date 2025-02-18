@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FaPhoneAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
@@ -17,6 +18,9 @@ const Contact = () => {
 
     return (
         <section className="bg-red-100 py-16 px-5">
+            <Helmet>
+                <title>Contact | BloodBanker</title>
+            </Helmet>
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-4xl font-bold text-red-400 text-center mb-6">
                     Contact Us

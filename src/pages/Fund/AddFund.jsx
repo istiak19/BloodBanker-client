@@ -12,7 +12,7 @@ const AddFund = () => {
     return (
         <div className="max-w-2xl border mx-auto bg-red-100 mt-28 text-center pt-4 rounded-lg">
             <Helmet>
-                <title>AddFunding || BloodBanker</title>
+                <title>AddFund | BloodBanker</title>
             </Helmet>
             <h2 className="text-2xl font-bold mb-4 text-center">Give Your Fund</h2>
             <div className="card shadow-lg p-6 rounded-md">

@@ -40,7 +40,7 @@ const MyDonationRequests = () => {
     return (
         <div>
             <Helmet>
-                <title>DonationRequests || BloodBanker</title>
+                <title>DonationRequests | BloodBanker</title>
             </Helmet>
             <div className="mb-5 flex justify-between items-center">
                 <div>

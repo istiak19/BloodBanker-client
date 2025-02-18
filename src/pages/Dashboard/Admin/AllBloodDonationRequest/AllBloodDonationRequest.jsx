@@ -50,7 +50,7 @@ const AllBloodDonationRequest = () => {
     return (
         <div className="p-5">
             <Helmet>
-                <title>AllBloodDonation || BloodBanker</title>
+                <title>AllBloodDonation | BloodBanker</title>
             </Helmet>
             <h2 className="text-2xl font-bold text-center mb-5">All Blood Donation Requests</h2>
             <div className="flex justify-between items-center">

@@ -88,7 +88,7 @@ const ContentManagement = () => {
   return (
     <div>
       <Helmet>
-        <title>Content Management || BloodBanker</title>
+        <title>Content Management | BloodBanker</title>
       </Helmet>
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl font-bold">Content Management</h3>

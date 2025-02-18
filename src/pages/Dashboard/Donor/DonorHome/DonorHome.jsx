@@ -45,7 +45,7 @@ const DonorHome = () => {
     return (
         <div className="max-w-7xl mx-auto p-6 border border-red-300 shadow-md rounded-lg">
             <Helmet>
-                <title>DonorHome || BloodBanker</title>
+                <title>DonorHome | BloodBanker</title>
             </Helmet>
             {/* Welcome Section */}
             <div className="mb-6 text-center">

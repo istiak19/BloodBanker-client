@@ -27,7 +27,7 @@ const Login = () => {
     return (
         <div className="hero min-h-screen">
             <Helmet>
-                <title>Login || BloodBanker</title>
+                <title>Login | BloodBanker</title>
             </Helmet>
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left ml-10">

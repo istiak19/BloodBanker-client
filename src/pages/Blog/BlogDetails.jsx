@@ -16,7 +16,7 @@ const BlogDetails = () => {
     return (
         <div className="max-w-4xl mx-auto mt-28 border rounded-lg">
             <Helmet>
-                <title>BlogDetails || BloodBanker</title>
+                <title>BlogDetails | BloodBanker</title>
             </Helmet>
             <div className="card shadow-xl">
                 <figure>

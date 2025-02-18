@@ -72,7 +72,7 @@ const DonationRequestEdit = () => {
     return (
         <div className="max-w-3xl mx-auto p-6 border border-gray-200 shadow rounded-lg">
             <Helmet>
-                <title>DonationRequestEdit || BloodBanker</title>
+                <title>DonationRequestEdit | BloodBanker</title>
             </Helmet>
             <h2 className="text-2xl font-bold text-center mb-4">Edit Donation Request</h2>
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>

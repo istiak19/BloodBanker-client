@@ -19,7 +19,7 @@ const VolunteerHome = () => {
     return (
         <div>
             <Helmet>
-                <title>VolunteerHome || BloodBanker</title>
+                <title>VolunteerHome | BloodBanker</title>
             </Helmet>
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-700">

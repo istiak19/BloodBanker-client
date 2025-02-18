@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import usePublic from "../../../../Hook/usePublic";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -44,9 +45,12 @@ const AddBlog = () => {
             navigate('/dashboard/content-management')
         }
     }
-    
+
     return (
         <div>
+            <Helmet>
+                <title>AddBlog | BloodBanker</title>
+            </Helmet>
             <h3 className="text-center text-2xl font-bold mb-4">Add Blog</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex justify-between gap-5">

@@ -16,7 +16,7 @@ const Fund = () => {
     return (
         <div className="w-11/12 mx-auto mt-28">
             <Helmet>
-                <title>Funding || BloodBanker</title>
+                <title>Funding | BloodBanker</title>
             </Helmet>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl font-bold">Funds Management</h2>

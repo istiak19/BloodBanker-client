@@ -48,7 +48,7 @@ const Search = () => {
     return (
         <section className="py-[58px] px-5 bg-red-50">
             <Helmet>
-                <title>Search || BloodBanker</title>
+                <title>Search | BloodBanker</title>
             </Helmet>
             <div className="max-w-5xl mx-auto">
                 <h2 className="text-4xl font-bold text-red-400 text-center mb-6">

@@ -75,7 +75,7 @@ const CreateDonation = () => {
     return (
         <div>
             <Helmet>
-                <title>CreateDonation || BloodBanker</title>
+                <title>CreateDonation | BloodBanker</title>
             </Helmet>
             {
                 !isActiveUser ? (

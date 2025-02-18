@@ -8,9 +8,9 @@ const Dashboard = () => {
     const [role, isLoading] = useRole()
 
     return (
-        <div className="flex flex-col md:flex-row w-11/12 mx-auto">
+        <div className="flex flex-col md:flex-row">
             {/* Sidebar */}
-            <div className="w-full md:w-64 min-h-screen bg-red-400">
+            <div className="w-full md:w-64 min-h-screen bg-red-400 pl-5">
                 <ul className="menu p-4">
                     {/* Admin panel */}
                     {
@@ -26,7 +26,6 @@ const Dashboard = () => {
                     }
                 </ul>
             </div>
-
             {/* Main Content */}
             <div className="flex-1 p-4 md:p-10">
                 <Outlet />
