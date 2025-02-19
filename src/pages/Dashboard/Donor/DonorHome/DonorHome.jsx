@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 
 const DonorHome = () => {
-    const { user } = useAuth();
+    const { user, isDarkMode } = useAuth();
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
     const { data: recentDonations, refetch } = useQuery({
@@ -15,12 +15,12 @@ const DonorHome = () => {
             const res = await axiosSecure.get(`/donations/${user?.email}`);
             return res.data;
         }
-    })
+    });
 
     const handleDelete = async (id) => {
         Swal.fire({
             title: "Are you sure?",
-            text: "You donation request delete!",
+            text: "You donation request will be deleted!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -28,8 +28,7 @@ const DonorHome = () => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await axiosSecure.delete(`/donation/${id}`)
-                // console.log(res.data)
+                const res = await axiosSecure.delete(`/donation/${id}`);
                 if (res.data.deletedCount > 0) {
                     Swal.fire({
                         title: "Deleted!",
@@ -40,34 +39,32 @@ const DonorHome = () => {
                 }
             }
         });
-    }
+    };
 
     return (
-        <div className="max-w-7xl mx-auto p-6 border border-red-300 shadow-md rounded-lg">
+        <div className={`max-w-7xl mx-auto p-6 border shadow-md rounded-lg ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-700"}`}>
             <Helmet>
                 <title>DonorHome | BloodBanker</title>
             </Helmet>
-            {/* Welcome Section */}
             <div className="mb-6 text-center">
-                <h2 className="text-2xl font-bold text-gray-700">
+                <h2 className="text-2xl font-bold">
                     Welcome <span className="text-red-400">{user?.displayName}</span>!
                 </h2>
                 <p className="text-gray-500">
                     Here are your recent donation requests.
                 </p>
             </div>
-
             {/* Recent Donation Requests */}
             {
                 recentDonations?.length > 0 ? (
                     <div>
-                        <h3 className="text-xl font-bold text-center text-gray-700 mb-4">
+                        <h3 className="text-xl font-bold text-center mb-4">
                             Recent Donation Requests
                         </h3>
                         <div className="overflow-x-auto">
                             <table className="table table-zebra text-center">
                                 <thead>
-                                    <tr>
+                                    <tr className={`${isDarkMode ? 'text-white' : 'text-black'}`}>
                                         <th>#</th>
                                         <th>Recipient</th>
                                         <th>Location</th>

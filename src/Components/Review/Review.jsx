@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
+import useAuth from "../../Hook/useAuth";
 
 const reviews = [
     {
@@ -8,7 +9,7 @@ const reviews = [
         name: "Mohammad Hasan Ali",
         text: "This platform is very helpful! Finding a blood donor is very easy.",
         rating: 5,
-        image: "https://i.ibb.co.com/p6kWLyMz/fa2e1a8a54983f2f51bf859b6653f53d.jpg"
+        image: "https://randomuser.me/api/portraits/men/10.jpg"
     },
     {
         id: 2,
@@ -49,6 +50,7 @@ const reviews = [
 
 const Review = () => {
     const [index, setIndex] = useState(0);
+    const { isDarkMode } = useAuth();
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -59,21 +61,22 @@ const Review = () => {
     }, []);
 
     return (
-        <section className="pb-12 bg-red-100 text-gray-800">
+        <section className={`${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-red-100 text-gray-800"} pb-12 transition-colors`}>
             <div className="max-w-5xl mx-auto text-center overflow-hidden">
-                <h2 className="text-3xl font-semibold mb-6 text-red-600">
+                <h2 className={`text-3xl font-semibold mb-6 ${isDarkMode ? "text-red-300" : "text-red-600"}`}>
                     What People Say About Us ❤️
                 </h2>
                 {/* Review Card with Animation */}
                 <motion.div
                     key={reviews[index].id}
-                    className="w-full max-w-md md:max-w-lg mx-auto py-5 bg-white rounded-xl shadow-lg hover:shadow-2xl text-center"
+                    className={`w-full max-w-md md:max-w-lg mx-auto py-5 rounded-xl shadow-lg hover:shadow-2xl text-center transition-colors ${isDarkMode ? "bg-gray-800 text-gray-300" : "bg-white text-gray-900"
+                        }`}
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -100 }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                 >
-                    <p className="text-gray-700 italic">"{reviews[index].text}"</p>
+                    <p className="italic">"{reviews[index].text}"</p>
                     <div className="flex justify-center mt-3">
                         {
                             Array(reviews[index].rating)

@@ -4,8 +4,10 @@ import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { HiDotsVertical } from "react-icons/hi";
+import useAuth from "../../../../Hook/useAuth";
 
 const AllUsersPage = () => {
+    const { isDarkMode } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [filterStatus, setFilterStatus] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -94,26 +96,26 @@ const AllUsersPage = () => {
     };
 
     return (
-        <div className="p-5">
+        <div className={`p-5 ${isDarkMode ? "bg-gray-800 text-white" : "bg-red-50 text-gray-800"}`}>
             <Helmet>
                 <title>AllUsers || BloodBanker</title>
             </Helmet>
             <h2 className="text-2xl font-bold mb-5 text-center">All Users Page</h2>
             <div className="mb-4 flex gap-4">
                 <button
-                    className={`px-4 py-2 rounded ${filterStatus === "" ? "bg-red-400 text-white" : "bg-gray-200"}`}
+                    className={`px-4 py-2 rounded ${filterStatus === "" ? "bg-red-500 text-white" : "bg-red-300"}`}
                     onClick={() => setFilterStatus("")}
                 >
                     All
                 </button>
                 <button
-                    className={`px-4 py-2 rounded ${filterStatus === "active" ? "bg-red-400 text-white" : "bg-gray-200"}`}
+                    className={`px-4 py-2 rounded ${filterStatus === "active" ? "bg-red-500 text-white" : "bg-red-300"}`}
                     onClick={() => setFilterStatus("active")}
                 >
                     Active
                 </button>
                 <button
-                    className={`px-4 py-2 rounded ${filterStatus === "blocked" ? "bg-red-400 text-white" : "bg-gray-200"}`}
+                    className={`px-4 py-2 rounded ${filterStatus === "blocked" ? "bg-red-500 text-white" : "bg-red-300"}`}
                     onClick={() => setFilterStatus("blocked")}
                 >
                     Blocked
@@ -124,7 +126,7 @@ const AllUsersPage = () => {
                 <select
                     value={itemsPerPage}
                     onChange={handleItemsPerPageChange}
-                    className="p-2 border border-gray-300 rounded"
+                    className={`p-2 border border-gray-300 rounded ${isDarkMode ? "bg-gray-800 text-white" : "bg-red-50 text-gray-800"}`}
                 >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
@@ -136,7 +138,7 @@ const AllUsersPage = () => {
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse border border-gray-200">
                     <thead>
-                        <tr className="bg-gray-100">
+                        <tr className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
                             <th className="border p-3">Avatar</th>
                             <th className="border p-3">Email</th>
                             <th className="border p-3">Name</th>
@@ -148,7 +150,7 @@ const AllUsersPage = () => {
                     <tbody>
                         {
                             paginatedUsers.map((user) => (
-                                <tr key={user._id}>
+                                <tr key={user._id} className={`${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
                                     <td className="border p-3 text-center">
                                         <img
                                             src={user?.photo || "N/A"}
@@ -162,10 +164,13 @@ const AllUsersPage = () => {
                                     <td className="border p-3 capitalize">{user?.status}</td>
                                     <td className="border p-3 text-center relative">
                                         <div className="relative group inline-block">
-                                            <button className="p-2 bg-gray-300 rounded-full hover:bg-gray-400">
-                                                <HiDotsVertical size={20} />
+                                            <button className={`p-2 rounded-full ${isDarkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-300 hover:bg-gray-400"}`}>
+                                                <HiDotsVertical
+                                                    size={20}
+                                                    className={`${isDarkMode ? "text-white" : "text-gray-800"}`}
+                                                />
                                             </button>
-                                            <div className="absolute hidden group-hover:block z-10 bg-white shadow-md rounded py-2 w-48 right-0">
+                                            <div className={`absolute hidden group-hover:block z-10 ${isDarkMode ? 'bg-gray-700 text-white' : 'bg-red-200 text-black'} shadow-md rounded py-2 w-48 right-0`}>
                                                 {user?.status === "active" && (
                                                     <button
                                                         className="block w-full text-left px-4 py-2 hover:bg-gray-200"
@@ -207,7 +212,6 @@ const AllUsersPage = () => {
                     </tbody>
                 </table>
             </div>
-
             {/* Pagination */}
             <div className="flex justify-center mt-5">
                 <div className="flex gap-2">

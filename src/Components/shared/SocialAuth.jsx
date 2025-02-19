@@ -35,7 +35,7 @@ const SocialAuth = () => {
 
     return (
         <div className="flex justify-center items-center">
-            <button onClick={handleGoogle} className={`${isDarkMode ? 'bg-[#1D232A] text-white' : 'bg-white text-gray-800'} btn border border-red-400 rounded-full px-10 hover:bg-red-400 hover:text-white`}><FaGoogle></FaGoogle>Continue with Google</button>
+            <button onClick={handleGoogle} className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-red-50 text-gray-800'} btn border border-red-400 rounded-full px-10 hover:bg-red-400 hover:text-white`}><FaGoogle></FaGoogle>Continue with Google</button>
         </div>
     );
 };

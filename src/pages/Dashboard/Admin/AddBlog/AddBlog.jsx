@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,52 +6,59 @@ import usePublic from "../../../../Hook/usePublic";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../../../Hook/useAuth";
 
 const image_key = import.meta.env.VITE_IMAGE;
-const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
+const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`;
 
 const AddBlog = () => {
+    const { isDarkMode } = useAuth();
     const [content, setContent] = useState("");
     const editor = useRef(null);
     const axiosPublic = usePublic();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
+
     const stripHtmlTags = (html) => {
         const doc = new DOMParser().parseFromString(html, "text/html");
         return doc.body.textContent || "";
     };
+
     const plainTextContent = stripHtmlTags(content);
     const { register, handleSubmit, reset } = useForm();
+
     const onSubmit = async (data) => {
         const formData = new FormData();
         formData.append("image", data.photo[0]);
         const res = await axiosPublic.post(image_api, formData);
+
         const blogInfo = {
             title: data.title,
             photo: res.data.data.url,
             content: plainTextContent,
             status: 'draft'
         };
+
         const blogRes = await axiosSecure.post('/blog', blogInfo);
         if (blogRes.data.insertedId) {
             Swal.fire({
                 position: "top",
                 icon: "success",
-                title: "Blog create successfully!",
+                title: "Blog created successfully!",
                 showConfirmButton: false,
                 timer: 1500
             });
             reset();
-            navigate('/dashboard/content-management')
+            navigate('/dashboard/content-management');
         }
-    }
+    };
 
     return (
-        <div>
+        <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-50 text-gray-800'} p-5`}>
             <Helmet>
                 <title>AddBlog | BloodBanker</title>
             </Helmet>
-            <h3 className="text-center text-2xl font-bold mb-4">Add Blog</h3>
+            <h3 className="text-center text-2xl font-bold pb-4">Add Blog</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex justify-between gap-5">
                     <div className="form-control w-full">
@@ -62,7 +69,7 @@ const AddBlog = () => {
                             type="text"
                             name="title"
                             {...register("title")}
-                            className="input input-bordered"
+                            className={`input input-bordered w-full ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-white text-gray-900'}`}
                             required
                         />
                     </div>
@@ -74,10 +81,7 @@ const AddBlog = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                             </svg>
-                            <input type="file"
-                                name="photo"
-                                {...register("photo")}
-                                id="photo" />
+                            <input type="file" name="photo" {...register("photo")} id="photo" />
                         </label>
                     </div>
                 </div>
@@ -91,7 +95,7 @@ const AddBlog = () => {
                         onChange={newContent => { }}
                     />
                 </div>
-                <button type="submit" className="btn bg-red-400 text-white mt-4">
+                <button type="submit" className={`btn ${isDarkMode ? 'bg-red-400 text-white' : 'bg-red-500 text-white'} mt-4`}>
                     Create Blog
                 </button>
             </form>

@@ -2,9 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
+import useAuth from "../../Hook/useAuth";
 
 const Fund = () => {
     const axiosSecure = useAxiosSecure();
+    const { isDarkMode } = useAuth();
     const { data: funds = [] } = useQuery({
         queryKey: ["funds"],
         queryFn: async () => {
@@ -14,7 +16,7 @@ const Fund = () => {
     });
 
     return (
-        <div className="w-11/12 mx-auto mt-28">
+        <div className={`px-56 pb-10 pt-16 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-white text-gray-800'}`}>
             <Helmet>
                 <title>Funding | BloodBanker</title>
             </Helmet>
@@ -25,13 +27,14 @@ const Fund = () => {
                 </Link>
             </div>
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+                <table className={`table w-full ${isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-800'}`}>
+                    {/* head */}
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Fund Name</th>
-                            <th>Fund Amount</th>
-                            <th>Funding Date</th>
+                            <th className={`${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>#</th>
+                            <th className={`${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>Fund Name</th>
+                            <th className={`${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>Fund Amount</th>
+                            <th className={`${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>Funding Date</th>
                         </tr>
                     </thead>
                     <tbody>

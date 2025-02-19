@@ -9,9 +9,9 @@ import usePublic from "../../../../Hook/usePublic";
 
 const ContentManagement = () => {
   const axiosSecure = useAxiosSecure();
-  const axiosPublic=usePublic();
+  const axiosPublic = usePublic();
   const [content, setContent] = useState('');
-  const { user } = useAuth();
+  const { user, isDarkMode } = useAuth();
 
   const { data: blogs = [], refetch } = useQuery({
     queryKey: ['blog'],
@@ -20,6 +20,7 @@ const ContentManagement = () => {
       return res.data;
     },
   });
+
   const { data: users } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
@@ -28,12 +29,10 @@ const ContentManagement = () => {
     },
   });
 
-
   const filterBlog = blogs.filter(blog => content === '' || blog?.status === content);
 
   const handlePublish = async (id) => {
     const res = await axiosSecure.patch(`/blog/${id}`, { status: 'published' });
-    // console.log(res.data);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top",
@@ -48,7 +47,6 @@ const ContentManagement = () => {
 
   const handleUnpublish = async (id) => {
     const res = await axiosSecure.patch(`/blog/${id}`, { status: 'draft' });
-    // console.log(res.data);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         position: "top",
@@ -86,7 +84,7 @@ const ContentManagement = () => {
   };
 
   return (
-    <div>
+    <div className={isDarkMode ? "bg-gray-900 text-white" : "bg-red-50 text-gray-900"}>
       <Helmet>
         <title>Content Management | BloodBanker</title>
       </Helmet>
@@ -99,25 +97,23 @@ const ContentManagement = () => {
 
       {/* Filter dropdown */}
       <div className="mb-4">
-        <select onChange={e => setContent(e.target.value)} className="select select-bordered w-full max-w-xs">
+        <select onChange={e => setContent(e.target.value)} className={`select select-bordered w-full max-w-xs ${isDarkMode ? "bg-gray-900" : "bg-red-50"}`}>
           <option value="">All Blogs</option>
           <option value="draft">Draft</option>
           <option value="published">Published</option>
         </select>
       </div>
-
       {/* Blog list */}
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Status</th>
-              {
-                users?.role === "Admin" && <th>Action</th>
-              }
-            </tr>
+        <table className="table">
+          {/* head */}
+          <thead className={`${isDarkMode ? 'text-white' : 'text-black'}`}>
+            <th>#</th>
+            <th>Title</th>
+            <th>Status</th>
+            {
+              users?.role === "Admin" && <th>Action</th>
+            }
           </thead>
           <tbody>
             {
@@ -126,12 +122,12 @@ const ContentManagement = () => {
                   <td>{idx + 1}</td>
                   <td>{blog.title}</td>
                   <td>{blog.status}</td>
-                  <td>
+                  <td className="space-x-2">
                     {/* Only show the Admin */}
                     {
                       users?.role === "Admin" && blog.status === "draft" && (
                         <button
-                          className="btn btn-sm bg-green-400 text-white"
+                          className={`btn btn-sm ${isDarkMode ? "bg-green-600 hover:bg-green-500" : "bg-green-400 hover:bg-green-300"} text-white`}
                           onClick={() => handlePublish(blog._id)}
                         >
                           Publish
@@ -141,7 +137,7 @@ const ContentManagement = () => {
                     {
                       users?.role === "Admin" && blog.status === "published" && (
                         <button
-                          className="btn btn-sm bg-red-400 text-white"
+                          className={`btn btn-sm ${isDarkMode ? "bg-red-600 hover:bg-red-500" : "bg-red-400 hover:bg-red-300"} text-white`}
                           onClick={() => handleUnpublish(blog._id)}
                         >
                           Unpublish
@@ -151,7 +147,7 @@ const ContentManagement = () => {
                     {
                       users?.role === "Admin" && (
                         <button
-                          className="btn btn-sm bg-red-400 text-white"
+                          className={`btn btn-sm ${isDarkMode ? "bg-red-600 hover:bg-red-500" : "bg-red-400 hover:bg-red-300"} text-white`}
                           onClick={() => handleDelete(blog._id)}
                         >
                           Delete

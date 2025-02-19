@@ -9,7 +9,12 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(false);
     const axiosPublic = usePublic();
+
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+    };
 
     const signup = (email, password) => {
         setLoading(true)
@@ -62,6 +67,8 @@ const AuthProvider = ({ children }) => {
         googleSign,
         updateProfileUser,
         signOutUser,
+        toggleTheme,
+        isDarkMode
     }
 
     return (

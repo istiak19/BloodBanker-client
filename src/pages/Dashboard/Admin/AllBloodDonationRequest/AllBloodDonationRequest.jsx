@@ -3,9 +3,11 @@ import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../../../Hook/useAuth";
 
 const AllBloodDonationRequest = () => {
     const axiosSecure = useAxiosSecure();
+    const { isDarkMode } = useAuth();
     const [filter, setFilter] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -17,7 +19,6 @@ const AllBloodDonationRequest = () => {
             return res.data;
         }
     });
-
 
     const filteredDonations = donations.filter(donation =>
         filter === "" || donation?.status === filter
@@ -48,21 +49,21 @@ const AllBloodDonationRequest = () => {
     };
 
     return (
-        <div className="p-5">
+        <div className={`p-5 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
             <Helmet>
                 <title>AllBloodDonation | BloodBanker</title>
             </Helmet>
             <h2 className="text-2xl font-bold text-center mb-5">All Blood Donation Requests</h2>
             <div className="flex justify-between items-center">
                 <div className="mb-5">
-                    <label htmlFor="filter" className="text-gray-700 font-medium mb-2 mr-5">
+                    <label htmlFor="filter" className={`font-medium mb-2 mr-5 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
                         Filter by Status
                     </label>
                     <select
                         id="filter"
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
-                        className="p-3 border rounded-md"
+                        className={`p-3 border rounded-md ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100'}`}
                     >
                         <option value="">All</option>
                         <option value="pending">Pending</option>
@@ -72,7 +73,7 @@ const AllBloodDonationRequest = () => {
                     </select>
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="itemsPerPage" className="font-medium text-gray-700 mr-3">
+                    <label htmlFor="itemsPerPage" className={`font-medium mr-3 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
                         Items Per Page:
                     </label>
                     <select
@@ -82,7 +83,7 @@ const AllBloodDonationRequest = () => {
                             setItemsPerPage(Number(e.target.value));
                             setCurrentPage(1);
                         }}
-                        className="p-2 border rounded-md"
+                        className={`p-2 border rounded-md ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100'}`}
                     >
                         <option value={3}>3</option>
                         <option value={6}>6</option>
@@ -96,7 +97,7 @@ const AllBloodDonationRequest = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {
                     paginatedDonations.map(donation => (
-                        <div key={donation._id} className="card shadow-md">
+                        <div key={donation._id} className={`card shadow-md hover:shadow-xl ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
                             <div className="card-body">
                                 <h2 className="card-title">Recipient: {donation?.recipientName}</h2>
                                 <p>Blood Group: {donation?.bloodGroup}</p>
@@ -106,22 +107,26 @@ const AllBloodDonationRequest = () => {
                                 <p>Location: {donation?.upazila}, {donation?.district}</p>
                             </div>
                             <div className="card-footer mb-5 flex justify-evenly space-x-3">
-                                {donation?.status !== "done" && (
-                                    <button
-                                        className="px-4 py-2 bg-red-400 text-white rounded hover:bg-red-600"
-                                        onClick={() => updateRequestStatus(donation._id, "done")}
-                                    >
-                                        Mark as Done
-                                    </button>
-                                )}
-                                {donation?.status !== "canceled" && (
-                                    <button
-                                        className="px-4 py-2 bg-red-400 text-white rounded hover:bg-red-600"
-                                        onClick={() => updateRequestStatus(donation._id, "canceled")}
-                                    >
-                                        Cancel
-                                    </button>
-                                )}
+                                {
+                                    donation?.status !== "done" && (
+                                        <button
+                                            className={`px-4 py-2 rounded ${isDarkMode ? 'bg-red-600 hover:bg-red-500' : 'bg-red-400 hover:bg-red-600'} text-white`}
+                                            onClick={() => updateRequestStatus(donation._id, "done")}
+                                        >
+                                            Mark as Done
+                                        </button>
+                                    )
+                                }
+                                {
+                                    donation?.status !== "canceled" && (
+                                        <button
+                                            className={`px-4 py-2 rounded ${isDarkMode ? 'bg-red-600 hover:bg-red-500' : 'bg-red-400 hover:bg-red-600'} text-white`}
+                                            onClick={() => updateRequestStatus(donation._id, "canceled")}
+                                        >
+                                            Cancel
+                                        </button>
+                                    )
+                                }
                             </div>
                         </div>
                     ))
@@ -136,18 +141,15 @@ const AllBloodDonationRequest = () => {
             </div>
             <div className="flex justify-center mt-5">
                 <div className="flex gap-2">
-                    {
-                        Array.from({ length: totalPages }, (_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => handlePageChange(i + 1)}
-                                className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? "bg-red-400 text-white" : "bg-white text-red-400"
-                                    }`}
-                            >
-                                {i + 1}
-                            </button>
-                        ))
-                    }
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => handlePageChange(i + 1)}
+                            className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? 'bg-red-400 text-white' : (isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-red-400')}`}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
                 </div>
             </div>
         </div>

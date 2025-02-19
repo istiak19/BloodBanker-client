@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 
 const MyDonationRequests = () => {
-    const { user } = useAuth();
+    const { user, isDarkMode } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [filter, setFilter] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +18,7 @@ const MyDonationRequests = () => {
             return res.data;
         },
     });
+
     const filteredDonations = donations.filter(
         (donation) => filter === "" || donation?.status === filter
     );
@@ -28,7 +29,7 @@ const MyDonationRequests = () => {
         currentPage * itemsPerPage
     );
 
-    const F = (pageNumber) => {
+    const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
@@ -38,13 +39,13 @@ const MyDonationRequests = () => {
     };
 
     return (
-        <div>
+        <div className={`${isDarkMode ? "bg-gray-900 text-white" : "bg-red-50 text-black"}`}>
             <Helmet>
                 <title>DonationRequests | BloodBanker</title>
             </Helmet>
             <div className="mb-5 flex justify-between items-center">
                 <div>
-                    <label htmlFor="filter" className="text-gray-700 font-medium mr-3">
+                    <label htmlFor="filter" className="font-medium mr-3">
                         Filter by Status
                     </label>
                     <select
@@ -54,7 +55,7 @@ const MyDonationRequests = () => {
                             setFilter(e.target.value);
                             setCurrentPage(1);
                         }}
-                        className="p-2 border rounded-md"
+                        className={`p-2 border rounded-md ${isDarkMode?'bg-gray-800':'bg-red-50'}`}
                     >
                         <option value="">All</option>
                         <option value="pending">Pending</option>
@@ -64,14 +65,14 @@ const MyDonationRequests = () => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="rowsPerPage" className="text-gray-700 font-medium mr-3">
+                    <label htmlFor="rowsPerPage" className="font-medium mr-3">
                         Rows Per Page
                     </label>
                     <select
                         id="rowsPerPage"
                         value={itemsPerPage}
                         onChange={handleItemsPerPageChange}
-                        className="p-2 border rounded-md"
+                        className={`p-2 border rounded-md ${isDarkMode?'bg-gray-800':'bg-red-50'}`}
                     >
                         <option value={3}>3</option>
                         <option value={5}>5</option>
@@ -81,9 +82,9 @@ const MyDonationRequests = () => {
                 </div>
             </div>
             <div className="overflow-x-auto">
-                <table className="table-auto w-full border-collapse border border-gray-300">
+                <table className={`table-auto w-full border-collapse ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
                     <thead>
-                        <tr className="bg-gray-100 text-left">
+                        <tr className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} text-left`}>
                             <th className="border border-gray-300 px-4 py-2">Recipient</th>
                             <th className="border border-gray-300 px-4 py-2">Blood Group</th>
                             <th className="border border-gray-300 px-4 py-2">Date</th>
@@ -135,8 +136,7 @@ const MyDonationRequests = () => {
                             <button
                                 key={i}
                                 onClick={() => handlePageChange(i + 1)}
-                                className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? "bg-red-400 text-white" : "bg-white text-red-500"
-                                    }`}
+                                className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? "bg-red-400 text-white" : "bg-white text-red-500"}`}
                             >
                                 {i + 1}
                             </button>

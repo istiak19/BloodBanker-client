@@ -2,9 +2,10 @@ import { Link, NavLink } from 'react-router-dom';
 import logoPic from '../../assets/logo.png';
 import useAuth from '../../Hook/useAuth';
 import useRole from '../../Hook/useRole';
+import { MdLightMode, MdOutlineDarkMode } from 'react-icons/md';
 
 const Navbar = () => {
-    const { user, signOutUser } = useAuth();
+    const { user, signOutUser, isDarkMode, toggleTheme } = useAuth();
     const [role, isLoading] = useRole();
     const links = (
         <>
@@ -64,7 +65,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                        className={`menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow ${isDarkMode ? "bg-gray-800 text-white" : "bg-base-100 text-gray-900"}`}
                     >
                         {links}
                     </ul>
@@ -82,6 +83,12 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+                <button
+                    onClick={toggleTheme}
+                    className="btn btn-ghost text-gray-600 text-3xl ml-3"
+                >
+                    {isDarkMode ? <MdOutlineDarkMode /> : <MdLightMode />}
+                </button>
                 {
                     user ? <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -96,7 +103,7 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                            className={`menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"}`}
                         >
                             {
                                 user && <>
@@ -113,7 +120,7 @@ const Navbar = () => {
                             }
                             <li><button onClick={handleLogOut}>Logout</button></li>
                         </ul>
-                    </div> : <Link to='/login' className="btn bg-transparent">Login</Link>
+                    </div> : <Link to='/login' className="btn bg-transparent text-white">Login</Link>
                 }
             </div>
         </div>

@@ -120,7 +120,7 @@ const CheckForm = ({ amount }) => {
             />
             <button
                 type="submit"
-                className="btn bg-red-400 mt-4"
+                className="btn bg-red-400 mt-4 text-white"
                 disabled={!stripe || !clientSecret}
             >
                 Pay ${amount}

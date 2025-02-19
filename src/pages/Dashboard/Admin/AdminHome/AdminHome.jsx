@@ -6,7 +6,7 @@ import { RiRefund2Line } from "react-icons/ri";
 import { Helmet } from "react-helmet-async";
 
 const AdminHome = () => {
-    const { user } = useAuth();
+    const { user, isDarkMode } = useAuth();
     const axiosSecure = useAxiosSecure();
     const { data: stats = {} } = useQuery({
         queryKey: ['states'],
@@ -17,7 +17,7 @@ const AdminHome = () => {
     });
 
     return (
-        <div>
+        <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-50 text-gray-800'}`}>
             <Helmet>
                 <title>AdminHome | BloodBanker</title>
             </Helmet>
@@ -28,7 +28,7 @@ const AdminHome = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <div className="bg-white shadow-lg rounded-lg p-5 border border-red-300">
+                <div className={`${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white'} shadow-lg hover:shadow-2xl rounded-lg p-5 border border-red-300`}>
                     <div className="flex items-center space-x-4">
                         <div className="p-3 bg-red-100 rounded-full">
                             <FaUsers className="text-red-500 text-2xl" />
@@ -39,7 +39,7 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-white shadow-lg rounded-lg p-5 border border-red-300">
+                <div className={`${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white'} shadow-lg hover:shadow-2xl rounded-lg p-5 border border-red-300`}>
                     <div className="flex items-center space-x-4">
                         <div className="p-3 bg-green-100 rounded-full">
                             <FaHandHoldingHeart className="text-green-500 text-2xl" />
@@ -50,7 +50,7 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-white shadow-lg rounded-lg p-5 border border-red-300">
+                <div className={`${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white'} shadow-lg hover:shadow-2xl rounded-lg p-5 border border-red-300`}>
                     <div className="flex items-center space-x-4">
                         <div className="p-3 bg-blue-100 rounded-full">
                             <RiRefund2Line className="text-blue-500 text-2xl" />
