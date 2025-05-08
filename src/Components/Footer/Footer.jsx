@@ -4,14 +4,14 @@ import logoPic from '../../assets/logo.png';
 export default function Footer() {
     return (
         <footer className="bg-red-400 *:text-white pt-12 pb-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full mx-auto px-4 sm:px-6 lg:px-12">
                 {/* Grid Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
                     {/* Logo & Tagline */}
                     <div>
                         <div className="flex items-center gap-3">
                             <img
-                                src={logoPic} // Update your logo path
+                                src={logoPic}
                                 alt="BloodBanker Logo"
                                 className="w-10 h-10"
                             />
