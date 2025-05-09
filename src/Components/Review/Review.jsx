@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import useAuth from "../../Hook/useAuth";
 
 const reviews = [
@@ -55,44 +55,58 @@ const Review = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-        }, 3000);
-
+        }, 4000);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <section className={`${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-red-100 text-gray-800"} pb-12 transition-colors`}>
-            <div className="max-w-5xl mx-auto text-center overflow-hidden">
-                <h2 className={`text-3xl font-semibold mb-6 ${isDarkMode ? "text-red-300" : "text-red-600"}`}>
-                    What People Say About Us ❤️
-                </h2>
-                {/* Review Card with Animation */}
-                <motion.div
-                    key={reviews[index].id}
-                    className={`w-full max-w-md md:max-w-lg mx-auto py-5 rounded-xl shadow-lg hover:shadow-2xl text-center transition-colors ${isDarkMode ? "bg-gray-800 text-gray-300" : "bg-white text-gray-900"
-                        }`}
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -100 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                >
-                    <p className="italic">"{reviews[index].text}"</p>
-                    <div className="flex justify-center mt-3">
-                        {
-                            Array(reviews[index].rating)
-                                .fill()
-                                .map((_, idx) => (
-                                    <FaStar key={idx} className="text-yellow-500 text-xl" />
-                                ))
-                        }
+        <section className={`${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-red-50 text-gray-800"} py-20 px-6 md:px-10 transition-colors`}>
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+
+                {/* Left Content */}
+                <div className="text-center md:text-left">
+                    <p className="text-red-600 font-semibold uppercase tracking-wider mb-3">Testimonial</p>
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-5 leading-tight">
+                        Heartfelt Stories
+                    </h2>
+                    <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-8 leading-relaxed`}>
+                        BloodBanker has saved countless lives by connecting donors with patients in need. Discover the experiences shared by our wonderful community.
+                    </p>
+                    <div className="flex justify-center md:justify-start">
+                        <button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300">
+                            View More
+                        </button>
                     </div>
-                    <img
-                        src={reviews[index].image}
-                        alt={reviews[index].name}
-                        className="w-16 h-16 rounded-full mx-auto mt-4 border-2 border-red-400"
-                    />
-                    <h3 className="mt-2 font-semibold">{reviews[index].name}</h3>
-                </motion.div>
+                </div>
+
+                {/* Review Card with Animation */}
+                <div className="md:col-span-2 flex justify-center">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={reviews[index].id}
+                            className={`w-full max-w-xl p-8 rounded-xl shadow-2xl border-t-4 ${isDarkMode ? "bg-gradient-to-br from-gray-800 to-gray-700 border-red-500" : "bg-gradient-to-br from-white to-red-100 border-red-600"} text-center transition-all`}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <p className="italic text-lg mb-4">"{reviews[index].text}"</p>
+                            <div className="flex justify-center mb-4">
+                                {
+                                    Array.from({ length: reviews[index].rating }).map((_, idx) => (
+                                        <FaStar key={idx} className="text-yellow-400 text-xl" />
+                                    ))
+                                }
+                            </div>
+                            <img
+                                src={reviews[index].image}
+                                alt={reviews[index].name}
+                                className="w-20 h-20 rounded-full mx-auto mt-2 border-4 border-red-400 object-cover"
+                            />
+                            <h3 className="mt-4 text-xl font-semibold">{reviews[index].name}</h3>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
             </div>
         </section>
     );
