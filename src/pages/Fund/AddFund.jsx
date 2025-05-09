@@ -12,33 +12,42 @@ const AddFund = () => {
     const { isDarkMode } = useAuth();
 
     return (
-        <div className={`px-80 border py-10 text-center rounded-lg 
-            ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-50 text-gray-800'}`}>
+        <div className={`min-h-screen flex items-center justify-center py-10 px-4 
+            ${isDarkMode ? 'bg-gray-900 text-gray-100' : 'bg-gradient-to-r from-pink-100 to-red-200 text-gray-800'}`}>
             <Helmet>
-                <title>AddFund | BloodBanker</title>
+                <title>Add Fund | BloodBanker</title>
             </Helmet>
-            <h2 className="text-2xl font-bold mb-4">Give Your Fund</h2>
-            <div className={`card shadow-lg p-6 rounded-md 
-                ${isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-red-100 text-gray-800'}`}>
-                <form>
-                    <div className="mb-4">
-                        <label htmlFor="amount" className="block text-lg font-semibold mb-2">
-                            Enter Fund Amount:
-                        </label>
-                        <input
-                            type="number"
-                            id="amount"
-                            name="amount"
-                            onChange={(e) => setAmount(e.target.value)}
-                            placeholder="Enter amount in USD"
-                            className={`input input-bordered w-full max-w-sm 
-                                ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-white text-gray-900'}`}
-                        />
-                    </div>
-                </form>
-                <Elements stripe={stripePromise}>
-                    <CheckForm amount={amount}></CheckForm>
-                </Elements>
+
+            <div className={`w-full max-w-2xl p-8 rounded-2xl shadow-2xl 
+                ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+
+                <h2 className="text-3xl font-bold text-center mb-8">Support Our Mission</h2>
+
+                {/* Amount Input */}
+                <div className="mb-6">
+                    <label htmlFor="amount" className="block text-lg font-semibold mb-2">
+                        Enter Fund Amount (USD):
+                    </label>
+                    <input
+                        type="number"
+                        id="amount"
+                        name="amount"
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="e.g. 50"
+                        className={`w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 
+                            ${isDarkMode
+                                ? 'bg-gray-700 border-gray-600 focus:ring-pink-500 text-gray-200'
+                                : 'bg-gray-100 border-gray-300 focus:ring-red-400 text-gray-900'
+                            }`}
+                    />
+                </div>
+
+                {/* Stripe Payment Form */}
+                <div className="pt-4">
+                    <Elements stripe={stripePromise}>
+                        <CheckForm amount={amount} />
+                    </Elements>
+                </div>
             </div>
         </div>
     );

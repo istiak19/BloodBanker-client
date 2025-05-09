@@ -46,7 +46,6 @@ const CheckForm = ({ amount }) => {
 
         setError("");
 
-
         const { error: paymentError, paymentMethod } = await stripe.createPaymentMethod({
             type: "card",
             card,
@@ -78,7 +77,7 @@ const CheckForm = ({ amount }) => {
                 name: user?.displayName,
                 email: user?.email,
                 date: new Date(),
-                amount
+                amount,
             };
 
             axiosSecure.post("/payments", paymentData)
@@ -89,7 +88,7 @@ const CheckForm = ({ amount }) => {
                             icon: "success",
                             title: "Payment successful!",
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1500,
                         });
                         navigate("/funding");
                     }
@@ -101,33 +100,42 @@ const CheckForm = ({ amount }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mt-4">
-            <CardElement
-                options={{
-                    style: {
-                        base: {
-                            fontSize: "16px",
-                            color: "#424770",
-                            "::placeholder": {
-                                color: "#aab7c4",
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6 border-dashed border border-red-400">
+            <h3 className="text-xl font-semibold text-center">Complete Your Donation</h3>
+
+            {/* Card Input */}
+            <div className="p-4 bg-gray-50 rounded-md shadow-sm">
+                <CardElement
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: "16px",
+                                color: "#424770",
+                                "::placeholder": {
+                                    color: "#aab7c4",
+                                },
+                            },
+                            invalid: {
+                                color: "#9e2146",
                             },
                         },
-                        invalid: {
-                            color: "#9e2146",
-                        },
-                    },
-                }}
-            />
+                    }}
+                />
+            </div>
+
+            {/* Pay Button */}
             <button
                 type="submit"
-                className="btn bg-red-400 mt-4 text-white"
+                className="w-full px-6 py-3 rounded-md bg-gradient-to-r from-pink-500 to-red-400 text-white font-semibold shadow-md hover:from-red-400 hover:to-pink-500 transition-all duration-300 border-white border"
                 disabled={!stripe || !clientSecret}
             >
                 Pay ${amount}
             </button>
-            {error && <p className="text-red-500 mt-2">{error}</p>}
+
+            {/* Error and Transaction ID */}
+            {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
             {transaction && (
-                <p className="text-green-500 mt-2">Transaction ID: {transaction}</p>
+                <p className="text-green-500 mt-2 text-center">Transaction ID: {transaction}</p>
             )}
         </form>
     );
