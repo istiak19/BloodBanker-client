@@ -1,4 +1,4 @@
-import { FaThumbsUp, FaUsers, FaBriefcaseMedical, FaHospitalAlt } from 'react-icons/fa';
+import { FaUsers } from 'react-icons/fa';
 import statsImage from '../../assets/banner/stats.jpg';
 import { MdOutlineVerifiedUser } from 'react-icons/md';
 import { CiHospital1 } from 'react-icons/ci';
@@ -19,7 +19,7 @@ const stats = [
     },
     {
         id: 3,
-        icon: <BiDonateBlood  size={60} className="text-red-500" />,
+        icon: <BiDonateBlood size={60} className="text-red-500" />,
         value: '500',
         label: 'Units Provided Monthly',
     },

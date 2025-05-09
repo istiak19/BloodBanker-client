@@ -35,9 +35,9 @@ const ContentManagement = () => {
     const res = await axiosSecure.patch(`/blog/${id}`, { status: 'published' });
     if (res.data.modifiedCount > 0) {
       Swal.fire({
-        position: "top",
+        position: "top-end",
         icon: "success",
-        title: "Successfully Published",
+        title: "Blog Published Successfully",
         showConfirmButton: false,
         timer: 1500
       });
@@ -49,9 +49,9 @@ const ContentManagement = () => {
     const res = await axiosSecure.patch(`/blog/${id}`, { status: 'draft' });
     if (res.data.modifiedCount > 0) {
       Swal.fire({
-        position: "top",
+        position: "top-end",
         icon: "success",
-        title: "Successfully Unpublished",
+        title: "Blog Unpublished Successfully",
         showConfirmButton: false,
         timer: 1500
       });
@@ -62,19 +62,18 @@ const ContentManagement = () => {
   const handleDelete = async (id) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "Your blog will be deleted!",
+      text: "This blog post will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!"
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await axiosSecure.delete(`/blog/${id}`);
         if (res.data.deletedCount > 0) {
           Swal.fire({
-            title: "Deleted!",
-            text: "Your blog has been deleted.",
+            title: "Blog Deleted Successfully",
             icon: "success"
           });
           refetch();
@@ -84,80 +83,88 @@ const ContentManagement = () => {
   };
 
   return (
-    <div className={isDarkMode ? "bg-gray-900 text-white" : "bg-red-50 text-gray-900"}>
+    <div className={`${isDarkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-900"} min-h-screen p-4`}>
       <Helmet>
-        <title>Content Management | BloodBanker</title>
+        <title>Manage Blogs | BloodBanker</title>
       </Helmet>
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-bold">Content Management</h3>
-        <Link to='/dashboard/content-management/add-blog' className="btn bg-red-400 text-white">
-          Add Blog
+
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
+        <h3 className="text-2xl font-bold">Manage Blogs</h3>
+        <Link to='/dashboard/content-management/add-blog' className="btn bg-red-500 hover:bg-red-600 text-white border-none px-10 rounded-md">
+          Create Blog
         </Link>
       </div>
 
-      {/* Filter dropdown */}
-      <div className="mb-4">
-        <select onChange={e => setContent(e.target.value)} className={`select select-bordered w-full max-w-xs ${isDarkMode ? "bg-gray-900" : "bg-red-50"}`}>
-          <option value="">All Blogs</option>
-          <option value="draft">Draft</option>
+      {/* Filter Section */}
+      <div className="mb-6">
+        <select
+          onChange={e => setContent(e.target.value)}
+          className={`select select-bordered w-full md:max-w-xs ${isDarkMode ? "bg-gray-800" : "bg-white"}`}
+        >
+          <option value="">All Blog Posts</option>
+          <option value="draft">Drafted</option>
           <option value="published">Published</option>
         </select>
       </div>
-      {/* Blog list */}
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead className={`${isDarkMode ? 'text-white' : 'text-black'}`}>
-            <th>#</th>
-            <th>Title</th>
-            <th>Status</th>
-            {
-              users?.role === "Admin" && <th>Action</th>
-            }
+
+      {/* Blog Table */}
+      <div className="overflow-x-auto border-y-2 border-red-600 rounded-lg shadow-md">
+        <table className={`table w-full ${isDarkMode ? "text-gray-100" : "text-gray-900"}`}>
+          <thead className={`${isDarkMode ? "bg-gray-800" : "bg-gray-100 text-black"}`}>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Status</th>
+              {users?.role === "Admin" && <th>Manage</th>}
+            </tr>
           </thead>
           <tbody>
-            {
+            {filterBlog.length > 0 ? (
               filterBlog.map((blog, idx) => (
                 <tr key={blog._id}>
                   <td>{idx + 1}</td>
-                  <td>{blog.title}</td>
-                  <td>{blog.status}</td>
-                  <td className="space-x-2">
-                    {/* Only show the Admin */}
-                    {
-                      users?.role === "Admin" && blog.status === "draft" && (
+                  <td className="font-semibold">{blog.title}</td>
+                  <td>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${blog.status === "published" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                      {blog.status === "published" ? "Published" : "Drafted"}
+                    </span>
+                  </td>
+                  {users?.role === "Admin" && (
+                    <td className="flex flex-wrap gap-2 mt-2 md:mt-0">
+                      {blog.status === "draft" && (
                         <button
-                          className={`btn btn-sm ${isDarkMode ? "bg-green-600 hover:bg-green-500" : "bg-green-400 hover:bg-green-300"} text-white`}
                           onClick={() => handlePublish(blog._id)}
+                          className="btn btn-xs bg-green-500 hover:bg-green-600 text-white"
                         >
                           Publish
                         </button>
-                      )
-                    }
-                    {
-                      users?.role === "Admin" && blog.status === "published" && (
+                      )}
+                      {blog.status === "published" && (
                         <button
-                          className={`btn btn-sm ${isDarkMode ? "bg-red-600 hover:bg-red-500" : "bg-red-400 hover:bg-red-300"} text-white`}
                           onClick={() => handleUnpublish(blog._id)}
+                          className="btn btn-xs bg-yellow-500 hover:bg-yellow-600 text-white"
                         >
                           Unpublish
                         </button>
-                      )
-                    }
-                    {
-                      users?.role === "Admin" && (
-                        <button
-                          className={`btn btn-sm ${isDarkMode ? "bg-red-600 hover:bg-red-500" : "bg-red-400 hover:bg-red-300"} text-white`}
-                          onClick={() => handleDelete(blog._id)}
-                        >
-                          Delete
-                        </button>
-                      )
-                    }
-                  </td>
+                      )}
+                      <button
+                        onClick={() => handleDelete(blog._id)}
+                        className="btn btn-xs bg-red-500 hover:bg-red-600 text-white"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))
-            }
+            ) : (
+              <tr>
+                <td colSpan={4} className="text-center py-10 text-gray-400">
+                  No blog posts found. Please create a new blog!
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
