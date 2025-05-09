@@ -34,7 +34,7 @@ const stats = [
 const StatsSection = () => {
     return (
         <section
-            className="relative bg-cover bg-center bg-no-repeat bg-fixed py-24 px-4 text-white dark:text-gray-200"
+            className="relative bg-cover bg-center bg-no-repeat bg-fixed py-12 px-4 text-white dark:text-gray-200"
             style={{ backgroundImage: `url(${statsImage})` }}
         >
             {/* Overlay */}

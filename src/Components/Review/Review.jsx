@@ -69,14 +69,9 @@ const Review = () => {
                     <h2 className="text-3xl sm:text-4xl font-bold mb-5 leading-tight">
                         Heartfelt Stories
                     </h2>
-                    <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-8 leading-relaxed`}>
+                    <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"} mb-8 leading-relaxed text-justify`}>
                         BloodBanker has saved countless lives by connecting donors with patients in need. Discover the experiences shared by our wonderful community.
                     </p>
-                    <div className="flex justify-center md:justify-start">
-                        <button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300">
-                            View More
-                        </button>
-                    </div>
                 </div>
 
                 {/* Review Card with Animation */}
