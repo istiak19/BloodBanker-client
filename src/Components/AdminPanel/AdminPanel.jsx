@@ -4,16 +4,19 @@ import { CgProfile } from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 
 const AdminPanel = () => {
+    const linkClass = ({ isActive }) =>
+        `flex items-center gap-3 p-3 duration-300 ${isActive
+            ? 'hover:!bg-transparent !text-black font-semibold'
+            : '!text-white hover:!bg-transparent hover:!text-gray-300'
+        }`;
+
+
     return (
-        <ul className="space-y-2 text-white">
+        <ul className="space-y-2">
             <li>
                 <NavLink
                     to="/dashboard/AdminHome"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <FaHome />
                     Admin Home
@@ -23,11 +26,7 @@ const AdminPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/profile"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <CgProfile />
                     Profile
@@ -37,11 +36,7 @@ const AdminPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/all-users"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <FaUsers />
                     All Users
@@ -51,11 +46,7 @@ const AdminPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/all-blood-donation-request"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <MdOutlineBloodtype />
                     All Blood Donations
@@ -65,11 +56,7 @@ const AdminPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/content-management"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <MdContentPaste />
                     Manage Blogs

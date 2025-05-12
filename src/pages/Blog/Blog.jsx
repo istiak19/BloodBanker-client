@@ -4,11 +4,12 @@ import usePublic from '../../Hook/usePublic';
 import { Helmet } from 'react-helmet-async';
 import useAuth from "../../Hook/useAuth";
 import { motion } from 'framer-motion';
+import Loading from '../../Components/Loading/Loading';
 
 const Blog = () => {
     const axiosPublic = usePublic();
     const { isDarkMode } = useAuth();
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
             const res = await axiosPublic.get('/blog');
@@ -17,6 +18,13 @@ const Blog = () => {
     });
 
     const blogs = data?.filter(blog => blog?.status === 'published');
+    if (isLoading) {
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
+    }
 
     return (
         <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-800'}`}>

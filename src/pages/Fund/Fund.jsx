@@ -3,18 +3,27 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
+import Loading from "../../Components/Loading/Loading";
 
 const Fund = () => {
     const axiosSecure = useAxiosSecure();
     const { isDarkMode } = useAuth();
 
-    const { data: funds = [] } = useQuery({
+    const { data: funds = [], isLoading } = useQuery({
         queryKey: ["funds"],
         queryFn: async () => {
             const res = await axiosSecure.get(`/payments`);
             return res.data;
         },
     });
+
+    if (isLoading) {
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
+    }
 
     return (
         <div className={`min-h-screen px-4 md:px-12 lg:px-24 py-12 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gradient-to-r from-pink-100 to-red-200 text-gray-800'}`}>

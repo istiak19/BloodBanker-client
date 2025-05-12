@@ -5,13 +5,39 @@ import { IoCreate } from "react-icons/io5";
 import { NavLink } from 'react-router-dom';
 
 const DonorPanel = () => {
+    const linkClass = ({ isActive }) =>
+        `flex items-center gap-3 p-3 duration-300 ${isActive
+            ? 'hover:!bg-transparent !text-black font-semibold'
+            : '!text-white hover:!bg-transparent hover:!text-gray-300'
+        }`;
+
     return (
-        <div className="*:text-white">
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold  !bg-transparent" : "text-white")} to='/dashboard/donorHome'> <FaHome></FaHome>Donor Home</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold  !bg-transparent" : "text-white")} to='/dashboard/profile'> <CgProfile />Profile</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold  !bg-transparent" : "text-white")} to='/dashboard/my-donation-requests'><MdOutlineBloodtype /> My Donation</NavLink></li>
-            <li><NavLink className={({ isActive }) => (isActive ? "!text-black font-semibold  !bg-transparent" : "text-white")} to='/dashboard/create-donation-request'><IoCreate /> Create Donation</NavLink></li>
-        </div>
+        <ul className="space-y-2">
+            <li>
+                <NavLink className={linkClass} to="/dashboard/donorHome">
+                    <FaHome size={20} />
+                    <span>Donor Home</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink className={linkClass} to="/dashboard/profile">
+                    <CgProfile size={20} />
+                    <span>Profile</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink className={linkClass} to="/dashboard/my-donation-requests">
+                    <MdOutlineBloodtype size={20} />
+                    <span>Donation History</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink className={linkClass} to="/dashboard/create-donation-request">
+                    <IoCreate size={20} />
+                    <span>New Donation Request</span>
+                </NavLink>
+            </li>
+        </ul>
     );
 };
 

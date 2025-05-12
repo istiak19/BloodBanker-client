@@ -4,16 +4,18 @@ import { MdContentPaste, MdOutlineBloodtype } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 const VolunteerPanel = () => {
+    const linkClass = ({ isActive }) =>
+        `flex items-center gap-3 p-3 duration-300 ${isActive
+            ? 'hover:!bg-transparent !text-black font-semibold'
+            : '!text-white hover:!bg-transparent hover:!text-gray-300'
+        }`;
+
     return (
         <ul className="space-y-2 text-white">
             <li>
                 <NavLink
                     to="/dashboard/volunteerHome"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <FaHome />
                     Volunteer Home
@@ -23,11 +25,7 @@ const VolunteerPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/profile"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <CgProfile />
                     Profile
@@ -37,11 +35,7 @@ const VolunteerPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/all-blood-donation-request"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <MdOutlineBloodtype />
                     My Donations
@@ -51,11 +45,7 @@ const VolunteerPanel = () => {
             <li>
                 <NavLink
                     to="/dashboard/content-management"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "!text-black font-semibold !bg-transparent"
-                            : "text-white flex items-center gap-2 transition duration-300 transform hover:scale-105 hover:bg-gray-800 hover:text-gray-300"
-                    }
+                    className={linkClass}
                 >
                     <MdContentPaste />
                     Manage Blogs

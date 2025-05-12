@@ -36,7 +36,7 @@ const BlogDetails = () => {
 
     if (isLoading) {
         return (
-            <div className={`${isDarkMode ? 'bg-gray-900' : 'bg-red-100'}`}>
+            <div>
                 <Loading />
             </div>
         );

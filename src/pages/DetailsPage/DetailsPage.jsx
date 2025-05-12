@@ -5,6 +5,7 @@ import useAuth from "../../Hook/useAuth";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import Loading from "../../Components/Loading/Loading";
 
 const DetailsPage = () => {
     const { id } = useParams();
@@ -36,73 +37,79 @@ const DetailsPage = () => {
         }
     };
 
+    if (isLoading) {
+        return <Loading />;
+    }
+
     return (
-        <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-red-50 text-gray-900'} p-5`}>
+        <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-red-50 text-gray-900'} min-h-screen py-10 px-4 transition-all duration-300`}>
             <Helmet>
-                <title>DetailsPage | BloodBanker</title>
+                <title>Donation Details | BloodBanker</title>
             </Helmet>
-            <h1 className="text-3xl font-bold text-center mb-5">Donation Request Details</h1>
-            <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-red-100'} max-w-xl mx-auto p-6 border border-gray-200 shadow-md rounded-lg`}>
-                <h2 className="text-xl font-semibold mb-4 text-center">Recipient Information</h2>
-                <div className="space-y-2">
-                    <p><strong>Name:</strong> {donation?.recipientName}</p>
-                    <p><strong>Location:</strong> {donation?.upazila}, {donation?.district}</p>
-                    <p><strong>Blood Group:</strong> {donation?.bloodGroup}</p>
-                    <p><strong>Date:</strong> {new Date(donation?.date).toLocaleDateString()}</p>
-                    <p><strong>Time:</strong> {donation?.time}</p>
-                    <p><strong>Message:</strong> {donation?.message || "N/A"}</p>
-                    <p><strong>Hospital:</strong> {donation?.hospital}</p>
-                    <p><strong>Address:</strong> {donation?.address}</p>
+            <h1 className="text-4xl font-bold text-center mb-8 tracking-wide">Donation Request Details</h1>
+
+            {/* Card */}
+            <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} max-w-3xl mx-auto p-8 rounded-2xl shadow-lg transition-all duration-300`}>
+                <h2 className="text-2xl font-semibold mb-6 text-center border-b pb-4">Recipient Information</h2>
+                <div className="space-y-4 text-lg">
+                    <p><span className="font-semibold">Name:</span> {donation?.recipientName}</p>
+                    <p><span className="font-semibold">Location:</span> {donation?.upazila}, {donation?.district}</p>
+                    <p><span className="font-semibold">Blood Group:</span> {donation?.bloodGroup}</p>
+                    <p><span className="font-semibold">Date:</span> {new Date(donation?.date).toLocaleDateString()}</p>
+                    <p><span className="font-semibold">Time:</span> {donation?.time}</p>
+                    <p><span className="font-semibold">Message:</span> {donation?.message || "No message provided."}</p>
+                    <p><span className="font-semibold">Hospital:</span> {donation?.hospital}</p>
+                    <p><span className="font-semibold">Address:</span> {donation?.address}</p>
                 </div>
+
                 <button
-                    className={`${isDarkMode ? 'bg-red-600 hover:bg-red-500' : 'bg-red-400 hover:bg-red-300'} w-full text-white font-semibold py-2 px-4 rounded mt-6 transition`}
+                    className="mt-8 w-full py-3 text-lg font-semibold rounded-xl shadow-md transition-transform duration-300 bg-gradient-to-r from-red-400 to-pink-500 hover:from-pink-500 hover:to-red-500 text-white"
                     onClick={() => setModalOpen(true)}
                 >
-                    Donate
+                    Donate Now
                 </button>
             </div>
 
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} p-6 rounded shadow-lg max-w-md w-full`}>
-                        <h2 className="text-xl font-bold mb-4 text-center">Confirm Your Donation</h2>
-                        <form>
-                            <div className="mb-4">
-                                <label className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'} block font-medium mb-2`}>
-                                    Donor Name
-                                </label>
+                    <div className={`${isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-900'} w-full max-w-md mx-auto p-8 rounded-2xl shadow-xl transition-all duration-300`}>
+                        <h2 className="text-2xl font-bold mb-6 text-center">Confirm Donation</h2>
+
+                        <div className="space-y-5">
+                            <div>
+                                <label className="block mb-2 font-medium">Donor Name</label>
                                 <input
                                     type="text"
                                     value={user?.displayName || ""}
                                     readOnly
-                                    className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full p-3 border rounded-md`}
+                                    className={`w-full p-3 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'} block font-medium mb-2`}>
-                                    Donor Email
-                                </label>
+
+                            <div>
+                                <label className="block mb-2 font-medium">Donor Email</label>
                                 <input
                                     type="email"
                                     value={user?.email || ""}
                                     readOnly
-                                    className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full p-3 border rounded-md`}
+                                    className={`w-full p-3 rounded-lg ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
                                 />
                             </div>
-                        </form>
-                        <div className="flex justify-between items-center mt-6">
+                        </div>
+
+                        <div className="flex justify-between items-center mt-8">
                             <button
-                                className={`${isDarkMode ? 'bg-gray-600 hover:bg-gray-500' : 'bg-gray-300 hover:bg-gray-400'} px-4 py-2 rounded transition`}
+                                className="px-5 py-2 rounded-lg bg-gray-400 hover:bg-gray-500 text-white transition"
                                 onClick={() => setModalOpen(false)}
                             >
                                 Cancel
                             </button>
                             <button
-                                className={`${isDarkMode ? 'bg-green-600 hover:bg-green-500' : 'bg-green-500 hover:bg-green-400'} text-white px-4 py-2 rounded transition`}
+                                className="px-5 py-2 rounded-lg bg-gradient-to-r from-red-400 to-pink-500 hover:from-pink-500 hover:to-red-500 text-white transition"
                                 onClick={handleConfirmDonation}
                             >
-                                Confirm Donation
+                                Confirm
                             </button>
                         </div>
                     </div>
