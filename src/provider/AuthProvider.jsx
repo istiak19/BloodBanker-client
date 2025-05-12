@@ -9,11 +9,17 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        return localStorage.getItem('theme') === 'dark';
+    });
     const axiosPublic = usePublic();
 
     const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode);
+        setIsDarkMode(prevMode => {
+            const newMode = !prevMode;
+            localStorage.setItem('theme', newMode ? 'dark' : 'light');
+            return newMode;
+        });
     };
 
     const signup = (email, password) => {

@@ -18,13 +18,7 @@ const Blog = () => {
     });
 
     const blogs = data?.filter(blog => blog?.status === 'published');
-    if (isLoading) {
-        return (
-            <div>
-                <Loading />
-            </div>
-        );
-    }
+    if (isLoading) return <Loading />;
 
     return (
         <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-800'}`}>

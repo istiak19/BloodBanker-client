@@ -7,7 +7,7 @@ import useAuth from "../../Hook/useAuth";
 
 const Dashboard = () => {
     const { isDarkMode } = useAuth();
-    const [role, isLoading] = useRole();
+    const [role] = useRole();
 
     return (
         <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-50 text-gray-800'} flex flex-col md:flex-row`}>

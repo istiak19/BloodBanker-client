@@ -17,10 +17,10 @@ const Profile = () => {
         }
     });
 
-    if (isLoading) return <Loading></Loading>;
+    if (isLoading) return <Loading />;
 
     return (
-        <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} max-w-xl mx-auto p-6 rounded-lg shadow-md`}>
+        <div className={`max-w-2xl border-x-2 border-red-300 mx-auto p-8 rounded-2xl shadow-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} max-w-xl mx-auto p-6 rounded-lg shadow-md`}>
             <Helmet>
                 <title>Profile | BloodBanker</title>
             </Helmet>
@@ -29,14 +29,14 @@ const Profile = () => {
                 <h2 className="text-2xl font-semibold">Profile</h2>
                 <Link
                     to="/dashboard/edit-profile"
-                    className={`${isDarkMode ? 'bg-red-600 hover:bg-red-500' : 'bg-red-400 hover:bg-red-600'} btn text-white text-sm rounded-lg focus:outline-none focus:ring`}
+                    className="flex items-center gap-2 px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-400 text-white font-semibold shadow-md hover:from-red-400 hover:to-pink-500 transition-all duration-300 border-white border"
                 >
                     Update Profile
                 </Link>
             </div>
 
             <div className="flex justify-center mb-6">
-                <div className="w-32 h-32 overflow-hidden rounded-full border-4 border-gray-300">
+                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-red-400 shadow-md">
                     <img src={data?.photo} alt="Avatar" className="w-full h-full object-cover" />
                 </div>
             </div>

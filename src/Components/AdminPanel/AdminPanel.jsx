@@ -39,7 +39,7 @@ const AdminPanel = () => {
                     className={linkClass}
                 >
                     <FaUsers />
-                    All Users
+                    Manage Users
                 </NavLink>
             </li>
 

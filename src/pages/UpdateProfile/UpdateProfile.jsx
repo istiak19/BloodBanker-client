@@ -21,10 +21,10 @@ const UpdateProfile = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const name = formData.get('name');
-        const district = formData.get('district');
-        const upazila = formData.get('upazila');
-        const bloodGroup = formData.get('bloodGroup');
+        const name = formData.get("name");
+        const district = formData.get("district");
+        const upazila = formData.get("upazila");
+        const bloodGroup = formData.get("bloodGroup");
         const userInfo = { name, district, upazila, bloodGroup };
         const res = await axiosSecure.put(`/user/${data?._id}`, userInfo);
         if (res.data.modifiedCount > 0) {
@@ -32,70 +32,84 @@ const UpdateProfile = () => {
                 icon: "success",
                 title: "Profile Updated!",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1500,
             });
             navigate("/dashboard/profile");
         }
     };
 
     return (
-        <div className={`${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-white text-gray-800'} max-w-xl mx-auto p-6 rounded-lg shadow-md`}>
+        <div className={`border-x-2 border-red-300 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl`}>
             <Helmet>
                 <title>Edit Profile | BloodBanker</title>
             </Helmet>
-            <h2 className="text-2xl font-semibold mb-6">Edit Profile</h2>
-            <div className="flex justify-center mb-6">
-                <div className="w-32 h-32 overflow-hidden rounded-full border-4 border-gray-300">
+
+            <h2 className="text-3xl font-bold text-center mb-8">Edit Profile</h2>
+
+            <div className="flex justify-center mb-8">
+                <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-red-500 shadow-lg hover:scale-105 transition-transform duration-300">
                     <img src={data?.photo} alt="Avatar" className="w-full h-full object-cover" />
                 </div>
             </div>
-            <form className="space-y-4" onSubmit={handleSave}>
+
+            <form onSubmit={handleSave} className="space-y-6">
+                {/* Name */}
                 <div>
-                    <label className="block">Full Name</label>
+                    <label className="block text-sm font-semibold mb-1">Full Name</label>
                     <input
                         type="text"
                         name="name"
                         defaultValue={data?.name || ""}
-                        className={`${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'} w-full px-3 py-2 border rounded-lg`}
                         placeholder="Enter your full name"
+                        className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-red-400 focus:outline-none`}
                     />
                 </div>
+
+                {/* Email */}
                 <div>
-                    <label className="block">Email</label>
+                    <label className="block text-sm font-semibold mb-1">Email</label>
                     <input
                         type="email"
                         name="email"
                         value={data?.email}
                         disabled
-                        className={`${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'} w-full px-3 py-2 border rounded-lg`}
+                        className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full px-4 py-3 rounded-xl border opacity-80`}
                     />
                 </div>
+
+                {/* District */}
                 <div>
-                    <label className="block">District</label>
+                    <label className="block text-sm font-semibold mb-1">District</label>
                     <input
                         type="text"
                         name="district"
                         defaultValue={data?.district || ""}
-                        className={`${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'} w-full px-3 py-2 border rounded-lg`}
+                        placeholder="Enter your district"
+                        className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-red-400 focus:outline-none`}
                     />
                 </div>
+
+                {/* Upazila */}
                 <div>
-                    <label className="block">Upazila</label>
+                    <label className="block text-sm font-semibold mb-1">Upazila</label>
                     <input
                         type="text"
                         name="upazila"
                         defaultValue={data?.upazila || ""}
-                        className={`${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'} w-full px-3 py-2 border rounded-lg`}
+                        placeholder="Enter your upazila"
+                        className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-red-400 focus:outline-none`}
                     />
                 </div>
+
+                {/* Blood Group */}
                 <div>
-                    <label className="block">Blood Group</label>
+                    <label className="block text-sm font-semibold mb-1">Blood Group</label>
                     <select
                         name="bloodGroup"
                         defaultValue={data?.bloodGroup || ""}
-                        className={`${isDarkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'} w-full px-3 py-2 border rounded-lg`}
+                        className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-red-400 focus:outline-none`}
                     >
-                        <option value="" disabled>Select Blood Group</option>
+                        <option value="" disabled>Select your blood group</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
                         <option value="B+">B+</option>
@@ -107,11 +121,15 @@ const UpdateProfile = () => {
                     </select>
                 </div>
 
-                <input
-                    type="submit"
-                    className={`${isDarkMode ? 'bg-red-600 hover:bg-red-500' : 'bg-red-400 hover:bg-red-600'} btn w-full text-white rounded-lg`}
-                    value="Update Profile"
-                />
+                {/* Submit Button */}
+                <div className="pt-4">
+                    <button
+                        type="submit"
+                        className="w-full py-3 bg-gradient-to-r from-pink-500 to-red-500 hover:from-red-500 hover:to-pink-500 transition-all duration-300 rounded-xl text-white font-semibold shadow-md hover:shadow-lg"
+                    >
+                        Update Profile
+                    </button>
+                </div>
             </form>
         </div>
     );

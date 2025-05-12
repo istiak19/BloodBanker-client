@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { HiDotsVertical } from "react-icons/hi";
 import useAuth from "../../../../Hook/useAuth";
+import Loading from "../../../../Components/Loading/Loading";
 
 const AllUsersPage = () => {
     const { isDarkMode } = useAuth();
@@ -13,7 +14,7 @@ const AllUsersPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(5);
 
-    const { data: users = [], refetch } = useQuery({
+    const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ["users", filterStatus, currentPage],
         queryFn: async () => {
             const res = await axiosSecure.get(`/user`);
@@ -95,10 +96,12 @@ const AllUsersPage = () => {
         setCurrentPage(1);
     };
 
+    if (isLoading) return <Loading />
+
     return (
         <div className={`p-5 ${isDarkMode ? "bg-gray-800 text-white" : "bg-red-50 text-gray-800"}`}>
             <Helmet>
-                <title>AllUsers || BloodBanker</title>
+                <title>Manage Users | BloodBanker Dashboard</title>
             </Helmet>
             <h2 className="text-2xl font-bold mb-5 text-center">All Users Page</h2>
             <div className="mb-4 flex gap-4">
