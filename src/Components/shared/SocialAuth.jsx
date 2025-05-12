@@ -16,9 +16,7 @@ const SocialAuth = () => {
                 const userInfo = {
                     email: result.user.email,
                     name: result.user.displayName,
-                    photo: result.user.photoURL,
-                    role: 'donor',
-                    status: 'active'
+                    photo: result.user.photoURL
                 }
                 // console.log(userInfo)
                 axiosPublic.post('/user', userInfo)

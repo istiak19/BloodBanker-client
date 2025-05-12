@@ -55,9 +55,7 @@ const Register = () => {
             photo: res.data.data.url,
             upazila: data.upazila,
             district: data.district,
-            bloodGroup: data.bloodGroup,
-            role: 'donor',
-            status: 'active'
+            bloodGroup: data.bloodGroup
         }
         signup(data.email, data.password)
             .then((result) => {
