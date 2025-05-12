@@ -27,6 +27,7 @@ import Fund from "../pages/Fund/Fund";
 import AddFund from "../pages/Fund/AddFund";
 import Contact from "../pages/Contact/Contact";
 import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 
 const routers = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ const routers = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login></Login>
+            },
+            {
+                path: '/forgot-password',
+                element: <ForgotPassword></ForgotPassword>
             },
             {
                 path: "/register",

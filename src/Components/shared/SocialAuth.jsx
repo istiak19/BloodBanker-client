@@ -20,22 +20,22 @@ const SocialAuth = () => {
                     role: 'donor',
                     status: 'active'
                 }
-                console.log(userInfo)
+                // console.log(userInfo)
                 axiosPublic.post('/user', userInfo)
                     .then(res => {
-                        console.log(res.data)
+                        // console.log(res.data)
                     })
                 toast.success('Registration successfully')
                 navigate('/')
             })
             .catch(error => {
-                console.log(error.message)
+                // console.log(error.message)
             })
     }
 
     return (
         <div className="flex justify-center items-center">
-            <button onClick={handleGoogle} className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-red-50 text-gray-800'} btn border border-red-400 rounded-full px-10 hover:bg-red-400 hover:text-white`}><FaGoogle></FaGoogle>Continue with Google</button>
+            <button onClick={handleGoogle} className="btn border-none bg-gradient-to-r from-pink-400 rounded-full px-10 to-red-400 font-semibold shadow-md hover:from-red-400 hover:to-pink-500 text-white"><FaGoogle></FaGoogle>Continue with Google</button>
         </div>
     );
 };

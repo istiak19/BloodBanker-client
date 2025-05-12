@@ -112,6 +112,6 @@ npm run build
 ## 🔑 Admin Credentials  
 
 - **Username:** `istiak12@gmail.com`  
-- **Password:** `123456`  
+- **Password:** `123Qw!`  
 
 ⚠️ _For security reasons, avoid sharing sensitive credentials in public repositories._  

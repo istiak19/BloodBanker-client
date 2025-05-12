@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.init";
 import usePublic from "../Hook/usePublic";
 
@@ -35,6 +35,10 @@ const AuthProvider = ({ children }) => {
         return updateProfile(auth.currentUser, update)
     }
 
+    const resetPassword = (email) => {
+        return sendPasswordResetEmail(auth, email);
+    }
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
@@ -66,6 +70,7 @@ const AuthProvider = ({ children }) => {
         signin,
         googleSign,
         updateProfileUser,
+        resetPassword,
         signOutUser,
         toggleTheme,
         isDarkMode

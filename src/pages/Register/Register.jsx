@@ -9,6 +9,10 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 import SocialAuth from "../../Components/shared/SocialAuth";
+import { ClipLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import { FaUser, FaEnvelope, FaLock, FaMapMarkerAlt, FaTint } from "react-icons/fa";
+import { useState } from "react";
 
 const image_key = import.meta.env.VITE_IMAGE;
 const image_api = `https://api.imgbb.com/1/upload?key=${image_key}`
@@ -19,6 +23,7 @@ const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
+    const [loading, setLoading] = useState(false);
 
     const { data: upazilas } = useQuery({
         queryKey: ['upazilas'],
@@ -37,9 +42,10 @@ const Register = () => {
 
     // console.log(upazilas)
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         // console.log(data)
+        setLoading(true)
         const formData = new FormData();
         formData.append('image', data.photo[0]);
         const res = await axiosPublic.post(image_api, formData);
@@ -53,15 +59,6 @@ const Register = () => {
             role: 'donor',
             status: 'active'
         }
-        if (data.password !== data.confirmPassword) {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Passwords do not match!",
-            });
-            return;
-        }
-        // console.log(userInfo)
         signup(data.email, data.password)
             .then((result) => {
                 // console.log(result.user)
@@ -77,6 +74,7 @@ const Register = () => {
                 navigate(from, { replace: true });
                 toast.success('Registration successfully')
                 reset()
+                setLoading(false)
             })
             .catch(err => {
                 // console.log(err)
@@ -84,197 +82,175 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <Helmet>
-                <title>Register | BloodBanker</title>
-            </Helmet>
-            <section>
-                <div className={`px-18 py-10 lg:flex items-center justify-center gap-10 min-h-screen ${isDarkMode ? "bg-gray-900 text-white" : "bg-red-50 text-black"}`}>
+        <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className={`flex flex-col py-10 md:flex-row justify-center items-center gap-10 min-h-screen p-4 ${isDarkMode ? "bg-gray-900 text-white" : "bg-red-50 text-black"}`}
+        >
+            {/* Form */}
+            <div className="shadow-lg border border-dashed border-re rounded-xl p-8 w-full md:w-1/2 max-w-3xl">
+                <Helmet>
+                    <title>Register | Blood Donation</title>
+                </Helmet>
+                <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-pink-400 to-red-500 text-transparent bg-clip-text">Create Your Account</h2>
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="w-full max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-6"
+                >
+                    {/* Name */}
                     <div>
-                        <Lottie animationData={registerPic}></Lottie>
+                        <label htmlFor="name" className="sr-only">Name</label>
+                        <div className="relative">
+                            <FaUser className="absolute left-3 top-3 text-gray-600" />
+                            <input
+                                id="name"
+                                type="text"
+                                {...register('name', { required: "Name is required" })}
+                                placeholder="Your Name"
+                                className={`pl-10 p-3 rounded-lg border w-full focus:outline-none focus:border-blue-500 ${isDarkMode ? 'bg-gray-900 placeholder:text-gray-50' : 'bg-red-50 border-black placeholder:text-gray-800'}`}
+                            />
+                            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+                        </div>
                     </div>
-                    <form className="w-full lg:max-w-lg" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-                        {/* name Field */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Name
-                            </label>
-                            <div className="relative flex items-center">
-                                <span className="absolute">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-6 h-6 mx-3 text-gray-300"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                        />
-                                    </svg>
-                                </span>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    {...register("name")}
-                                    required
-                                    className={`block w-full py-3 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'} border rounded-lg px-11 focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40`}
-                                    placeholder="Your name"
-                                />
-                            </div>
+
+                    {/* Email */}
+                    <div>
+                        <label htmlFor="email" className="sr-only">Email</label>
+                        <div className="relative">
+                            <FaEnvelope className="absolute left-3 top-3 text-gray-600" />
+                            <input
+                                id="email"
+                                type="email"
+                                {...register('email', { required: "Email is required" })}
+                                placeholder="Your Email"
+                                className={`pl-10 p-3 rounded-lg w-full border focus:outline-none focus:border-blue-500 ${isDarkMode ? 'bg-gray-900 placeholder:text-gray-50' : 'bg-red-50 border-black placeholder:text-gray-800'}`}
+                            />
+                            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                         </div>
-                        {/* Photo Upload */}
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Photo
-                            </label>
-                            <label htmlFor="photo" className="flex items-center px-3 py-3 mx-auto text-center border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 ">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                </svg>
-                                <input type="file" name="photo" {...register("photo")} id="photo" />
-                            </label>
+                    </div>
+
+                    {/* Password */}
+                    <div>
+                        <label htmlFor="password" className="sr-only">Password</label>
+                        <div className="relative">
+                            <FaLock className="absolute left-3 top-3 text-gray-600" />
+                            <input
+                                id="password"
+                                type="password"
+                                {...register('password', {
+                                    required: "Password is required",
+                                    pattern: {
+                                        value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+                                        message: "Password must be at least 6 characters and include a letter, a number, and a special character"
+                                    }
+                                })}
+                                placeholder="Password"
+                                className={`pl-10 p-3 rounded-lg w-full border focus:outline-none focus:border-red-400 ${isDarkMode ? 'bg-gray-900 placeholder:text-gray-50' : 'bg-red-50 border-black placeholder:text-gray-800'}`}
+                            />
+                            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                         </div>
-                        {/* Blood Group Selector */}
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Blood Group
-                            </label>
+                    </div>
+
+                    {/* Blood Group */}
+                    <div>
+                        <label htmlFor="bloodGroup" className="sr-only">Blood Group</label>
+                        <div className="relative">
+                            <FaTint className="absolute left-3 top-3 text-gray-600" />
                             <select
-                                name="bloodGroup"
-                                {...register("bloodGroup")}
-                                required
-                                className={`block w-full py-3 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'} border rounded-lg px-11 focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40`}
+                                id="bloodGroup"
+                                {...register('bloodGroup', { required: "Blood group is required" })}
+                                className={`pl-10 p-3 rounded-lg w-full cursor-pointer border focus:outline-none focus:border-red-400 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'}`}
                             >
                                 <option value="">Select Blood Group</option>
-                                <option value="A+">A+</option>
-                                <option value="A-">A-</option>
-                                <option value="B+">B+</option>
-                                <option value="B-">B-</option>
-                                <option value="AB+">AB+</option>
-                                <option value="AB-">AB-</option>
-                                <option value="O+">O+</option>
-                                <option value="O-">O-</option>
+                                {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(bg => (
+                                    <option key={bg} value={bg}>{bg}</option>
+                                ))}
                             </select>
+                            {errors.bloodGroup && <p className="text-red-500 text-sm mt-1">{errors.bloodGroup.message}</p>}
                         </div>
+                    </div>
 
-                        {/* District Selector */}
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                District
-                            </label>
+                    {/* District */}
+                    <div>
+                        <label htmlFor="district" className="sr-only">District</label>
+                        <div className="relative">
+                            <FaMapMarkerAlt className="absolute left-3 top-3 text-gray-600" />
                             <select
-                                name="district"
-                                {...register("district")}
-                                required
-                                className={`block w-full py-3 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'} border rounded-lg px-11 focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40`}
+                                id="district"
+                                {...register("district", { required: "District is required" })}
+                                className={`pl-10 p-3 rounded-lg w-full cursor-pointer border focus:outline-none focus:border-red-400 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'}`}
                             >
                                 <option value="">Select District</option>
-                                {
-                                    districts?.map((district, idx) => <option key={idx} value={district.name}>{district.name}</option>)
-                                }
+                                {districts?.map((district, idx) => (
+                                    <option key={idx} value={district.name}>{district.name}</option>
+                                ))}
                             </select>
                         </div>
-                        {/* Upazila Selector */}
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Upazila
-                            </label>
+                    </div>
+
+                    {/* Upazila */}
+                    <div>
+                        <label htmlFor="upazila" className="sr-only">Upazila</label>
+                        <div className="relative">
+                            <FaMapMarkerAlt className="absolute left-3 top-3 text-gray-600" />
                             <select
-                                name="upazila"
-                                {...register("upazila")}
-                                required
-                                className={`block w-full py-3 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'} border rounded-lg px-11 focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40`}
+                                id="upazila"
+                                {...register("upazila", { required: "Upazila is required" })}
+                                className={`pl-10 p-3 rounded-lg w-full cursor-pointer border focus:outline-none focus:border-red-400 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'}`}
                             >
                                 <option value="">Select Upazila</option>
-                                {
-                                    upazilas?.map(u => <option key={u.id} value={u.name}>{u.name}</option>)
-                                }
+                                {upazilas?.map((u, idx) => (
+                                    <option key={idx} value={u.name}>{u.name}</option>
+                                ))}
                             </select>
                         </div>
-                        {/* Email Field */}
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Email
-                            </label>
-                            <div className="relative flex items-center">
-                                <span className="absolute">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-6 h-6 mx-3 text-gray-300"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </span>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    {...register("email")}
-                                    required
-                                    className={`block w-full py-3 ${isDarkMode ? 'bg-gray-900' : 'bg-red-50 border-black'} border rounded-lg px-11 focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40`}
-                                    placeholder="Email Address"
-                                />
-                            </div>
-                        </div>
-                        {/* Password and Confirm Password Fields */}
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Password
-                            </label>
-                            <div className="relative flex items-center">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    {...register("password")}
-                                    required
-                                    className="block w-full px-10 py-3 text-gray-700 bg-white border border-black rounded-lg focus:border-red-400 focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
-                                    placeholder="Password"
-                                />
-                            </div>
-                        </div>
-                        <div className="mt-4">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Confirm Password
-                            </label>
-                            <div className="relative flex items-center">
-                                <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    {...register("confirmPassword")}
-                                    required
-                                    className="block w-full px-10 py-3 text-black border-black bg-white border rounded-lg focus:border-black focus:ring-red-300 focus:outline-none focus:ring-opacity-40"
-                                    placeholder="Confirm Password"
-                                />
-                            </div>
-                        </div>
+                    </div>
 
-                        {/* Submit Button */}
-                        <div className="mt-6">
-                            <button
-                                type="submit"
-                                className="w-full px-6 py-3 text-sm font-medium text-white bg-red-400 rounded-lg hover:bg-red-500 focus:ring focus:ring-red-400 focus:ring-opacity-50"
-                            >
-                                Sign Up
-                            </button>
-                            <div className="mt-6">
-                            <div className="divider text-red-500">OR</div>
-                                <SocialAuth></SocialAuth>
-                                <p className="py-3">Already have an account? <Link to='/login' className="text-sm text-red-500 hover:underline">
-                                    Login
-                                </Link></p>
-                            </div>
-                        </div>
-                    </form>
+                    {/* File Upload - Full width */}
+                    <div className="col-span-1 md:col-span-2">
+                        <label className={`flex items-center justify-center border border-dashed rounded-lg p-4 cursor-pointer transition ${isDarkMode ? 'hover:bg-none' : 'border-black hover:bg-none'}`}>
+                            <input type="file" name="photo" {...register("photo")} id="photo" className="hidden"/>
+                            <span className="text-red-700 font-semibold">Click to Upload Profile Photo</span>
+                        </label>
+
+                        {errors.photo && (
+                            <p className="text-red-500 text-sm mt-1">{errors.photo.message}</p>
+                        )}
+                    </div>
+
+                    {/* Submit Button - Full width */}
+                    <div className="col-span-1 md:col-span-2 text-center mt-4">
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full py-3 bg-gradient-to-r from-pink-400 to-red-400 hover:from-red-500 hover:to-pink-600 text-white font-bold rounded-lg shadow-md transition-transform"
+                        >
+                            {loading ? <ClipLoader size={20} color="#fff" /> : "Register"}
+                        </button>
+                    </div>
+                </form>
+                <div className="my-3 flex items-center">
+                    <div className="flex-grow h-px bg-gray-300"></div>
+                    <span className="mx-4 text-gray-400">OR</span>
+                    <div className="flex-grow h-px bg-gray-300"></div>
                 </div>
-            </section>
-        </div>
+
+                <SocialAuth />
+
+                <p className="mt-3 text-center text-sm">
+                    Already part of our mission?{" "}
+                    <Link to="/login" className="text-red-400 font-medium hover:underline">
+                        Log in and save lives
+                    </Link>
+                </p>
+            </div>
+
+            {/* Lottie Animation */}
+            <div className="w-full md:w-1/3 max-w-sm">
+                <Lottie animationData={registerPic} loop={true} />
+            </div>
+        </motion.div>
     );
 };
 
