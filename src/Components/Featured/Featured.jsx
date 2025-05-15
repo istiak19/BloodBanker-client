@@ -28,7 +28,7 @@ const Featured = () => {
         <section className={`${isDarkMode ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" : "bg-gradient-to-br from-red-100 via-red-200 to-red-300"} py-12 px-6 transition-colors duration-700`}>
             <div className="max-w-7xl mx-auto text-center">
                 {/* Typing Heading */}
-                <h2 className={`text-4xl font-bold mb-8 leading-tight ${isDarkMode ? "text-red-400" : "text-red-500"}`}>
+                <h2 className={`text-4xl font-semibold mb-8 leading-tight ${isDarkMode ? "text-red-400" : "text-red-500"}`}>
                     <Typewriter
                         words={['Why Join BloodBanker?', 'Save Lives Instantly', 'Empower Communities']}
                         loop={0}

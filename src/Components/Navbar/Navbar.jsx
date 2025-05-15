@@ -79,7 +79,7 @@ const Navbar = () => {
                     <div className="flex justify-center items-center gap-3">
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
+                                <div className="w-10 rounded-full border-2 border-white shadow-2xl">
                                     <img src={user?.photoURL || '/default-avatar.png'} alt="User Avatar" referrerPolicy="no-referrer" className="object-cover" />
                                 </div>
                             </label>

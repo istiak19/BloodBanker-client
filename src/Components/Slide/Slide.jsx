@@ -15,22 +15,22 @@ const Slide = ({ text, image }) => {
             {/* Overlay */}
             <div className={`absolute inset-0 ${isDarkMode ? "bg-black opacity-70" : "bg-black opacity-50"}`}></div>
             {/* Content */}
-            <div className={`relative z-10 text-center p-6 rounded-xl shadow-lg ${isDarkMode ? "bg-gray-800 text-white" : "bg-white/60 text-gray-900"}`}>
+            <div className={`relative z-10 text-center p-6 rounded-xl shadow-lg ${isDarkMode ? "bg-gray-800 text-white border-none" : "bg-white/60 text-gray-900 border border-red-600 border-x-4"}`}>
                 <h1 className={`text-2xl font-semibold lg:text-4xl ${isDarkMode ? "text-red-400" : "text-red-600"}`}>
                     {text}
                 </h1>
                 <br />
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <Link
-                        to="/login"
-                        className={`flex items-center gap-2 px-6 py-2 rounded-full shadow-md transition-all border border-white/70 ${isDarkMode ? "text-gray-200 bg-red-600 hover:bg-red-700" : "text-white bg-red-500 hover:bg-red-600"}`}
+                        to="/dashboard/donorHome"
+                        className="flex items-center gap-2 btn px-6 py-2 rounded-full shadow-lg transition-all border border-white/70 text-white bg-gradient-to-r from-pink-500 to-red-400 hover:from-red-400 hover:border-none hover:to-pink-500"
                     >
                         <FaUserPlus className="text-lg" />
                         Join as a Donor
                     </Link>
                     <Link
                         to="/search"
-                        className={`flex items-center gap-2 px-6 py-2 rounded-full shadow-md transition-all border border-white/70 ${isDarkMode ? "text-gray-200 bg-red-600 hover:bg-red-700" : "text-white bg-red-500 hover:bg-red-600"}`}
+                        className="flex items-center gap-2 btn px-6 py-2 rounded-full shadow-lg transition-all border border-white/70 text-white bg-gradient-to-r from-pink-500 to-red-400 hover:from-red-400 hover:border-none hover:to-pink-500"
                     >
                         <FaSearch className="text-lg" />
                         Search Donors
