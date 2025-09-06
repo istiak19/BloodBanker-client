@@ -1,12 +1,12 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import Login from "../pages/Login/Login";
 import Home from "../pages/Home/Home";
 import PrivateProvider from "./PrivateProvider";
 import AdminRouter from "./AdminRouter";
-import { lazy } from "react";
 
 const Contact = lazy(() => import("../pages/Contact/Contact"));
+const AddFund = lazy(() => import("../pages/Fund/AddFund"));
 const ForgotPassword = lazy(() => import("../pages/ForgotPassword/ForgotPassword"));
 const UpdateProfile = lazy(() => import("../pages/UpdateProfile/UpdateProfile"));
 const Fund = lazy(() => import("../pages/Fund/Fund"));
@@ -35,7 +35,7 @@ const routers = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
-        errorElement: <ErrorPage></ErrorPage>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: '/',
@@ -43,27 +43,29 @@ const routers = createBrowserRouter([
             },
             {
                 path: '/search',
-                element: <Search></Search>
+                element: <Search />
             },
             {
                 path: '/bloodDPublic',
-                element: <BloodDonationRequests></BloodDonationRequests>
+                element: <BloodDonationRequests />
             },
             {
                 path: '/details/:id',
-                element: <PrivateProvider><DetailsPage></DetailsPage></PrivateProvider>
+                element: <PrivateProvider><DetailsPage /></PrivateProvider>
             },
             {
                 path: '/blog',
-                element: <Blog></Blog>
+                element: <Blog />
             },
             {
                 path: '/blog/:id',
-                element: <BlogDetails></BlogDetails>
+                element: <BlogDetails />
             },
             {
                 path: '/funding',
-                element: <PrivateProvider><Fund></Fund></PrivateProvider>
+                element: <PrivateProvider>
+                    <Fund />
+                </PrivateProvider>
             },
             {
                 path: '/contact',
@@ -71,85 +73,87 @@ const routers = createBrowserRouter([
             },
             {
                 path: '/funding/add-fund',
-                element: <PrivateProvider><AddFund></AddFund></PrivateProvider>
+                element: <PrivateProvider>
+                    <AddFund />
+                </PrivateProvider>
             },
             {
                 path: '/login',
-                element: <Login></Login>
+                element: <Login />
             },
             {
                 path: '/forgot-password',
-                element: <ForgotPassword></ForgotPassword>
+                element: <ForgotPassword />
             },
             {
                 path: "/register",
-                element: <Register></Register>
+                element: <Register />
             },
             {
                 path: '/dashboard',
-                element: <PrivateProvider><Dashboard></Dashboard></PrivateProvider>,
+                element: <PrivateProvider><Dashboard /></PrivateProvider>,
                 children: [
 
                     // Donor router
                     {
                         path: 'donorHome',
-                        element: <DonorHome></DonorHome>
+                        element: <DonorHome />
                     },
                     {
                         path: 'profile',
-                        element: <Profile></Profile>
+                        element: <Profile />
                     },
                     {
                         path: 'edit-profile',
-                        element: <UpdateProfile></UpdateProfile>
+                        element: <UpdateProfile />
                     },
                     {
                         path: 'my-donation-requests',
-                        element: <MyDonationRequests></MyDonationRequests>
+                        element: <MyDonationRequests />
                     },
                     {
                         path: 'create-donation-request',
-                        element: <CreateDonation></CreateDonation>
+                        element: <CreateDonation />
                     },
                     {
                         path: 'donation/edit/:id',
-                        element: <DonationRequestEdit></DonationRequestEdit>
+                        element: <DonationRequestEdit />
                     },
 
                     // Admin router
                     {
                         path: 'profile',
-                        element: <AdminRouter><Profile></Profile></AdminRouter>
+                        element: <AdminRouter><Profile /></AdminRouter>
                     },
                     {
                         path: 'edit-profile',
-                        element: <UpdateProfile></UpdateProfile>
+                        element: <UpdateProfile />
                     },
                     {
                         path: 'AdminHome',
-                        element: <AdminRouter><AdminHome></AdminHome></AdminRouter>
+                        element: <AdminRouter><AdminHome /></AdminRouter>
                     },
                     {
                         path: 'all-users',
-                        element: <AdminRouter><AllUserPage></AllUserPage></AdminRouter>
+                        element: <AdminRouter><AllUserPage /></AdminRouter>
                     },
                     {
                         path: 'all-blood-donation-request',
-                        element: <AdminRouter><AllBloodDonationRequest></AllBloodDonationRequest></AdminRouter>
+                        element: <AdminRouter><AllBloodDonationRequest /></AdminRouter>
                     },
                     {
                         path: 'content-management',
-                        element: <AdminRouter><ContentManagement></ContentManagement></AdminRouter>
+                        element: <AdminRouter><ContentManagement /></AdminRouter>
                     },
                     {
                         path: 'content-management/add-blog',
-                        element: <AdminRouter><AddBlog></AddBlog></AdminRouter>
+                        element: <AdminRouter><AddBlog /></AdminRouter>
                     },
-                    
+
                     // volunteer router
                     {
                         path: 'volunteerHome',
-                        element: <VolunteerHome></VolunteerHome>
+                        element: <VolunteerHome />
                     },
                     // {
                     //     path: 'all-blood-donation-request',
