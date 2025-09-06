@@ -1,33 +1,35 @@
 import { createBrowserRouter } from "react-router-dom";
-import Register from "../pages/Register/Register";
 import MainLayout from "../layout/MainLayout";
 import Login from "../pages/Login/Login";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import Home from "../pages/Home/Home";
-import Search from "../pages/Search/Search";
-import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import PrivateProvider from "./PrivateProvider";
-import Profile from "../pages/Profile/Profile";
 import AdminRouter from "./AdminRouter";
-import AdminHome from '../pages/Dashboard/Admin/AdminHome/AdminHome';
-import AllUserPage from '../pages/Dashboard/Admin/AllUsersPage/AllUsersPage';
-import AllBloodDonationRequest from '../pages/Dashboard/Admin/AllBloodDonationRequest/AllBloodDonationRequest';
-import ContentManagement from '../pages/Dashboard/Admin/ContentManagement/ContentManagement';
-import CreateDonation from '../pages/Dashboard/Donor/CreateDonation/CreateDonation';
-import MyDonationRequests from '../pages/Dashboard/Donor/MyDonationRequests/MyDonationRequests';
-import DonorHome from '../pages/Dashboard/Donor/DonorHome/DonorHome';
-import DonationRequestEdit from '../pages/Dashboard/Donor/DonationRequestEdit/DonationRequestEdit';
-import BloodDonationRequests from "../pages/BloodDonationRequests/BloodDonationRequests";
-import DetailsPage from "../pages/DetailsPage/DetailsPage";
-import VolunteerHome from "../pages/Dashboard/Volunteer/VolunteerHome/VolunteerHome";
-import AddBlog from "../pages/Dashboard/Admin/AddBlog/AddBlog";
-import Blog from "../pages/Blog/Blog";
-import BlogDetails from '../pages/Blog/BlogDetails'
-import Fund from "../pages/Fund/Fund";
-import AddFund from "../pages/Fund/AddFund";
-import Contact from "../pages/Contact/Contact";
-import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
-import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+import { lazy } from "react";
+
+const Contact = lazy(() => import("../pages/Contact/Contact"));
+const ForgotPassword = lazy(() => import("../pages/ForgotPassword/ForgotPassword"));
+const UpdateProfile = lazy(() => import("../pages/UpdateProfile/UpdateProfile"));
+const Fund = lazy(() => import("../pages/Fund/Fund"));
+const BlogDetails = lazy(() => import("../pages/Blog/BlogDetails"));
+const Blog = lazy(() => import("../pages/Blog/Blog"));
+const AddBlog = lazy(() => import("../pages/Dashboard/Admin/AddBlog/AddBlog"));
+const VolunteerHome = lazy(() => import("../pages/Dashboard/Volunteer/VolunteerHome/VolunteerHome"));
+const DetailsPage = lazy(() => import("../pages/DetailsPage/DetailsPage"));
+const BloodDonationRequests = lazy(() => import("../pages/BloodDonationRequests/BloodDonationRequests"));
+const DonationRequestEdit = lazy(() => import("../pages/Dashboard/Donor/DonationRequestEdit/DonationRequestEdit"));
+const DonorHome = lazy(() => import("../pages/Dashboard/Donor/DonorHome/DonorHome"));
+const MyDonationRequests = lazy(() => import("../pages/Dashboard/Donor/MyDonationRequests/MyDonationRequests"));
+const CreateDonation = lazy(() => import("../pages/Dashboard/Donor/CreateDonation/CreateDonation"));
+const ContentManagement = lazy(() => import("../pages/Dashboard/Admin/ContentManagement/ContentManagement"));
+const AllBloodDonationRequest = lazy(() => import("../pages/Dashboard/Admin/AllBloodDonationRequest/AllBloodDonationRequest"));
+const AllUserPage = lazy(() => import("../pages/Dashboard/Admin/AllUsersPage/AllUsersPage"));
+const AdminHome = lazy(() => import("../pages/Dashboard/Admin/AdminHome/AdminHome"));
+const Profile = lazy(() => import("../pages/Profile/Profile"));
+const ErrorPage = lazy(() => import("../pages/ErrorPage/ErrorPage"));
+const Search = lazy(() => import("../pages/Search/Search"));
+const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
+const Login = lazy(() => import("../pages/Login/Login"));
+const Register = lazy(() => import("../pages/Register/Register"));
 
 const routers = createBrowserRouter([
     {
@@ -87,6 +89,7 @@ const routers = createBrowserRouter([
                 path: '/dashboard',
                 element: <PrivateProvider><Dashboard></Dashboard></PrivateProvider>,
                 children: [
+
                     // Donor router
                     {
                         path: 'donorHome',
@@ -142,6 +145,7 @@ const routers = createBrowserRouter([
                         path: 'content-management/add-blog',
                         element: <AdminRouter><AddBlog></AddBlog></AdminRouter>
                     },
+                    
                     // volunteer router
                     {
                         path: 'volunteerHome',
