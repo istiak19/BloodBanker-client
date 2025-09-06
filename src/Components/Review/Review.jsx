@@ -61,7 +61,7 @@ const Review = () => {
 
     return (
         <section className={`${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gradient-to-r from-white via-red-50 to-red-200 text-gray-800"} py-20 px-6 md:px-10 transition-colors`}>
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
 
                 {/* Left Content */}
                 <div className="text-center md:text-left">

@@ -36,7 +36,7 @@ export default function EventsSection() {
 
     return (
         <section className={`${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gradient-to-r from-red-100 via-red-200 to-red-300"} py-8 md:py-12 px-4 transition-colors`}>
-            <div className="max-w-7xl mx-auto">
+            <div className="container mx-auto">
                 <div className="flex justify-between items-center mb-10">
                     <div>
                         <p className="text-red-600 font-semibold uppercase tracking-wide text-lg">Upcoming Events</p>

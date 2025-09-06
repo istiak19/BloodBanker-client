@@ -22,7 +22,7 @@ const BlogSection = () => {
 
     return (
         <section className={`py-16 px-4 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-b from-red-100 via-pink-100 to-white'}`}>
-            <div className="max-w-7xl mx-auto">
+            <div className="container mx-auto">
                 <div className="mb-12 text-center">
                     <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
                         Stay Connected: News, Events & Blood Drive Updates

@@ -38,7 +38,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-red-400 backdrop-blur-md px-4 md:px-12 py-2 fixed top-0 left-0 right-0 z-50">
+        <div className="navbar bg-red-400 backdrop-blur-md px-4 container mx-auto py-2 fixed top-0 left-0 right-0 z-50">
             <ToastContainer />
 
             {/* Navbar Start */}

@@ -26,7 +26,7 @@ const Blog = () => {
                 <title>Blog | BloodBanker</title>
             </Helmet>
 
-            <div className='px-4 py-10 mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
+            <div className='px-4 py-10 mx-auto container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8'>
                 {blogs?.map((blog, index) => (
                     <motion.div
                         key={blog?._id}
