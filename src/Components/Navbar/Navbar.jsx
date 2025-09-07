@@ -16,7 +16,7 @@ const Navbar = () => {
             <li><NavLink to="/bloodDPublic" className={({ isActive }) => isActive ? "!text-black font-semibold !bg-transparent" : "text-white hover:text-black hover:!bg-transparent transition"}>Donation Requests</NavLink></li>
 
             {user && role && (
-                <li><NavLink to={`/dashboard/${role.toLowerCase()}Home`} className={({ isActive }) => isActive ? "!text-black font-semibold !bg-transparent" : "text-white hover:text-black hover:!bg-transparent transition"}>Dashboard</NavLink></li>
+                <li><NavLink to={`/dashboard/${role.toLowerCase()}-dashboard`} className={({ isActive }) => isActive ? "!text-black font-semibold !bg-transparent" : "text-white hover:text-black hover:!bg-transparent transition"}>Dashboard</NavLink></li>
             )}
             {user && (
                 <li><NavLink to="/funding" className={({ isActive }) => isActive ? "!text-black font-semibold !bg-transparent" : "text-white hover:text-black hover:!bg-transparent transition"}>Donate Funds</NavLink></li>

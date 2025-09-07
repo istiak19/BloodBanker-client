@@ -14,11 +14,11 @@ const VolunteerPanel = () => {
         <ul className="space-y-2 text-white">
             <li>
                 <NavLink
-                    to="/dashboard/volunteerHome"
+                    to="/dashboard/volunteer-dashboard"
                     className={linkClass}
                 >
                     <FaHome />
-                    Volunteer Home
+                    Volunteer Dashboard
                 </NavLink>
             </li>
 

@@ -14,9 +14,9 @@ const DonorPanel = () => {
     return (
         <ul className="space-y-2">
             <li>
-                <NavLink className={linkClass} to="/dashboard/donorHome">
+                <NavLink className={linkClass} to="/dashboard/donor-dashboard">
                     <FaHome size={20} />
-                    <span>Donor Home</span>
+                    <span>Donor Dashboard</span>
                 </NavLink>
             </li>
             <li>

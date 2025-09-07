@@ -104,7 +104,7 @@ const routers = createBrowserRouter([
                 ),
                 children: [
                     {
-                        path: "donorHome",
+                        path: "donor-dashboard",
                         element: Loadable(DonorHome)
                     },
                     {
@@ -127,7 +127,7 @@ const routers = createBrowserRouter([
                         path: "donation/edit/:id",
                         element: Loadable(DonationRequestEdit)
                     },
-                    
+
                     // Admin routes
                     {
                         path: "profile",
@@ -155,7 +155,7 @@ const routers = createBrowserRouter([
                     },
                     // Volunteer
                     {
-                        path: "volunteerHome",
+                        path: "volunteer-dashboard",
                         element: Loadable(VolunteerHome)
                     }
                 ]

@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useRouteError } from 'react-router-dom';
 import error from '../../assets/error.jpg';
 
 const ErrorPage = () => {
+     const error = useRouteError();
+  console.error(error);
+
     return (
         <section className="bg-gradient-to-r from-red-400 to-red-500 px-6 py-8">
             <div className="container min-h-screen mx-auto flex flex-col lg:flex-row items-center justify-center">
