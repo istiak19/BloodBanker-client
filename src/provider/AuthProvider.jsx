@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         return localStorage.getItem('theme') === 'dark';
     });
+
     const axiosPublic = usePublic();
 
     const toggleTheme = () => {
@@ -68,8 +69,8 @@ const AuthProvider = ({ children }) => {
     const signOutUser = () => {
         return signOut(auth)
     }
+
     const authInfo = {
-        name: 'name',
         user,
         loading,
         signup,

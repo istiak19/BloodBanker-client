@@ -3,19 +3,19 @@ import useAuth from "../Hook/useAuth";
 import Loading from "../Components/Loading/Loading";
 
 const PrivateProvider = ({ children }) => {
-    const { user, loading } = useAuth()
+    const { user, loading } = useAuth();
     const location = useLocation();
 
     if (loading) {
-        return <Loading></Loading>
-    }
+        return <Loading />
+    };
 
 
     if (user) {
         return children;
-    }
+    };
 
-    return <Navigate to='/login' state={{ from: location }} replace></Navigate>
+    return <Navigate to='/login' state={{ from: location }} replace />
 };
 
 export default PrivateProvider;

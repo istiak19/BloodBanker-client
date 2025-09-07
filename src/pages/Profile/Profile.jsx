@@ -20,7 +20,7 @@ const Profile = () => {
     if (isLoading) return <Loading />;
 
     return (
-        <div className={`max-w-2xl border-x-2 border-red-300 mx-auto p-8 rounded-2xl shadow-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} max-w-xl mx-auto p-6 rounded-lg shadow-md`}>
+        <div className={`container border-x-2 border-red-300 mx-auto p-8 rounded-2xl shadow-lg transition-colors duration-300 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} mx-auto p-6 rounded-lg shadow-md`}>
             <Helmet>
                 <title>Profile | BloodBanker</title>
             </Helmet>
@@ -36,7 +36,7 @@ const Profile = () => {
             </div>
 
             <div className="flex justify-center mb-6">
-                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-red-400 shadow-md">
+                <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-red-400 shadow-md">
                     <img src={data?.photo} alt="Avatar" className="w-full h-full object-cover" />
                 </div>
             </div>

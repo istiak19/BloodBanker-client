@@ -39,7 +39,7 @@ const UpdateProfile = () => {
     };
 
     return (
-        <div className={`border-x-2 border-red-300 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl`}>
+        <div className={`border-x-2 border-red-300 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-red-100 text-gray-800'} container mx-auto p-8 rounded-2xl shadow-2xl`}>
             <Helmet>
                 <title>Edit Profile | BloodBanker</title>
             </Helmet>
@@ -47,7 +47,7 @@ const UpdateProfile = () => {
             <h2 className="text-3xl font-bold text-center mb-8">Edit Profile</h2>
 
             <div className="flex justify-center mb-8">
-                <div className="w-36 h-36 rounded-full overflow-hidden border-4 border-red-500 shadow-lg hover:scale-105 transition-transform duration-300">
+                <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-red-500 shadow-lg hover:scale-105 transition-transform duration-300">
                     <img src={data?.photo} alt="Avatar" className="w-full h-full object-cover" />
                 </div>
             </div>

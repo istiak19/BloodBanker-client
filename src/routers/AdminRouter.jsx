@@ -4,19 +4,20 @@ import useRole from '../Hook/useRole';
 import Loading from '../Components/Loading/Loading';
 
 const AdminRouter = ({ children }) => {
-    const [role, isLoading] = useRole()
+    const [role, isLoading] = useRole();
     const { user, loading } = useAuth();
     const location = useLocation();
     if (loading || isLoading) {
         return <Loading />
-    }
+    };
 
     if (user || role === 'Admin') {
         return children
-    }
+    };
+
     return (
         <div>
-            <Navigate to='/login' state={{ from: location }} replace></Navigate>
+            <Navigate to='/login' state={{ from: location }} replace />
         </div>
     );
 };

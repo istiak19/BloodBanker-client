@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
@@ -31,138 +31,136 @@ const Dashboard = lazy(() => import("../pages/Dashboard/Dashboard"));
 const Login = lazy(() => import("../pages/Login/Login"));
 const Register = lazy(() => import("../pages/Register/Register"));
 
+const Loadable = (Component) => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <Component />
+    </Suspense>
+);
+
 const routers = createBrowserRouter([
     {
         path: "/",
-        element: <MainLayout></MainLayout>,
-        errorElement: <ErrorPage />,
+        element: <MainLayout />,
+        errorElement: Loadable(ErrorPage),
         children: [
             {
-                path: '/',
-                element: <Home></Home>
+                path: "/",
+                element: <Home />
             },
             {
-                path: '/search',
-                element: <Search />
+                path: "/search",
+                element: Loadable(Search)
             },
             {
-                path: '/bloodDPublic',
-                element: <BloodDonationRequests />
+                path: "/bloodDPublic",
+                element: Loadable(BloodDonationRequests)
             },
             {
-                path: '/details/:id',
-                element: <PrivateProvider><DetailsPage /></PrivateProvider>
+                path: "/details/:id",
+                element: (
+                    <PrivateProvider>{Loadable(DetailsPage)}</PrivateProvider>
+                )
             },
             {
-                path: '/blog',
-                element: <Blog />
+                path: "/blog",
+                element: Loadable(Blog)
             },
             {
-                path: '/blog/:id',
-                element: <BlogDetails />
+                path: "/blog/:id",
+                element: Loadable(BlogDetails)
             },
             {
-                path: '/funding',
-                element: <PrivateProvider>
-                    <Fund />
-                </PrivateProvider>
+                path: "/funding",
+                element: (
+                    <PrivateProvider>{Loadable(Fund)}</PrivateProvider>
+                )
             },
             {
-                path: '/contact',
-                element: <Contact></Contact>
+                path: "/contact",
+                element: Loadable(Contact)
             },
             {
-                path: '/funding/add-fund',
-                element: <PrivateProvider>
-                    <AddFund />
-                </PrivateProvider>
+                path: "/funding/add-fund",
+                element: (
+                    <PrivateProvider>{Loadable(AddFund)}</PrivateProvider>
+                )
             },
             {
-                path: '/login',
-                element: <Login />
+                path: "/login",
+                element: Loadable(Login)
             },
             {
-                path: '/forgot-password',
-                element: <ForgotPassword />
+                path: "/forgot-password",
+                element: Loadable(ForgotPassword)
             },
             {
                 path: "/register",
-                element: <Register />
+                element: Loadable(Register)
             },
             {
-                path: '/dashboard',
-                element: <PrivateProvider><Dashboard /></PrivateProvider>,
+                path: "/dashboard",
+                element: (
+                    <PrivateProvider>{Loadable(Dashboard)}</PrivateProvider>
+                ),
                 children: [
-
-                    // Donor router
                     {
-                        path: 'donorHome',
-                        element: <DonorHome />
+                        path: "donorHome",
+                        element: Loadable(DonorHome)
                     },
                     {
-                        path: 'profile',
-                        element: <Profile />
+                        path: "profile",
+                        element: Loadable(Profile)
                     },
                     {
-                        path: 'edit-profile',
-                        element: <UpdateProfile />
+                        path: "edit-profile",
+                        element: Loadable(UpdateProfile)
                     },
                     {
-                        path: 'my-donation-requests',
-                        element: <MyDonationRequests />
+                        path: "my-donation-requests",
+                        element: Loadable(MyDonationRequests)
                     },
                     {
-                        path: 'create-donation-request',
-                        element: <CreateDonation />
+                        path: "create-donation-request",
+                        element: Loadable(CreateDonation)
                     },
                     {
-                        path: 'donation/edit/:id',
-                        element: <DonationRequestEdit />
+                        path: "donation/edit/:id",
+                        element: Loadable(DonationRequestEdit)
                     },
-
-                    // Admin router
+                    // Admin routes
                     {
-                        path: 'profile',
-                        element: <AdminRouter><Profile /></AdminRouter>
-                    },
-                    {
-                        path: 'edit-profile',
-                        element: <UpdateProfile />
+                        path: "profile",
+                        element: <AdminRouter>{Loadable(Profile)}</AdminRouter>
                     },
                     {
-                        path: 'AdminHome',
-                        element: <AdminRouter><AdminHome /></AdminRouter>
+                        path: "AdminHome",
+                        element: <AdminRouter>{Loadable(AdminHome)}</AdminRouter>
                     },
                     {
-                        path: 'all-users',
-                        element: <AdminRouter><AllUserPage /></AdminRouter>
+                        path: "all-users",
+                        element: <AdminRouter>{Loadable(AllUserPage)}</AdminRouter>
                     },
                     {
-                        path: 'all-blood-donation-request',
-                        element: <AdminRouter><AllBloodDonationRequest /></AdminRouter>
+                        path: "all-blood-donation-request",
+                        element: <AdminRouter>{Loadable(AllBloodDonationRequest)}</AdminRouter>
                     },
                     {
-                        path: 'content-management',
-                        element: <AdminRouter><ContentManagement /></AdminRouter>
+                        path: "content-management",
+                        element: <AdminRouter>{Loadable(ContentManagement)}</AdminRouter>
                     },
                     {
-                        path: 'content-management/add-blog',
-                        element: <AdminRouter><AddBlog /></AdminRouter>
+                        path: "content-management/add-blog",
+                        element: <AdminRouter>{Loadable(AddBlog)}</AdminRouter>
                     },
-
-                    // volunteer router
+                    // Volunteer
                     {
-                        path: 'volunteerHome',
-                        element: <VolunteerHome />
-                    },
-                    // {
-                    //     path: 'all-blood-donation-request',
-                    //     element: <AllBloodDonationV></AllBloodDonationV>
-                    // }
+                        path: "volunteerHome",
+                        element: Loadable(VolunteerHome)
+                    }
                 ]
             }
         ]
-    },
+    }
 ]);
 
 export default routers;
