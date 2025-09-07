@@ -83,29 +83,30 @@ const ContentManagement = () => {
   };
 
   return (
-    <div className={`${isDarkMode ? "bg-gray-900 text-gray-100" : "bg-gray-50 text-gray-900"} min-h-screen p-4`}>
+    <div className="min-h-screen p-4">
       <Helmet>
         <title>Manage Blogs | BloodBanker</title>
       </Helmet>
 
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-        <h3 className="text-2xl font-bold">Manage Blogs</h3>
-        <Link to='/dashboard/content-management/add-blog' className="btn bg-red-500 hover:bg-red-600 text-white border-none px-10 rounded-md">
+      <h3 className="text-2xl text-center font-bold mb-6">Manage Blogs</h3>
+
+      <div className="flex justify-between items-center">
+        {/* Filter Section */}
+        <div className="mb-6">
+          <select
+            onChange={e => setContent(e.target.value)}
+            className={`select select-bordered w-full md:max-w-xs ${isDarkMode ? "bg-gray-800" : "bg-white"}`}
+          >
+            <option value="">All Blog Posts</option>
+            <option value="draft">Drafted</option>
+            <option value="published">Published</option>
+          </select>
+        </div>
+
+        <Link to='/dashboard/content-management/add-blog' className="btn bg-red-500 hover:bg-red-600 text-white border-none px-8 rounded-md">
           Create Blog
         </Link>
-      </div>
-
-      {/* Filter Section */}
-      <div className="mb-6">
-        <select
-          onChange={e => setContent(e.target.value)}
-          className={`select select-bordered w-full md:max-w-xs ${isDarkMode ? "bg-gray-800" : "bg-white"}`}
-        >
-          <option value="">All Blog Posts</option>
-          <option value="draft">Drafted</option>
-          <option value="published">Published</option>
-        </select>
       </div>
 
       {/* Blog Table */}

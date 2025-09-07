@@ -15,11 +15,11 @@ const AdminPanel = () => {
         <ul className="space-y-2">
             <li>
                 <NavLink
-                    to="/dashboard/AdminHome"
+                    to="/dashboard/admin-dashboard"
                     className={linkClass}
                 >
                     <FaHome />
-                    Admin Home
+                    Admin Dashboard
                 </NavLink>
             </li>
 

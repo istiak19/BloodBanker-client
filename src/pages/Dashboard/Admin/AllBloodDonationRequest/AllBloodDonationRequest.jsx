@@ -10,7 +10,7 @@ const AllBloodDonationRequest = () => {
     const { isDarkMode } = useAuth();
     const [filter, setFilter] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(6);
+    const [itemsPerPage, setItemsPerPage] = useState(4);
 
     const { data: donations = [], refetch } = useQuery({
         queryKey: ['donations'],
@@ -49,9 +49,9 @@ const AllBloodDonationRequest = () => {
     };
 
     return (
-        <div className={`p-5 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'}`}>
+        <div className="p-4">
             <Helmet>
-                <title>AllBloodDonation | BloodBanker</title>
+                <title>All Blood Donation | BloodBanker</title>
             </Helmet>
             <h2 className="text-2xl font-bold text-center mb-5">All Blood Donation Requests</h2>
             <div className="flex justify-between items-center">
@@ -85,16 +85,16 @@ const AllBloodDonationRequest = () => {
                         }}
                         className={`p-2 border rounded-md ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-100'}`}
                     >
-                        <option value={3}>3</option>
-                        <option value={6}>6</option>
-                        <option value={9}>9</option>
-                        <option value={12}>12</option>
+                        <option value={4}>4</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={50}>50</option>
                     </select>
                 </div>
             </div>
 
             {/* Donation Requests */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 {
                     paginatedDonations.map(donation => (
                         <div key={donation._id} className={`card shadow-md hover:shadow-xl ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
@@ -139,17 +139,53 @@ const AllBloodDonationRequest = () => {
                     )
                 }
             </div>
+
+            {/* Pagination */}
             <div className="flex justify-center mt-5">
                 <div className="flex gap-2">
+                    {/* Previous button */}
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-4 py-2 rounded-md border ${currentPage === 1
+                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                : isDarkMode
+                                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                                    : "bg-white text-red-500 hover:bg-red-100"
+                            }`}
+                    >
+                        Previous
+                    </button>
+
+                    {/* Page numbers */}
                     {Array.from({ length: totalPages }, (_, i) => (
                         <button
                             key={i}
                             onClick={() => handlePageChange(i + 1)}
-                            className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? 'bg-red-400 text-white' : (isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-red-400')}`}
+                            className={`px-4 py-2 rounded-md border ${currentPage === i + 1
+                                    ? "bg-red-400 text-white"
+                                    : isDarkMode
+                                        ? "bg-gray-800 text-white hover:bg-gray-700"
+                                        : "bg-white text-red-500 hover:bg-red-100"
+                                }`}
                         >
                             {i + 1}
                         </button>
                     ))}
+
+                    {/* Next button */}
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-4 py-2 rounded-md border ${currentPage === totalPages
+                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                : isDarkMode
+                                    ? "bg-gray-800 text-white hover:bg-gray-700"
+                                    : "bg-white text-red-500 hover:bg-red-100"
+                            }`}
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </div>

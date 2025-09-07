@@ -127,13 +127,14 @@ const routers = createBrowserRouter([
                         path: "donation/edit/:id",
                         element: Loadable(DonationRequestEdit)
                     },
+                    
                     // Admin routes
                     {
                         path: "profile",
                         element: <AdminRouter>{Loadable(Profile)}</AdminRouter>
                     },
                     {
-                        path: "AdminHome",
+                        path: "admin-dashboard",
                         element: <AdminRouter>{Loadable(AdminHome)}</AdminRouter>
                     },
                     {
