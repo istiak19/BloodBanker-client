@@ -43,7 +43,7 @@ const BlogDetails = () => {
     }
 
     return (
-        <div className={`min-h-screen pt-20 pb-10 px-4 md:px-10 lg:px-40 
+        <div className={`min-h-screen pt-20 pb-10 px-4 container mx-auto 
             ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-50 text-gray-800'}`}>
             <Helmet>
                 <title>{blog?.title ? `${blog.title} | BloodBanker` : 'Blog Details | BloodBanker'}</title>
