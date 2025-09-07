@@ -7,7 +7,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import useAuth from "../../../../Hook/useAuth";
 import Loading from "../../../../Components/Loading/Loading";
 
-const AllUsersPage = () => {
+const ManageUsers = () => {
     const { isDarkMode } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [filterStatus, setFilterStatus] = useState("");
@@ -104,42 +104,46 @@ const AllUsersPage = () => {
                 <title>Manage Users | BloodBanker Dashboard</title>
             </Helmet>
             <h2 className="text-2xl font-bold mb-5 text-center">All Users Page</h2>
-            <div className="mb-4 flex gap-4">
-                <button
-                    className={`px-4 py-2 rounded ${filterStatus === "" ? "bg-red-500 text-white" : "bg-red-300"}`}
-                    onClick={() => setFilterStatus("")}
-                >
-                    All
-                </button>
-                <button
-                    className={`px-4 py-2 rounded ${filterStatus === "active" ? "bg-red-500 text-white" : "bg-red-300"}`}
-                    onClick={() => setFilterStatus("active")}
-                >
-                    Active
-                </button>
-                <button
-                    className={`px-4 py-2 rounded ${filterStatus === "blocked" ? "bg-red-500 text-white" : "bg-red-300"}`}
-                    onClick={() => setFilterStatus("blocked")}
-                >
-                    Blocked
-                </button>
+
+            <div className="flex items-center justify-between mb-5">
+                <div className="flex gap-4">
+                    <button
+                        className={`px-4 py-2 rounded ${filterStatus === "" ? "bg-red-500 text-white" : "bg-red-300"}`}
+                        onClick={() => setFilterStatus("")}
+                    >
+                        All
+                    </button>
+                    <button
+                        className={`px-4 py-2 rounded ${filterStatus === "active" ? "bg-red-500 text-white" : "bg-red-300"}`}
+                        onClick={() => setFilterStatus("active")}
+                    >
+                        Active
+                    </button>
+                    <button
+                        className={`px-4 py-2 rounded ${filterStatus === "blocked" ? "bg-red-500 text-white" : "bg-red-300"}`}
+                        onClick={() => setFilterStatus("blocked")}
+                    >
+                        Blocked
+                    </button>
+                </div>
+                <div>
+                    <label className="mr-2">Rows per page:</label>
+                    <select
+                        value={itemsPerPage}
+                        onChange={handleItemsPerPageChange}
+                        className={`p-2 border border-gray-300 rounded ${isDarkMode ? "bg-gray-800 text-white" : "bg-red-50 text-gray-800"}`}
+                    >
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
             </div>
-            <div className="mb-4">
-                <label className="mr-2">Rows per page:</label>
-                <select
-                    value={itemsPerPage}
-                    onChange={handleItemsPerPageChange}
-                    className={`p-2 border border-gray-300 rounded ${isDarkMode ? "bg-gray-800 text-white" : "bg-red-50 text-gray-800"}`}
-                >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                    <option value={30}>30</option>
-                    <option value={50}>50</option>
-                </select>
-            </div>
-            <div className="overflow-x-auto">
-                <table className="table-auto w-full border-collapse border border-gray-200">
+
+            <div className="overflow-x-auto rounded-lg">
+                <table className="table-auto w-full border-collapse border border-gray-200 *:text-center">
                     <thead>
                         <tr className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"}`}>
                             <th className="border p-3">Avatar</th>
@@ -154,18 +158,18 @@ const AllUsersPage = () => {
                         {
                             paginatedUsers.map((user) => (
                                 <tr key={user._id} className={`${isDarkMode ? "bg-gray-800" : "bg-white"}`}>
-                                    <td className="border p-3 text-center">
+                                    <td className="border p-2 text-center">
                                         <img
                                             src={user?.photo || "N/A"}
                                             alt="Avatar"
                                             className="w-10 h-10 rounded-full mx-auto"
                                         />
                                     </td>
-                                    <td className="border p-3">{user?.email}</td>
-                                    <td className="border p-3">{user?.name}</td>
-                                    <td className="border p-3 capitalize">{user?.role}</td>
-                                    <td className="border p-3 capitalize">{user?.status}</td>
-                                    <td className="border p-3 text-center relative">
+                                    <td className="border p-2">{user?.email}</td>
+                                    <td className="border p-2">{user?.name}</td>
+                                    <td className="border p-2 capitalize">{user?.role}</td>
+                                    <td className="border p-2 capitalize">{user?.status}</td>
+                                    <td className="border p-2 text-center relative">
                                         <div className="relative group inline-block">
                                             <button className={`p-2 rounded-full ${isDarkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-300 hover:bg-gray-400"}`}>
                                                 <HiDotsVertical
@@ -215,25 +219,51 @@ const AllUsersPage = () => {
                     </tbody>
                 </table>
             </div>
+
             {/* Pagination */}
             <div className="flex justify-center mt-5">
                 <div className="flex gap-2">
-                    {
-                        Array.from({ length: totalPages }, (_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => handlePageChange(i + 1)}
-                                className={`px-4 py-2 rounded-md border ${currentPage === i + 1 ? "bg-red-400 text-white" : "bg-white text-red-500"
-                                    }`}
-                            >
-                                {i + 1}
-                            </button>
-                        ))
-                    }
+                    {/* Previous button */}
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className={`px-4 py-2 rounded-md border ${currentPage === 1
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : "bg-white text-red-500 hover:bg-red-100"
+                            }`}
+                    >
+                        Previous
+                    </button>
+
+                    {/* Page numbers */}
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => handlePageChange(i + 1)}
+                            className={`px-4 py-2 rounded-md border ${currentPage === i + 1
+                                ? "bg-red-400 text-white"
+                                : "bg-white text-red-500 hover:bg-red-100"
+                                }`}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+
+                    {/* Next button */}
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className={`px-4 py-2 rounded-md border ${currentPage === totalPages
+                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                            : "bg-white text-red-500 hover:bg-red-100"
+                            }`}
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default AllUsersPage;
+export default ManageUsers;

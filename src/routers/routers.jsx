@@ -22,7 +22,7 @@ const MyDonationRequests = lazy(() => import("../pages/Dashboard/Donor/MyDonatio
 const CreateDonation = lazy(() => import("../pages/Dashboard/Donor/CreateDonation/CreateDonation"));
 const ContentManagement = lazy(() => import("../pages/Dashboard/Admin/ContentManagement/ContentManagement"));
 const AllBloodDonationRequest = lazy(() => import("../pages/Dashboard/Admin/AllBloodDonationRequest/AllBloodDonationRequest"));
-const AllUserPage = lazy(() => import("../pages/Dashboard/Admin/AllUsersPage/AllUsersPage"));
+const ManageUsers = lazy(() => import("../pages/Dashboard/Admin/Manage Users/Manage Users"));
 const AdminHome = lazy(() => import("../pages/Dashboard/Admin/AdminHome/AdminHome"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const ErrorPage = lazy(() => import("../pages/ErrorPage/ErrorPage"));
@@ -138,7 +138,7 @@ const routers = createBrowserRouter([
                     },
                     {
                         path: "all-users",
-                        element: <AdminRouter>{Loadable(AllUserPage)}</AdminRouter>
+                        element: <AdminRouter>{Loadable(ManageUsers)}</AdminRouter>
                     },
                     {
                         path: "all-blood-donation-request",
